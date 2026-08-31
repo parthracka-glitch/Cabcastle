@@ -327,45 +327,49 @@ export default function CalendarView() {
     <TooltipProvider delayDuration={150}>
       <div className="space-y-5 font-body text-[#063247] max-w-[1400px] mx-auto w-full pb-8 text-left">
         
-        {/* ── 1. CLEAN TOP HEADER & KPI CARDS ── */}
-        <div className="bg-white border border-[#DFE8EC] rounded-2xl p-4 sm:p-5 shadow-2xs space-y-4">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#DFE8EC]">
+        {/* ── 1. CLEAN PAPER RUNWAY HEADER & KPI STRIP ── */}
+        <div className="bg-white border border-[#EAEAEA] rounded-[24px] p-5 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.02)] space-y-4">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#F0F0F0]">
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
-                <h1 className="font-display text-2xl sm:text-3xl font-bold text-[#063247] tracking-tight">
-                  Fleet Calendar
+                <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063247] tracking-tight">
+                  Fleet Runway
                 </h1>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#F1F5F9] text-[#063247] border border-[#DFE8EC]">
-                  <CalendarDays size={12} className="text-[#0E7490]" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FAF8F5] text-[#063247] border border-[#E8E0D2]">
+                  <CalendarDays size={13} className="text-[#288DA6]" />
                   {format(currentMonth, "MMMM yyyy")}
                 </span>
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Live Dispatch
+                </span>
               </div>
-              <p className="text-xs text-[#4C606E] mt-1 font-normal">
-                Live vehicle availability, reservation timelines & dispatch schedule.
+              <p className="text-xs text-[#64748B] mt-1 font-normal">
+                Minimalist linear dispatch runway, real-time car occupancy, and customer timeline matrix.
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-auto">
-              {/* Clean View Switcher Tabs */}
-              <div className="flex items-center bg-[#F1F5F9] p-1 rounded-xl border border-[#DFE8EC]">
+              {/* Clean Segmented View Switcher */}
+              <div className="flex items-center bg-[#F8FAFC] p-1 rounded-xl border border-[#E2E8F0]">
                 <button
                   onClick={() => setViewMode("TIMELINE")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                     viewMode === "TIMELINE"
-                      ? "bg-white text-[#063247] shadow-2xs font-bold"
-                      : "text-[#5A7184] hover:text-[#063247]"
+                      ? "bg-white text-[#063247] shadow-xs"
+                      : "text-[#64748B] hover:text-[#063247]"
                   }`}
                   data-testid="view-timeline-btn"
                 >
                   <LayoutGrid size={13} />
-                  <span>Timeline</span>
+                  <span>Runway</span>
                 </button>
                 <button
                   onClick={() => setViewMode("DAILY")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                     viewMode === "DAILY"
-                      ? "bg-white text-[#063247] shadow-2xs font-bold"
-                      : "text-[#5A7184] hover:text-[#063247]"
+                      ? "bg-white text-[#063247] shadow-xs"
+                      : "text-[#64748B] hover:text-[#063247]"
                   }`}
                   data-testid="view-daily-btn"
                 >
@@ -374,10 +378,10 @@ export default function CalendarView() {
                 </button>
                 <button
                   onClick={() => setViewMode("MONTH")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                     viewMode === "MONTH"
-                      ? "bg-white text-[#063247] shadow-2xs font-bold"
-                      : "text-[#5A7184] hover:text-[#063247]"
+                      ? "bg-white text-[#063247] shadow-xs"
+                      : "text-[#64748B] hover:text-[#063247]"
                   }`}
                 >
                   <CalendarRange size={13} />
@@ -391,116 +395,135 @@ export default function CalendarView() {
                   setQuickBookingData(null);
                   setOfflineModalOpen(true);
                 }}
-                className="h-9 px-4 rounded-xl text-xs font-bold text-white bg-[#063247] hover:bg-[#063247]/90 flex items-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-95 shrink-0"
+                className="h-10 px-4 rounded-xl text-xs font-black text-[#090D16] bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 flex items-center gap-1.5 cursor-pointer shadow-gold transition-all active:scale-95 border border-[#E5A93C]/40 shrink-0"
               >
-                <Plus size={14} className="font-bold stroke-[2.5]" />
-                <span>Add Offline Booking</span>
+                <Plus size={15} />
+                <span>Add Booking</span>
               </Button>
             </div>
           </div>
 
-          {/* Minimal KPI Metric Cards */}
+          {/* Minimalist Linear Runway KPI Badges */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
-            <div className="bg-[#F8FAFC] p-3 rounded-xl border border-[#DFE8EC] flex flex-col justify-between">
-              <span className="text-[10px] text-[#5A7184] font-semibold uppercase tracking-wider">Total Fleet</span>
-              <div className="text-xl font-bold text-[#063247] mt-1 flex items-baseline gap-1">
-                {todayMetrics.totalFleet} <span className="text-[11px] font-normal text-[#5A7184]">Cars</span>
+            <div className="bg-[#FAF8F5] p-3 rounded-2xl border border-[#E8E0D2] flex flex-col justify-between">
+              <span className="text-[10px] text-[#64748B] font-bold uppercase tracking-wider">Total Fleet</span>
+              <div className="text-xl font-extrabold text-[#0F172A] mt-1 flex items-baseline gap-1">
+                {todayMetrics.totalFleet} <span className="text-[11px] font-normal text-[#64748B]">Cars</span>
               </div>
             </div>
 
-            <div className="bg-[#F8FAFC] p-3 rounded-xl border border-[#DFE8EC] flex flex-col justify-between">
-              <span className="text-[10px] text-[#059669] font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#059669] animate-pulse" /> Available
+            <div className="bg-emerald-50/70 p-3 rounded-2xl border border-emerald-200/70 flex flex-col justify-between">
+              <span className="text-[10px] text-emerald-800 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" /> Available
               </span>
-              <div className="text-xl font-bold text-[#059669] mt-1 flex items-baseline gap-1">
-                {todayMetrics.availableToday} <span className="text-[11px] font-normal text-[#059669]">Ready</span>
+              <div className="text-xl font-extrabold text-emerald-900 mt-1 flex items-baseline gap-1">
+                {todayMetrics.availableToday} <span className="text-[11px] font-bold text-emerald-700">Ready</span>
               </div>
             </div>
 
-            <div className="bg-[#F8FAFC] p-3 rounded-xl border border-[#DFE8EC] flex flex-col justify-between">
-              <span className="text-[10px] text-[#0284C7] font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                <Car size={12} className="text-[#0284C7]" /> On Road
+            <div className="bg-sky-50/70 p-3 rounded-2xl border border-sky-200/70 flex flex-col justify-between">
+              <span className="text-[10px] text-sky-800 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <Car size={12} className="text-sky-700" /> On Road
               </span>
-              <div className="text-xl font-bold text-[#0284C7] mt-1 flex items-baseline gap-1">
-                {todayMetrics.activeRented} <span className="text-[11px] font-normal text-[#0284C7]">Active</span>
+              <div className="text-xl font-extrabold text-sky-900 mt-1 flex items-baseline gap-1">
+                {todayMetrics.activeRented} <span className="text-[11px] font-bold text-sky-700">Active</span>
               </div>
             </div>
 
-            <div className="bg-[#F8FAFC] p-3 rounded-xl border border-[#DFE8EC] flex flex-col justify-between">
-              <span className="text-[10px] text-[#D97706] font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                <ArrowUpRight size={12} className="text-[#D97706]" /> Pickups Today
+            <div className="bg-amber-50/70 p-3 rounded-2xl border border-amber-200/70 flex flex-col justify-between">
+              <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <ArrowUpRight size={12} className="text-amber-700" /> Pickups Today
               </span>
-              <div className="text-xl font-bold text-[#D97706] mt-1">
+              <div className="text-xl font-extrabold text-amber-900 mt-1">
                 {todayMetrics.pickupsToday}
               </div>
             </div>
 
-            <div className="bg-[#F8FAFC] p-3 rounded-xl border border-[#DFE8EC] flex flex-col justify-between">
-              <span className="text-[10px] text-[#4F46E5] font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                <ArrowDownLeft size={12} className="text-[#4F46E5]" /> Returns Today
+            <div className="bg-indigo-50/70 p-3 rounded-2xl border border-indigo-200/70 flex flex-col justify-between">
+              <span className="text-[10px] text-indigo-800 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <ArrowDownLeft size={12} className="text-indigo-700" /> Returns Today
               </span>
-              <div className="text-xl font-bold text-[#4F46E5] mt-1">
+              <div className="text-xl font-extrabold text-indigo-900 mt-1">
                 {todayMetrics.returnsToday}
               </div>
             </div>
 
-            <div className="bg-[#F8FAFC] p-3 rounded-xl border border-[#DFE8EC] flex flex-col justify-between">
-              <span className="text-[10px] text-[#5A7184] font-semibold uppercase tracking-wider">Occupancy</span>
-              <div className="text-xl font-bold text-[#063247] mt-1 flex items-baseline gap-1">
-                {todayMetrics.occupancyRate}% <span className="text-[11px] font-normal text-[#5A7184]">Fleet</span>
+            <div className="bg-[#FAF8F5] p-3 rounded-2xl border border-[#E8E0D2] flex flex-col justify-between">
+              <span className="text-[10px] text-[#64748B] font-bold uppercase tracking-wider">Occupancy</span>
+              <div className="text-xl font-extrabold text-[#0F172A] mt-1 flex items-baseline gap-1">
+                {todayMetrics.occupancyRate}% <span className="text-[11px] font-normal text-[#64748B]">Fleet</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ── 2. INTERACTIVE STATUS FILTER PILLS & TOOLBAR ── */}
+        {/* ── 2. COMPACT DAY-SCRUBBER & INTERACTIVE RUNWAY CONTROLS ── */}
         <div className="space-y-3">
           
-          {/* Quick Interactive Fleet Status Chips */}
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
-            <button
-              onClick={() => setFleetStatusFilter("ALL")}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
-                fleetStatusFilter === "ALL"
-                  ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                  : "bg-white text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
-              }`}
-            >
-              <Car size={13} />
-              <span>All Fleet ({vehicles.length})</span>
-            </button>
+          {/* Quick Interactive Category & Status Chips */}
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
+              <button
+                onClick={() => setFleetStatusFilter("ALL")}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
+                  fleetStatusFilter === "ALL"
+                    ? "bg-[#063247] text-white border-[#063247] shadow-xs"
+                    : "bg-white text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                }`}
+              >
+                <Car size={13} />
+                <span>All Fleet ({vehicles.length})</span>
+              </button>
 
-            <button
-              onClick={() => setFleetStatusFilter("AVAILABLE")}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
-                fleetStatusFilter === "AVAILABLE"
-                  ? "bg-emerald-700 text-white border-emerald-700 shadow-xs"
-                  : "bg-white text-emerald-700 border-[#DFE8EC] hover:border-emerald-500"
-              }`}
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Ready for Dispatch ({todayMetrics.availableToday})</span>
-            </button>
+              <button
+                onClick={() => setFleetStatusFilter("AVAILABLE")}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
+                  fleetStatusFilter === "AVAILABLE"
+                    ? "bg-emerald-700 text-white border-emerald-700 shadow-xs"
+                    : "bg-white text-emerald-700 border-[#DFE8EC] hover:border-emerald-500"
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Available ({todayMetrics.availableToday})</span>
+              </button>
 
-            <button
-              onClick={() => setFleetStatusFilter("RENTED")}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
-                fleetStatusFilter === "RENTED"
-                  ? "bg-[#0284C7] text-white border-[#0284C7] shadow-xs"
-                  : "bg-white text-[#0284C7] border-[#DFE8EC] hover:border-[#0284C7]"
-              }`}
-            >
-              <ArrowUpRight size={13} />
-              <span>On Road / Rented ({todayMetrics.activeRented})</span>
-            </button>
+              <button
+                onClick={() => setFleetStatusFilter("RENTED")}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
+                  fleetStatusFilter === "RENTED"
+                    ? "bg-[#0284C7] text-white border-[#0284C7] shadow-xs"
+                    : "bg-white text-[#0284C7] border-[#DFE8EC] hover:border-[#0284C7]"
+                }`}
+              >
+                <ArrowUpRight size={13} />
+                <span>On Road ({todayMetrics.activeRented})</span>
+              </button>
+            </div>
+
+            {/* Category Filter Badges */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setCategoryFilter(c)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    categoryFilter === c
+                      ? "bg-[#063247] text-white font-bold"
+                      : "bg-[#F1F5F9] text-[#475569] hover:bg-[#E2E8F0]"
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Clean Main Navigator Toolbar */}
-          <div className="p-3 sm:p-4 rounded-2xl bg-white border border-[#DFE8EC] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
+          {/* Clean Main Runway Navigator Toolbar */}
+          <div className="p-3 sm:p-4 rounded-2xl bg-white border border-[#EAEAEA] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
             
             {/* Month & Day Scrubber Navigation */}
             <div className="flex items-center gap-2 flex-wrap">
-              <div className="flex items-center bg-[#F1F5F9] rounded-xl p-0.5 border border-[#DFE8EC]">
+              <div className="flex items-center bg-[#F8FAFC] rounded-xl p-0.5 border border-[#E2E8F0]">
                 <Button
                   size="sm"
                   variant="ghost"
@@ -532,7 +555,7 @@ export default function CalendarView() {
                   setSelectedDate(now);
                   setTimeout(scrollToToday, 100);
                 }}
-                className="border border-[#DFE8EC] bg-white hover:bg-[#F8FAFC] text-[#063247] text-xs px-3.5 h-8 font-bold rounded-xl transition-colors cursor-pointer shadow-2xs flex items-center gap-1.5"
+                className="border border-[#E2E8F0] bg-[#FAF8F5] hover:bg-[#F0EBE1] text-[#063247] text-xs px-3.5 h-8 font-bold rounded-xl transition-colors cursor-pointer shadow-2xs flex items-center gap-1.5"
               >
                 <Sparkles size={12} className="text-[#288DA6]" />
                 <span>Today</span>
@@ -540,23 +563,23 @@ export default function CalendarView() {
 
               {/* Timeline Scroll Buttons */}
               {viewMode === "TIMELINE" && (
-                <div className="flex items-center gap-1 bg-[#F1F5F9] p-0.5 rounded-xl border border-[#DFE8EC]">
+                <div className="flex items-center gap-1 bg-[#F8FAFC] p-0.5 rounded-xl border border-[#E2E8F0]">
                   <button
                     onClick={() => handleScrollStep("left")}
-                    className="p-1.5 rounded-lg hover:bg-white text-[#5A7184] hover:text-[#063247] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-lg hover:bg-white text-[#64748B] hover:text-[#063247] transition-colors cursor-pointer"
                     title="Scroll left"
                   >
                     <ChevronLeft size={13} />
                   </button>
                   <button
                     onClick={scrollToToday}
-                    className="px-2 py-0.5 text-xs font-semibold text-[#0E7490] hover:bg-white rounded-lg transition-colors cursor-pointer flex items-center gap-1"
+                    className="px-2.5 py-0.5 text-xs font-bold text-[#288DA6] hover:bg-white rounded-lg transition-colors cursor-pointer flex items-center gap-1"
                   >
                     <span>Jump to Today</span>
                   </button>
                   <button
                     onClick={() => handleScrollStep("right")}
-                    className="p-1.5 rounded-lg hover:bg-white text-[#5A7184] hover:text-[#063247] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-lg hover:bg-white text-[#64748B] hover:text-[#063247] transition-colors cursor-pointer"
                     title="Scroll right"
                   >
                     <ChevronRight size={13} />
@@ -565,16 +588,16 @@ export default function CalendarView() {
               )}
             </div>
 
-            {/* Search, Filters & Time Range */}
+            {/* Search, Range Presets */}
             <div className="flex items-center gap-2 flex-wrap">
               
               {/* Range Presets (Timeline mode) */}
               {viewMode === "TIMELINE" && (
-                <div className="flex items-center bg-[#F1F5F9] p-0.5 rounded-xl border border-[#DFE8EC] text-xs font-semibold">
+                <div className="flex items-center bg-[#F8FAFC] p-0.5 rounded-xl border border-[#E2E8F0] text-xs font-semibold">
                   <button
                     onClick={() => setDateRangeMode("MONTH")}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                      dateRangeMode === "MONTH" ? "bg-white text-[#063247] shadow-2xs font-bold" : "text-[#5A7184]"
+                      dateRangeMode === "MONTH" ? "bg-white text-[#063247] shadow-xs font-bold" : "text-[#64748B]"
                     }`}
                   >
                     Month
@@ -582,7 +605,7 @@ export default function CalendarView() {
                   <button
                     onClick={() => setDateRangeMode("14DAYS")}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                      dateRangeMode === "14DAYS" ? "bg-white text-[#063247] shadow-2xs font-bold" : "text-[#5A7184]"
+                      dateRangeMode === "14DAYS" ? "bg-white text-[#063247] shadow-xs font-bold" : "text-[#64748B]"
                     }`}
                   >
                     14d
@@ -590,7 +613,7 @@ export default function CalendarView() {
                   <button
                     onClick={() => setDateRangeMode("7DAYS")}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                      dateRangeMode === "7DAYS" ? "bg-white text-[#063247] shadow-2xs font-bold" : "text-[#5A7184]"
+                      dateRangeMode === "7DAYS" ? "bg-white text-[#063247] shadow-xs font-bold" : "text-[#64748B]"
                     }`}
                   >
                     7d
@@ -605,61 +628,49 @@ export default function CalendarView() {
                   value={searchCar}
                   onChange={(e) => setSearchCar(e.target.value)}
                   placeholder="Search car or reg..."
-                  className="pl-8 bg-[#F8FAFC] border-[#DFE8EC] text-[#063247] w-full sm:w-44 lg:w-48 text-xs h-8 font-medium rounded-xl outline-none focus:border-[#063247] focus:bg-white"
+                  className="pl-8 bg-[#F8FAFC] border-[#E2E8F0] text-[#063247] w-full sm:w-44 lg:w-48 text-xs h-8 font-medium rounded-xl outline-none focus:border-[#063247] focus:bg-white"
                   data-testid="car-calendar-search"
                 />
               </div>
-
-              {/* Category Select */}
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="w-28 bg-[#F8FAFC] border-[#DFE8EC] text-[#063247] text-xs h-8 font-medium rounded-xl" data-testid="car-calendar-filter">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] text-xs">
-                  {categories.map((c) => (
-                    <SelectItem key={c} value={c}>{c}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
           </div>
         </div>
 
         {/* Clean Legend Bar */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 px-1 text-xs text-[#5A7184]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 px-1 text-xs text-[#64748B]">
           <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap">
-            <span className="flex items-center gap-1.5 font-medium text-[#063247]">
-              <span className="w-2.5 h-2.5 rounded-sm bg-[#063247] inline-block" /> Online
+            <span className="flex items-center gap-1.5 font-bold text-[#063247]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#063247] inline-block" /> Online
             </span>
-            <span className="flex items-center gap-1.5 font-medium text-[#063247]">
-              <span className="w-2.5 h-2.5 rounded-sm bg-[#0E7490] inline-block" /> Counter / Direct
+            <span className="flex items-center gap-1.5 font-bold text-[#0E7490]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#0E7490] inline-block" /> Counter / Direct
             </span>
-            <span className="flex items-center gap-1.5 font-medium text-[#063247]">
-              <span className="w-2.5 h-2.5 rounded-sm bg-[#94A3B8] inline-block" /> Completed
+            <span className="flex items-center gap-1.5 font-bold text-[#64748B]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#CBD5E1] inline-block" /> Completed
             </span>
-            <span className="flex items-center gap-1.5 font-medium text-[#063247]">
-              <span className="w-2.5 h-2.5 rounded-sm border border-[#0E7490] bg-[#0E7490]/20 inline-block" /> Today
+            <span className="flex items-center gap-1.5 font-bold text-[#288DA6]">
+              <span className="w-2.5 h-2.5 rounded-full border-2 border-[#288DA6] bg-[#288DA6]/20 inline-block" /> Today
             </span>
           </div>
 
-          <div className="text-[11px] text-[#5A7184] flex items-center gap-1">
-            <span>💡 Click any empty slot to create instant booking</span>
+          <div className="text-[11px] text-[#64748B] flex items-center gap-1">
+            <span>💡 Click any empty slot to reserve · Click booking pill for WhatsApp dispatch</span>
           </div>
         </div>
 
-        {/* ── 3. VIEW MODE 1: GANTT FLEET TIMELINE ── */}
+        {/* ── 3. VIEW MODE 1: LINEAR RUNWAY TIMELINE ── */}
         {viewMode === "TIMELINE" && (
           <div
-            className="rounded-2xl bg-white border border-[#DFE8EC] shadow-2xs overflow-hidden"
+            className="rounded-[24px] bg-white border border-[#EAEAEA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] overflow-hidden"
             data-testid="car-timeline-grid"
           >
             {loadingData ? (
-              <div className="p-16 sm:p-20 text-center text-[#5A7184] flex flex-col items-center gap-3">
+              <div className="p-16 sm:p-20 text-center text-[#64748B] flex flex-col items-center gap-3">
                 <Loader2 size={24} className="animate-spin text-[#063247]" />
-                <span className="text-xs font-semibold">Loading fleet schedule…</span>
+                <span className="text-xs font-semibold">Loading runway schedule…</span>
               </div>
             ) : filteredVehicles.length === 0 ? (
-              <div className="p-16 sm:p-20 text-center text-[#5A7184] text-xs font-medium">
+              <div className="p-16 sm:p-20 text-center text-[#64748B] text-xs font-medium">
                 No vehicles match the selected filters or search keyword.
               </div>
             ) : (
@@ -672,14 +683,14 @@ export default function CalendarView() {
                   className="min-w-fit"
                   style={{
                     display: "grid",
-                    gridTemplateColumns: `minmax(140px, 230px) repeat(${daysInView.length}, minmax(44px, 1fr))`,
+                    gridTemplateColumns: `minmax(160px, 240px) repeat(${daysInView.length}, minmax(46px, 1fr))`,
                   }}
                 >
-                  {/* Sticky Top-Left Vehicle Header */}
-                  <div className="sticky left-0 top-0 z-30 bg-[#F8FAFC] p-3 border-b border-r border-[#DFE8EC] flex items-center justify-between shadow-2xs">
-                    <div className="text-xs font-bold text-[#063247] uppercase tracking-wider flex items-center gap-1.5">
-                      <Car size={14} className="text-[#0E7490] shrink-0" />
-                      <span>Cars ({filteredVehicles.length})</span>
+                  {/* Sticky Top-Left Vehicle Runway Header */}
+                  <div className="sticky left-0 top-0 z-30 bg-[#FAF8F5] p-3 border-b border-r border-[#EAEAEA] flex items-center justify-between shadow-2xs">
+                    <div className="text-xs font-extrabold text-[#063247] uppercase tracking-wider flex items-center gap-1.5">
+                      <Car size={14} className="text-[#288DA6] shrink-0" />
+                      <span>Fleet Units ({filteredVehicles.length})</span>
                     </div>
                   </div>
 
@@ -692,22 +703,22 @@ export default function CalendarView() {
                       <div
                         key={day.toISOString()}
                         ref={isToday ? todayColumnRef : null}
-                        className={`sticky top-0 z-20 p-2 text-center border-b border-r border-[#DFE8EC] flex flex-col items-center justify-center transition-colors select-none ${
+                        className={`sticky top-0 z-20 p-2 text-center border-b border-r border-[#EAEAEA] flex flex-col items-center justify-center transition-colors select-none ${
                           isToday
-                            ? "bg-[#0E7490]/10 text-[#063247]"
+                            ? "bg-[#288DA6]/10 text-[#063247]"
                             : wknd
-                            ? "bg-[#F8FAFC] text-[#063247]"
-                            : "bg-[#FFFFFF] text-[#5A7184]"
+                            ? "bg-[#FBFBFB] text-[#063247]"
+                            : "bg-[#FFFFFF] text-[#64748B]"
                         }`}
                       >
-                        <span className={`text-[10px] uppercase font-semibold tracking-wider ${isToday ? "text-[#0E7490] font-bold" : "text-[#5A7184]"}`}>
+                        <span className={`text-[9.5px] uppercase font-bold tracking-wider ${isToday ? "text-[#288DA6]" : "text-[#94A3B8]"}`}>
                           {format(day, "EEE")}
                         </span>
                         <div
-                          className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                          className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${
                             isToday
-                              ? "bg-[#063247] text-white shadow-2xs"
-                              : "text-[#063247]"
+                              ? "bg-[#063247] text-white shadow-xs"
+                              : "text-[#0F172A]"
                           }`}
                         >
                           {format(day, "d")}
@@ -744,42 +755,42 @@ export default function CalendarView() {
                       <React.Fragment key={vehicle.id}>
                         {/* Sticky Left Column: Vehicle Card */}
                         <div
-                          className={`sticky left-0 z-20 p-2.5 border-b border-r border-[#DFE8EC] flex items-center gap-2.5 shadow-2xs transition-colors ${
-                            vIndex % 2 === 0 ? "bg-white" : "bg-[#FBFDFE]"
+                          className={`sticky left-0 z-20 p-2.5 sm:p-3 border-b border-r border-[#EAEAEA] flex items-center gap-2.5 shadow-2xs transition-colors ${
+                            vIndex % 2 === 0 ? "bg-white" : "bg-[#FDFDFD]"
                           }`}
                         >
                           <div className="relative shrink-0">
                             <img
                               src={vehicle.image_url || "/vehicles/placeholder.png"}
                               alt={vehicle.title}
-                              className="w-11 h-9 rounded-lg object-cover border border-[#DFE8EC] bg-white"
+                              className="w-12 h-9 sm:w-14 sm:h-10 rounded-xl object-cover border border-[#EAEAEA] bg-[#FAF8F5]"
                               onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=300&q=80"; }}
                             />
                             {liveStatus === "Available" && (
-                              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" title="Available now" />
+                              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white shadow-xs" title="Available now" />
                             )}
                             {liveStatus === "Booked" && (
-                              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-blue-500 border-2 border-white" title="On Road" />
+                              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-sky-500 border-2 border-white shadow-xs" title="On Road" />
                             )}
                           </div>
 
                           <div className="min-w-0 flex-1">
-                            <div className="font-display font-bold text-xs text-[#063247] truncate leading-tight">
+                            <div className="font-display font-extrabold text-xs text-[#063247] truncate leading-tight">
                               {vehicle.title}
                             </div>
-                            <div className="text-[10px] text-[#5A7184] font-mono truncate mt-0.5">
+                            <div className="text-[10px] text-[#64748B] font-mono truncate mt-0.5">
                               {vehicle.reg_no}
                             </div>
                             <div className="flex items-center gap-1.5 mt-1">
-                              <span className="text-[10px] font-semibold text-[#063247] bg-[#F1F5F9] px-1.5 py-0.5 rounded border border-[#DFE8EC]">
+                              <span className="text-[10px] font-bold text-[#063247] bg-[#FAF8F5] px-1.5 py-0.5 rounded-md border border-[#E8E0D2]">
                                 ₹{vehicle.daily_rate}/d
                               </span>
                               <span
-                                className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-md ${
+                                className={`text-[9px] font-bold px-1.5 py-0.5 rounded-md ${
                                   liveStatus === "Available"
                                     ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                                     : liveStatus === "Booked"
-                                    ? "bg-blue-50 text-blue-700 border border-blue-200"
+                                    ? "bg-sky-50 text-sky-700 border border-sky-200"
                                     : "bg-amber-50 text-amber-700 border border-amber-200"
                                 }`}
                               >
@@ -789,16 +800,16 @@ export default function CalendarView() {
                           </div>
                         </div>
 
-                        {/* Schedule Grid Area */}
+                        {/* Schedule Runway Grid Area */}
                         <div
-                          className={`relative border-b border-[#DFE8EC] ${
-                            vIndex % 2 === 0 ? "bg-white" : "bg-[#FBFDFE]"
+                          className={`relative border-b border-[#EAEAEA] ${
+                            vIndex % 2 === 0 ? "bg-white" : "bg-[#FDFDFD]"
                           }`}
                           style={{
                             gridColumn: `2 / span ${daysInView.length}`,
                             display: "grid",
-                            gridTemplateColumns: `repeat(${daysInView.length}, minmax(44px, 1fr))`,
-                            minHeight: "64px",
+                            gridTemplateColumns: `repeat(${daysInView.length}, minmax(46px, 1fr))`,
+                            minHeight: "68px",
                           }}
                         >
                           {/* Background Grid Cells for each day */}
@@ -810,26 +821,26 @@ export default function CalendarView() {
                               <div
                                 key={day.toISOString()}
                                 onClick={() => handleQuickBookSlot(vehicle, day)}
-                                className={`group border-r border-[#DFE8EC]/60 relative transition-all flex items-center justify-center cursor-pointer ${
+                                className={`group border-r border-[#EAEAEA]/80 relative transition-all flex items-center justify-center cursor-pointer ${
                                   isToday
-                                    ? "bg-[#0E7490]/5"
+                                    ? "bg-[#288DA6]/5"
                                     : wknd
-                                    ? "bg-[#F8FAFC]/40"
+                                    ? "bg-[#FBFBFB]/70"
                                     : ""
-                                } hover:bg-[#0E7490]/10`}
-                                title={`Click to book ${vehicle.title} on ${format(day, "dd MMM")}`}
+                                } hover:bg-[#288DA6]/10`}
+                                title={`Click to reserve ${vehicle.title} on ${format(day, "dd MMM")}`}
                               >
                                 {isToday && (
-                                  <div className="absolute inset-y-0 left-0 w-0.5 bg-[#0E7490]/40" />
+                                  <div className="absolute inset-y-0 left-0 w-0.5 bg-[#288DA6]/50" />
                                 )}
-                                <span className="opacity-0 group-hover:opacity-100 text-[10px] font-bold text-[#0E7490] bg-white border border-[#DFE8EC] w-4 h-4 rounded-full flex items-center justify-center shadow-2xs transition-opacity">
+                                <span className="opacity-0 group-hover:opacity-100 text-[10px] font-black text-[#288DA6] bg-white border border-[#DFE8EC] w-5 h-5 rounded-full flex items-center justify-center shadow-xs transition-opacity">
                                   +
                                 </span>
                               </div>
                             );
                           })}
 
-                          {/* Continuous Multi-Day Booking Bars */}
+                          {/* Continuous Multi-Day Pastel Booking Bars */}
                           {vehicleBookings.map((b) => {
                             const startStr = b.start_date ? b.start_date.substring(0, 10) : "";
                             const endStr = b.end_date ? b.end_date.substring(0, 10) : "";
@@ -847,15 +858,15 @@ export default function CalendarView() {
 
                             const span = endIndex - startIndex + 1;
 
-                            // Color coding matched to Dashboard theme
-                            let barStyle = "bg-[#063247] hover:bg-[#08425E] text-white";
-                            let badgeStyle = "bg-white/20 text-white";
+                            // Minimalist Linear Runway Capsule Palettes
+                            let barStyle = "bg-[#063247] hover:bg-[#0A4560] text-white shadow-xs";
+                            let badgeStyle = "bg-white/20 text-[#F6D285]";
                             
                             if (b.status === "Completed") {
-                              barStyle = "bg-[#64748B] hover:bg-[#475569] text-white";
-                              badgeStyle = "bg-black/30 text-white";
+                              barStyle = "bg-[#E2E8F0] hover:bg-[#CBD5E1] text-[#334155] border border-[#CBD5E1]";
+                              badgeStyle = "bg-[#334155] text-white";
                             } else if (b.source === "Offline") {
-                              barStyle = "bg-[#0E7490] hover:bg-[#0C637B] text-white";
+                              barStyle = "bg-[#0E7490] hover:bg-[#095970] text-white shadow-xs";
                               badgeStyle = "bg-white/20 text-white";
                             }
 
@@ -868,7 +879,7 @@ export default function CalendarView() {
                                       setDetail(b);
                                       setDetailOpen(true);
                                     }}
-                                    className={`absolute top-1.5 bottom-1.5 z-10 mx-0.5 rounded-lg px-2 py-1 flex items-center justify-between gap-1.5 shadow-2xs cursor-pointer transition-all hover:brightness-105 select-none ${barStyle}`}
+                                    className={`absolute top-2 bottom-2 z-10 mx-1 rounded-xl px-2.5 py-1 flex items-center justify-between gap-1.5 cursor-pointer transition-all hover:scale-[1.01] hover:brightness-105 select-none ${barStyle}`}
                                     style={{
                                       left: `calc(${(startIndex / daysInView.length) * 100}% + 2px)`,
                                       width: `calc(${(span / daysInView.length) * 100}% - 4px)`,
@@ -880,10 +891,10 @@ export default function CalendarView() {
                                         <span className="text-[9px] opacity-80 shrink-0">◀</span>
                                       )}
                                       <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                                        <User size={10} className="text-white" />
+                                        <User size={10} className={b.status === "Completed" ? "text-[#334155]" : "text-white"} />
                                       </div>
                                       <div className="min-w-0 truncate leading-tight">
-                                        <div className="text-[11px] font-bold truncate">
+                                        <div className="text-[11px] font-extrabold truncate">
                                           {b.customer?.name || "Customer"}
                                         </div>
                                         {span > 1 && (
@@ -895,7 +906,7 @@ export default function CalendarView() {
                                     </div>
 
                                     <div className="flex items-center gap-1 shrink-0 text-right">
-                                      <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${badgeStyle}`}>
+                                      <span className={`text-[9.5px] font-black px-1.5 py-0.5 rounded-md ${badgeStyle}`}>
                                         {formatINR(b.total_amount)}
                                       </span>
                                       {endsAfter && (
@@ -904,14 +915,14 @@ export default function CalendarView() {
                                     </div>
                                   </div>
                                 </TooltipTrigger>
-                                <TooltipContent side="top" className="bg-[#063247] text-white p-3 rounded-xl border border-[#0E7490]/30 shadow-xl max-w-xs z-50">
+                                <TooltipContent side="top" className="bg-[#063247] text-white p-3.5 rounded-2xl border border-[#288DA6]/30 shadow-2xl max-w-xs z-50">
                                   <div className="space-y-1.5 text-xs font-body">
                                     <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-1.5">
                                       <span className="font-bold text-white text-sm">{b.customer?.name}</span>
                                       <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 font-bold">{b.status}</span>
                                     </div>
-                                    <div className="text-[11px] text-gray-200">
-                                      {vehicle.title} ({vehicle.reg_no})
+                                    <div className="text-[11px] text-[#E4F2F5]/90 font-medium">
+                                      🚗 {vehicle.title} ({vehicle.reg_no})
                                     </div>
                                     <div className="flex items-center gap-1.5 text-gray-300 text-[11px]">
                                       <Clock size={12} className="text-[#38BDF8]" />
@@ -921,9 +932,9 @@ export default function CalendarView() {
                                       <MapPin size={12} className="text-[#38BDF8]" />
                                       <span className="truncate">{b.pickup_location}</span>
                                     </div>
-                                    <div className="flex items-center justify-between pt-1 border-t border-white/10 text-xs font-bold">
-                                      <span className="text-gray-300">Total Fare:</span>
-                                      <span className="text-emerald-300 text-sm">{formatINR(b.total_amount)}</span>
+                                    <div className="flex items-center justify-between pt-1.5 border-t border-white/10 text-xs font-bold">
+                                      <span className="text-gray-300">Total Tariff:</span>
+                                      <span className="text-[#F6D285] text-sm font-black">{formatINR(b.total_amount)}</span>
                                     </div>
                                   </div>
                                 </TooltipContent>
