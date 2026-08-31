@@ -177,6 +177,19 @@ export default function BookingPage() {
     }
   }, [user]);
 
+  // Auto-fill Pickup Location whenever Transfer Spot (Airport / Station) is active
+  React.useEffect(() => {
+    if (tourSubOption === "transfer") {
+      if (transferRoute === "airport") {
+        setPickupLocation(airportName);
+      } else if (transferRoute === "margao") {
+        setPickupLocation("Margao Railway Station (Madgaon Junction, South Goa)");
+      } else if (transferRoute === "thivim") {
+        setPickupLocation("Thivim Railway Station (North Goa)");
+      }
+    }
+  }, [tourSubOption, transferRoute, airportName]);
+
   // Live Price Calculation
   const { totalAmount, perDayRate, rateDescription } = React.useMemo(() => {
     if (tourSubOption === "hourly") {
@@ -556,7 +569,9 @@ export default function BookingPage() {
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
-                      onClick={() => setTourSubOption("hourly")}
+                      onClick={() => {
+                        setTourSubOption("hourly");
+                      }}
                       className={`p-3 rounded-2xl border text-center transition-all cursor-pointer font-bold text-xs ${
                         tourSubOption === "hourly"
                           ? "bg-[#063247] text-white border-[#063247] shadow-xs"
@@ -569,7 +584,16 @@ export default function BookingPage() {
 
                     <button
                       type="button"
-                      onClick={() => setTourSubOption("transfer")}
+                      onClick={() => {
+                        setTourSubOption("transfer");
+                        if (transferRoute === "airport") {
+                          setPickupLocation(airportName);
+                        } else if (transferRoute === "margao") {
+                          setPickupLocation("Margao Railway Station (Madgaon Junction, South Goa)");
+                        } else if (transferRoute === "thivim") {
+                          setPickupLocation("Thivim Railway Station (North Goa)");
+                        }
+                      }}
                       className={`p-3 rounded-2xl border text-center transition-all cursor-pointer font-bold text-xs ${
                         tourSubOption === "transfer"
                           ? "bg-[#063247] text-white border-[#063247] shadow-xs"
@@ -679,7 +703,10 @@ export default function BookingPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       <button
                         type="button"
-                        onClick={() => setTransferRoute("airport")}
+                        onClick={() => {
+                          setTransferRoute("airport");
+                          setPickupLocation(airportName);
+                        }}
                         className={`p-3 rounded-xl border text-left font-bold text-xs transition-all cursor-pointer flex justify-between items-center sm:flex-col sm:items-start ${
                           transferRoute === "airport"
                             ? "bg-[#063247] text-white border-[#063247] shadow-xs"
@@ -695,7 +722,10 @@ export default function BookingPage() {
 
                       <button
                         type="button"
-                        onClick={() => setTransferRoute("margao")}
+                        onClick={() => {
+                          setTransferRoute("margao");
+                          setPickupLocation("Margao Railway Station (Madgaon Junction, South Goa)");
+                        }}
                         className={`p-3 rounded-xl border text-left font-bold text-xs transition-all cursor-pointer flex justify-between items-center sm:flex-col sm:items-start ${
                           transferRoute === "margao"
                             ? "bg-[#063247] text-white border-[#063247] shadow-xs"
@@ -711,7 +741,10 @@ export default function BookingPage() {
 
                       <button
                         type="button"
-                        onClick={() => setTransferRoute("thivim")}
+                        onClick={() => {
+                          setTransferRoute("thivim");
+                          setPickupLocation("Thivim Railway Station (North Goa)");
+                        }}
                         className={`p-3 rounded-xl border text-left font-bold text-xs transition-all cursor-pointer flex justify-between items-center sm:flex-col sm:items-start ${
                           transferRoute === "thivim"
                             ? "bg-[#063247] text-white border-[#063247] shadow-xs"
@@ -727,7 +760,13 @@ export default function BookingPage() {
                     </div>
 
                     {transferRoute === "airport" && (
-                      <Select value={airportName} onValueChange={setAirportName}>
+                      <Select
+                        value={airportName}
+                        onValueChange={(val) => {
+                          setAirportName(val);
+                          setPickupLocation(val);
+                        }}
+                      >
                         <SelectTrigger className="w-full bg-[#F7F7F7] border-[#DFE8EC] rounded-xl h-10 text-xs font-bold text-[#063247]">
                           <SelectValue />
                         </SelectTrigger>
