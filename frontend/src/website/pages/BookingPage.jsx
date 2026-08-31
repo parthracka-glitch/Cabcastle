@@ -392,166 +392,204 @@ export default function BookingPage() {
       />
       <Navbar />
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-16">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-16">
         
-        {/* Top Vehicle Header Card */}
-        <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-4 sm:p-6 mb-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
-          <div className="flex items-center gap-4 w-full sm:w-auto">
-            <img
-              src={vehicle.image_url}
-              alt={vehicle.title}
-              className="w-24 h-16 sm:w-28 sm:h-20 rounded-xl object-cover border border-[#DFE8EC] bg-[#F7F7F7] shrink-0"
-            />
+        {/* Top Step Progress Bar */}
+        <div className="bg-white border border-[#DFE8EC] rounded-2xl p-4 sm:p-5 mb-6 shadow-xs flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setCurrentStep(1)}
+            className="flex items-center gap-2.5 cursor-pointer group text-left"
+          >
+            <span
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all ${
+                currentStep === 1
+                  ? "bg-[#063247] text-white shadow-xs"
+                  : "bg-emerald-500 text-white"
+              }`}
+            >
+              {currentStep > 1 ? "✓" : "1"}
+            </span>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-[#E4F2F5] text-[#063247] px-2.5 py-0.5 rounded-full border border-[#288DA6]/30">
-                  {vehicle.category}
-                </span>
-                <span className="text-xs font-semibold text-[#4C606E] flex items-center gap-1">
-                  <Users size={12} className="text-[#063247]" /> {vehicle.seating} Seats
-                </span>
-                <span className="text-xs font-bold text-[#288DA6]">Air Conditioned</span>
-              </div>
-              <h1 className="font-display text-lg sm:text-xl font-extrabold text-[#063247] mt-1">
-                {vehicle.title}
-              </h1>
-              <p className="text-xs text-[#4C606E]">
-                {vehicle.subtitle || "Comfortable AC cab with polite driver for sightseeing across Goa."}
-              </p>
+              <span className={`text-xs font-bold block ${currentStep === 1 ? "text-[#063247]" : "text-[#5A7184]"}`}>
+                1. Car Details &amp; Date Selection
+              </span>
+              <span className="text-[10px] text-[#8496A2] hidden sm:block">Vehicle Specs, Duration &amp; Pickup</span>
             </div>
+          </button>
+
+          <div className="flex-1 max-w-[80px] sm:max-w-[160px] h-1 bg-[#DFE8EC] rounded-full mx-4 overflow-hidden">
+            <div
+              className={`h-full bg-[#063247] transition-all duration-300 ${
+                currentStep === 2 ? "w-full" : "w-0"
+              }`}
+            />
           </div>
 
-          <div className="text-right w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-[#DFE8EC] flex sm:flex-col items-center sm:items-end justify-between">
-            <span className="text-[10px] font-bold uppercase text-[#4C606E]">
-              Tour Package Rate
+          <button
+            type="button"
+            onClick={() => {
+              if (currentStep === 1) handleProceedToStep2();
+            }}
+            className="flex items-center gap-2.5 cursor-pointer group text-left"
+          >
+            <span
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all ${
+                currentStep === 2
+                  ? "bg-[#063247] text-white shadow-xs"
+                  : "bg-[#F1F5F9] text-[#5A7184] border border-[#DFE8EC]"
+              }`}
+            >
+              2
             </span>
-            <div className="font-display text-2xl font-extrabold text-[#063247]">
-              {formatINR(perDayRate)}
-              <span className="text-xs font-normal text-[#4C606E]">
-                {tourSubOption === "hourly" ? " / 8h" : " / transfer"}
+            <div>
+              <span className={`text-xs font-bold block ${currentStep === 2 ? "text-[#063247]" : "text-[#5A7184]"}`}>
+                2. Personal Info &amp; Booking
               </span>
+              <span className="text-[10px] text-[#8496A2] hidden sm:block">Guest Verification &amp; Confirm</span>
             </div>
-          </div>
+          </button>
         </div>
 
-        {/* Main Booking Form Card with 2-Step Wizard */}
-        <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-8 shadow-sm space-y-6 text-left">
-          
-          {/* Top Step Progress Bar */}
-          <div className="flex items-center justify-between border-b border-[#DFE8EC] pb-4">
-            <button
-              type="button"
-              onClick={() => setCurrentStep(1)}
-              className="flex items-center gap-2 cursor-pointer group"
-            >
-              <span
-                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-black transition-all ${
-                  currentStep === 1
-                    ? "bg-[#063247] text-white shadow-xs"
-                    : "bg-emerald-500 text-white"
-                }`}
-              >
-                {currentStep > 1 ? "✓" : "1"}
-              </span>
-              <div className="text-left">
-                <span className={`text-xs font-bold block ${currentStep === 1 ? "text-[#063247]" : "text-[#5A7184]"}`}>
-                  1. Vehicle &amp; Schedule
-                </span>
-                <span className="text-[10px] text-[#8496A2] hidden sm:block">Duration, Route &amp; Pickup</span>
-              </div>
-            </button>
-
-            <div className="flex-1 max-w-[60px] sm:max-w-[120px] h-0.5 bg-[#DFE8EC] mx-3">
-              <div
-                className={`h-full bg-[#063247] transition-all duration-300 ${
-                  currentStep === 2 ? "w-full" : "w-0"
-                }`}
-              />
-            </div>
-
-            <button
-              type="button"
-              onClick={() => {
-                if (currentStep === 1) handleProceedToStep2();
-              }}
-              className="flex items-center gap-2 cursor-pointer group"
-            >
-              <span
-                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-black transition-all ${
-                  currentStep === 2
-                    ? "bg-[#063247] text-white shadow-xs"
-                    : "bg-[#F1F5F9] text-[#5A7184] border border-[#DFE8EC]"
-                }`}
-              >
-                2
-              </span>
-              <div className="text-left">
-                <span className={`text-xs font-bold block ${currentStep === 2 ? "text-[#063247]" : "text-[#5A7184]"}`}>
-                  2. Personal Info
-                </span>
-                <span className="text-[10px] text-[#8496A2] hidden sm:block">Guest &amp; Confirmation</span>
-              </div>
-            </button>
-          </div>
-
-          {/* ======================================================== */}
-          {/* STEP 1: VEHICLE, DURATION, ROUTE & PICKUP SCHEDULE       */}
-          {/* ======================================================== */}
-          {currentStep === 1 && (
-            <div className="space-y-6 animate-fadeIn">
-              
-              {/* Service Indicator Banner */}
-              <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#E4F2F5]/70 border border-[#288DA6]/30">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-[#063247] text-white flex items-center justify-center shrink-0">
-                    <Compass size={15} className="text-[#288DA6]" />
+        {/* ======================================================== */}
+        {/* STEP 1: CAR DETAILS (LEFT) & DATE SELECTOR (RIGHT)       */}
+        {/* ======================================================== */}
+        {currentStep === 1 && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start animate-fadeIn">
+            
+            {/* LEFT SIDE: CAR DETAILS, IMAGE & FEATURES */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-6 shadow-sm text-left space-y-4">
+                
+                {/* Vehicle Image */}
+                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#FAF8F5] border border-[#DFE8EC]">
+                  <img
+                    src={vehicle.image_url}
+                    alt={vehicle.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-2.5 left-2.5 bg-[#063247]/90 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/20 text-[10px] font-black text-white flex items-center gap-1 shadow-xs">
+                    <span>👑 Castle Class</span>
                   </div>
-                  <div>
-                    <span className="font-extrabold text-sm text-[#063247] block">
-                      🚖 Tour &amp; Sightseeing Cab (With Driver)
-                    </span>
-                    <p className="text-xs text-[#4C606E]">
-                      8 hrs / 80 km Sightseeing or Point-to-Point Airport Transfer
-                    </p>
+                  <div className="absolute bottom-2.5 right-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full border border-[#DFE8EC] text-[10px] font-bold text-[#063247]">
+                    {vehicle.category}
                   </div>
                 </div>
-                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-white text-[#063247] border border-[#DFE8EC] shrink-0">
-                  {formatINR(perDayRate)}
-                </span>
-              </div>
 
-              {/* 1. SELECT SERVICE TYPE */}
-              <div className="p-4 rounded-2xl bg-[#F7F7F7] border border-[#DFE8EC] space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <Label className="text-xs font-bold text-[#063247]">Select Service Type:</Label>
-                  <div className="flex gap-1.5">
+                {/* Car Title & Subtitle */}
+                <div>
+                  <div className="flex items-center justify-between gap-2">
+                    <h2 className="font-display text-xl sm:text-2xl font-extrabold text-[#063247]">
+                      {vehicle.title}
+                    </h2>
+                    <span className="text-xs font-mono font-bold text-[#288DA6] bg-[#E4F2F5] px-2.5 py-1 rounded-full">
+                      {formatINR(perDayRate)}{tourSubOption === "hourly" ? "/8h" : ""}
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#5A7184] mt-1 leading-relaxed">
+                    {vehicle.subtitle || "Sanitized air-conditioned cab with courteous verified chauffeur for local sightseeing & transfers across Goa."}
+                  </p>
+                </div>
+
+                {/* Key Car Features Matrix */}
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#DFE8EC]">
+                  <div className="p-2.5 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] flex items-center gap-2">
+                    <Users size={14} className="text-[#288DA6] shrink-0" />
+                    <div>
+                      <span className="text-[9px] text-[#64748B] uppercase font-bold block">Capacity</span>
+                      <span className="text-xs font-bold text-[#063247]">{vehicle.seating} Passenger Seats</span>
+                    </div>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] flex items-center gap-2">
+                    <span className="text-sm shrink-0">❄️</span>
+                    <div>
+                      <span className="text-[9px] text-[#64748B] uppercase font-bold block">Air Conditioning</span>
+                      <span className="text-xs font-bold text-[#063247]">Chilled Powerful AC</span>
+                    </div>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] flex items-center gap-2">
+                    <span className="text-sm shrink-0">🧳</span>
+                    <div>
+                      <span className="text-[9px] text-[#64748B] uppercase font-bold block">Luggage Space</span>
+                      <span className="text-xs font-bold text-[#063247]">2 Large + 2 Bags</span>
+                    </div>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] flex items-center gap-2">
+                    <ShieldCheck size={14} className="text-emerald-600 shrink-0" />
+                    <div>
+                      <span className="text-[9px] text-[#64748B] uppercase font-bold block">Chauffeur</span>
+                      <span className="text-xs font-bold text-[#063247]">Verified &amp; Polite</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Inclusions Card */}
+                <div className="p-3 rounded-xl bg-[#E4F2F5]/80 border border-[#288DA6]/30 text-[11px] text-[#063247] space-y-1">
+                  <div className="font-bold flex items-center gap-1.5">
+                    <span>✓ Inclusions:</span>
+                    <span className="font-normal text-[#334155]">Fuel, AC, Driver Allowance included</span>
+                  </div>
+                  <div className="font-bold flex items-center gap-1.5">
+                    <span>✓ Payment:</span>
+                    <span className="font-normal text-[#334155]">Zero Advance · Pay to driver upon completion</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* RIGHT SIDE: DATE & SCHEDULE SELECTOR */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-7 shadow-sm space-y-5 text-left">
+                
+                {/* 1. Service Type Selector */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label className="text-xs font-extrabold uppercase tracking-wider text-[#063247]">
+                      1. Select Service Type
+                    </Label>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
                       onClick={() => setTourSubOption("hourly")}
-                      className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                        tourSubOption === "hourly" ? "bg-[#063247] text-white" : "bg-white text-[#4C606E] border border-[#DFE8EC]"
+                      className={`p-3 rounded-2xl border text-center transition-all cursor-pointer font-bold text-xs ${
+                        tourSubOption === "hourly"
+                          ? "bg-[#063247] text-white border-[#063247] shadow-xs"
+                          : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
                       }`}
                     >
-                      8h / 80km Sightseeing
+                      <div>🚖 8h / 80km Sightseeing</div>
+                      <div className="text-[10px] font-normal opacity-80 mt-0.5">Full Day Tour Package</div>
                     </button>
+
                     <button
                       type="button"
                       onClick={() => setTourSubOption("transfer")}
-                      className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                        tourSubOption === "transfer" ? "bg-[#063247] text-white" : "bg-white text-[#4C606E] border border-[#DFE8EC]"
+                      className={`p-3 rounded-2xl border text-center transition-all cursor-pointer font-bold text-xs ${
+                        tourSubOption === "transfer"
+                          ? "bg-[#063247] text-white border-[#063247] shadow-xs"
+                          : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
                       }`}
                     >
-                      Airport / Station Transfer
+                      <div>✈️ Airport / Station</div>
+                      <div className="text-[10px] font-normal opacity-80 mt-0.5">Point-to-Point Pickup</div>
                     </button>
                   </div>
                 </div>
 
+                {/* 2. Duration / Days Selector (If Hourly) */}
                 {tourSubOption === "hourly" ? (
-                  <div className="space-y-2">
+                  <div className="space-y-2 pt-2 border-t border-[#DFE8EC]">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-[#4C606E] font-medium">Select Days:</span>
-                      <span className="font-mono font-bold text-[#063247]">{days * 8}h · {days * 80}km included</span>
+                      <span className="font-extrabold uppercase tracking-wider text-[#063247]">2. Select Duration (Days)</span>
+                      <span className="font-mono font-bold text-[#288DA6]">{days * 8}h · {days * 80}km included</span>
                     </div>
+
                     <div className="grid grid-cols-4 gap-2">
                       {[1, 2, 3].map((d) => (
                         <button
@@ -561,10 +599,10 @@ export default function BookingPage() {
                             setIsCustomDays(false);
                             handleDaysChange(d);
                           }}
-                          className={`py-2 px-2 rounded-xl text-center border font-bold text-xs transition-all cursor-pointer ${
+                          className={`py-2.5 px-2 rounded-xl text-center border font-bold text-xs transition-all cursor-pointer ${
                             !isCustomDays && days === d
                               ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                              : "bg-white text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                              : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
                           }`}
                         >
                           <div>{d} {d === 1 ? "Day" : "Days"}</div>
@@ -576,10 +614,10 @@ export default function BookingPage() {
                       <button
                         type="button"
                         onClick={handleCustomClick}
-                        className={`py-2 px-2 rounded-xl text-center border font-bold text-xs transition-all cursor-pointer ${
+                        className={`py-2.5 px-2 rounded-xl text-center border font-bold text-xs transition-all cursor-pointer ${
                           isCustomDays || days > 3
                             ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                            : "bg-white text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                            : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
                         }`}
                       >
                         <div>{isCustomDays || days > 3 ? `${days} Days` : "Custom"}</div>
@@ -591,10 +629,10 @@ export default function BookingPage() {
 
                     {/* Custom Days Inline Stepper */}
                     {(isCustomDays || days > 3) && (
-                      <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-[#DFE8EC] shadow-xs mt-2 animate-fadeIn">
+                      <div className="flex items-center justify-between p-3 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] shadow-xs mt-2 animate-fadeIn">
                         <div className="flex items-center gap-2.5">
                           <span className="text-xs font-bold text-[#063247]">Duration:</span>
-                          <div className="flex items-center border border-[#DFE8EC] rounded-lg overflow-hidden bg-[#F7F7F7]">
+                          <div className="flex items-center border border-[#DFE8EC] rounded-lg overflow-hidden bg-white">
                             <button
                               type="button"
                               onClick={() => handleDaysChange(Math.max(1, days - 1))}
@@ -632,82 +670,12 @@ export default function BookingPage() {
                         </div>
                       </div>
                     )}
-
-                    {/* Curated Goa Itineraries */}
-                    <div className="mt-4 pt-3 border-t border-[#DFE8EC]/80 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#063247] flex items-center gap-1.5">
-                          🌴 Curated Goa Itinerary Route
-                        </span>
-                        <span className="text-[10px] text-[#288DA6] font-bold">Driver Knows Route</span>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {[
-                          {
-                            title: "North Goa Beaches & Forts",
-                            icon: "🏰",
-                            places: "Aguada Fort · Chapora Fort · Vagator · Anjuna · Baga Beach",
-                            tag: "Most Popular",
-                          },
-                          {
-                            title: "South Goa Heritage & Churches",
-                            icon: "⛪",
-                            places: "Old Goa Basilica · Se Cathedral · Mangueshi Temple · Miramar",
-                            tag: "Heritage & Culture",
-                          },
-                          {
-                            title: "Dudhsagar Waterfalls & Spices",
-                            icon: "🌊",
-                            places: "Dudhsagar Falls Safari Point · Sahakari Spice Farm Tour",
-                            tag: "Day Adventure",
-                          },
-                          {
-                            title: "Custom Route (Your Own Plan)",
-                            icon: "🎯",
-                            places: "Driver will follow your custom preferred stops anywhere in Goa",
-                            tag: "100% Flexible",
-                          },
-                        ].map((itin) => (
-                          <button
-                            key={itin.title}
-                            type="button"
-                            onClick={() => setSelectedItinerary(itin.title)}
-                            className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                              selectedItinerary === itin.title
-                                ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                                : "bg-white text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
-                            }`}
-                          >
-                            <div className="flex items-center justify-between gap-1 mb-1">
-                              <span className="font-extrabold text-xs flex items-center gap-1.5">
-                                <span>{itin.icon}</span>
-                                <span>{itin.title}</span>
-                              </span>
-                              <span
-                                className={`text-[9px] font-bold px-1.5 py-0.2 rounded-full ${
-                                  selectedItinerary === itin.title
-                                    ? "bg-[#288DA6] text-white"
-                                    : "bg-[#E4F2F5] text-[#288DA6]"
-                                }`}
-                              >
-                                {itin.tag}
-                              </span>
-                            </div>
-                            <p
-                              className={`text-[10px] leading-relaxed line-clamp-2 ${
-                                selectedItinerary === itin.title ? "text-white/80" : "text-[#5A7184]"
-                              }`}
-                            >
-                              {itin.places}
-                            </p>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 ) : (
-                  <div className="space-y-2.5">
+                  <div className="space-y-2.5 pt-2 border-t border-[#DFE8EC]">
+                    <Label className="text-xs font-extrabold uppercase tracking-wider text-[#063247]">
+                      2. Transfer Route Destination
+                    </Label>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       <button
                         type="button"
@@ -715,12 +683,12 @@ export default function BookingPage() {
                         className={`p-3 rounded-xl border text-left font-bold text-xs transition-all cursor-pointer flex justify-between items-center sm:flex-col sm:items-start ${
                           transferRoute === "airport"
                             ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                            : "bg-white text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                            : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
                         }`}
                       >
                         <div className="flex items-center gap-1.5">
                           <Plane size={13} className={transferRoute === "airport" ? "text-[#288DA6]" : "text-[#063247]"} />
-                          Airport Transfer
+                          Airport
                         </div>
                         <div className="text-sm font-extrabold sm:mt-1">{formatINR(vehicle.transfers.airport)}</div>
                       </button>
@@ -731,12 +699,12 @@ export default function BookingPage() {
                         className={`p-3 rounded-xl border text-left font-bold text-xs transition-all cursor-pointer flex justify-between items-center sm:flex-col sm:items-start ${
                           transferRoute === "margao"
                             ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                            : "bg-white text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                            : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
                         }`}
                       >
                         <div className="flex items-center gap-1.5">
                           <Train size={13} className={transferRoute === "margao" ? "text-[#288DA6]" : "text-[#063247]"} />
-                          Margao Station
+                          Margao Stn
                         </div>
                         <div className="text-sm font-extrabold sm:mt-1">{formatINR(vehicle.transfers.margao)}</div>
                       </button>
@@ -747,12 +715,12 @@ export default function BookingPage() {
                         className={`p-3 rounded-xl border text-left font-bold text-xs transition-all cursor-pointer flex justify-between items-center sm:flex-col sm:items-start ${
                           transferRoute === "thivim"
                             ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                            : "bg-white text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                            : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
                         }`}
                       >
                         <div className="flex items-center gap-1.5">
                           <Train size={13} className={transferRoute === "thivim" ? "text-[#288DA6]" : "text-[#063247]"} />
-                          Thivim Station
+                          Thivim Stn
                         </div>
                         <div className="text-sm font-extrabold sm:mt-1">{formatINR(vehicle.transfers.thivim)}</div>
                       </button>
@@ -760,10 +728,10 @@ export default function BookingPage() {
 
                     {transferRoute === "airport" && (
                       <Select value={airportName} onValueChange={setAirportName}>
-                        <SelectTrigger className="w-full bg-white border-[#DFE8EC] rounded-xl h-10 text-xs font-bold text-[#063247]">
+                        <SelectTrigger className="w-full bg-[#F7F7F7] border-[#DFE8EC] rounded-xl h-10 text-xs font-bold text-[#063247]">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-[#F7F7F7] border-[#DFE8EC] text-[#063247] rounded-xl text-xs">
+                        <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] rounded-xl text-xs">
                           <SelectItem value="Mopa Airport (GOX) - Manohar International">Mopa Airport (GOX) - Manohar International</SelectItem>
                           <SelectItem value="Dabolim Airport (GOI) - South Goa">Dabolim Airport (GOI) - South Goa</SelectItem>
                         </SelectContent>
@@ -771,121 +739,84 @@ export default function BookingPage() {
                     )}
                   </div>
                 )}
-              </div>
 
-              {/* 2. PICKUP SCHEDULE & ADDRESS */}
-              <div id="schedule-section" className="space-y-3 scroll-mt-24">
-                <Label className="text-xs font-extrabold uppercase tracking-wider text-[#063247] block flex items-center gap-1.5">
-                  <CalIcon size={14} className="text-[#288DA6]" /> Schedule &amp; Pickup Address
-                </Label>
+                {/* 3. Schedule & Pickup Address */}
+                <div id="schedule-section" className="space-y-3 pt-2 border-t border-[#DFE8EC] scroll-mt-24">
+                  <Label className="text-xs font-extrabold uppercase tracking-wider text-[#063247] block flex items-center gap-1.5">
+                    <CalIcon size={14} className="text-[#288DA6]" /> 3. Schedule &amp; Pickup Location
+                  </Label>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-[#F7F7F7] border border-[#DFE8EC]">
-                  {/* Pickup Date & Time */}
-                  <div className="space-y-2">
-                    <span className="text-xs font-bold text-[#063247] flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#288DA6]" /> Pick-up Schedule
-                    </span>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Pickup Date</label>
-                        <input
-                          type="date"
-                          value={pickupDate}
-                          min={format(new Date(), "yyyy-MM-dd")}
-                          onChange={(e) => {
-                            setPickupDate(e.target.value);
-                            try {
-                              const p = new Date(e.target.value);
-                              if (!isNaN(p.getTime())) {
-                                setDropDate(format(addDays(p, days), "yyyy-MM-dd"));
-                              }
-                            } catch {}
-                          }}
-                          className="w-full h-10 bg-white border border-[#DFE8EC] rounded-xl px-2.5 text-xs font-bold text-[#063247] outline-none focus:border-[#288DA6] cursor-pointer"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Pickup Time</label>
-                        <Select value={pickupTime} onValueChange={setPickupTime}>
-                          <SelectTrigger className="w-full h-10 bg-white border-[#DFE8EC] rounded-xl text-xs font-bold text-[#063247]">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent className="bg-[#F7F7F7] border-[#DFE8EC] text-[#063247] rounded-xl text-xs">
-                            {TIME_OPTIONS.map((t) => (
-                              <SelectItem key={t} value={t}>{t}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-2xl bg-[#F7F7F7] border border-[#DFE8EC]">
+                    {/* Pickup Date */}
+                    <div>
+                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Pickup Date</label>
+                      <input
+                        type="date"
+                        value={pickupDate}
+                        min={format(new Date(), "yyyy-MM-dd")}
+                        onChange={(e) => {
+                          setPickupDate(e.target.value);
+                          try {
+                            const p = new Date(e.target.value);
+                            if (!isNaN(p.getTime())) {
+                              setDropDate(format(addDays(p, days), "yyyy-MM-dd"));
+                            }
+                          } catch {}
+                        }}
+                        className="w-full h-10 bg-white border border-[#DFE8EC] rounded-xl px-2.5 text-xs font-bold text-[#063247] outline-none focus:border-[#288DA6] cursor-pointer"
+                      />
                     </div>
 
+                    {/* Pickup Time */}
                     <div>
-                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Pickup Address / Hotel / Terminal *</label>
+                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Pickup Time</label>
+                      <Select value={pickupTime} onValueChange={setPickupTime}>
+                        <SelectTrigger className="w-full h-10 bg-white border-[#DFE8EC] rounded-xl text-xs font-bold text-[#063247]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] rounded-xl text-xs">
+                          {TIME_OPTIONS.map((t) => (
+                            <SelectItem key={t} value={t}>{t}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Pickup Address */}
+                    <div className="sm:col-span-2">
+                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Pickup Address / Hotel / Airport *</label>
                       <div className="relative">
                         <MapPin size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8496A2]" />
                         <Input
                           id="pickup-location-input"
                           value={pickupLocation}
                           onChange={(e) => setPickupLocation(e.target.value)}
-                          placeholder="e.g. Mopa Airport / Hotel Taj Candolim"
+                          placeholder="e.g. Mopa Airport / Hotel Taj Candolim / Calangute"
                           className="h-10 pl-9 bg-white border-[#DFE8EC] rounded-xl text-xs text-[#063247] focus:border-[#288DA6]"
                         />
                       </div>
                     </div>
                   </div>
-
-                  {/* Return / Drop Schedule if Hourly */}
-                  <div className="space-y-2">
-                    <span className="text-xs font-bold text-[#063247] flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#288DA6]" /> Return / Drop-off Schedule
-                    </span>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1 flex items-center justify-between">
-                          <span>Drop Date</span>
-                          {isCustomDays && <span className="text-[9px] text-[#288DA6] font-bold">Pick end date</span>}
-                        </label>
-                        <input
-                          ref={dropDateInputRef}
-                          id="drop-date-input"
-                          type="date"
-                          value={dropDate}
-                          min={pickupDate}
-                          onChange={(e) => handleDropDateChange(e.target.value)}
-                          className={`w-full h-10 bg-white border rounded-xl px-2.5 text-xs font-bold text-[#063247] outline-none transition-all cursor-pointer ${
-                            isCustomDays
-                              ? "border-[#288DA6] ring-2 ring-[#288DA6]/30"
-                              : "border-[#DFE8EC] focus:border-[#288DA6]"
-                          }`}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Drop Time</label>
-                        <Select value={dropTime} onValueChange={setDropTime}>
-                          <SelectTrigger className="w-full h-10 bg-white border-[#DFE8EC] rounded-xl text-xs font-bold text-[#063247]">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent className="bg-[#F7F7F7] border-[#DFE8EC] text-[#063247] rounded-xl text-xs">
-                            {TIME_OPTIONS.map((t) => (
-                              <SelectItem key={t} value={t}>{t}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div className="p-2.5 rounded-xl bg-white border border-[#DFE8EC] text-[11px] text-[#5A7184] flex items-center justify-between">
-                      <span>Trip Summary:</span>
-                      <strong className="text-[#063247]">{days} Day(s) · {days * 8}h · {days * 80}km</strong>
-                    </div>
-                  </div>
                 </div>
-              </div>
 
-              {/* Step 1 CTA Button */}
-              <div className="pt-2">
+                {/* Live Fare Summary Bar */}
+                <div className="p-3.5 rounded-2xl bg-[#063247] text-white flex items-center justify-between">
+                  <div>
+                    <span className="text-[9.5px] uppercase tracking-wider text-[#C3E7FA] font-bold block">
+                      Total Calculated Tariff
+                    </span>
+                    <div className="text-xl font-black text-[#288DA6] leading-tight">
+                      {formatINR(totalAmount)}
+                    </div>
+                    <span className="text-[10px] text-white/80">{rateDescription}</span>
+                  </div>
+
+                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-1 rounded-full">
+                    Zero Advance
+                  </span>
+                </div>
+
+                {/* Continue to Step 2 Button */}
                 <button
                   type="button"
                   onClick={handleProceedToStep2}
@@ -894,47 +825,62 @@ export default function BookingPage() {
                   <span>Continue to Guest Details</span>
                   <ArrowRight size={16} className="text-[#090D16]" />
                 </button>
+
               </div>
             </div>
-          )}
 
-          {/* ======================================================== */}
-          {/* STEP 2: PERSONAL INFO, AADHAAR & FINAL CONFIRMATION       */}
-          {/* ======================================================== */}
-          {currentStep === 2 && (
-            <div className="space-y-6 animate-fadeIn">
-              
-              {/* Back to Step 1 Button */}
-              <button
-                type="button"
-                onClick={() => {
-                  setCurrentStep(1);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#063247] hover:text-[#288DA6] transition-colors cursor-pointer bg-[#F7F7F7] px-3 py-1.5 rounded-full border border-[#DFE8EC]"
-              >
-                <span>← Back to Vehicle &amp; Dates</span>
-              </button>
+          </div>
+        )}
 
-              {/* Order Recap Mini-Card */}
-              <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE8EC] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
+        {/* ======================================================== */}
+        {/* STEP 2: PERSONAL INFO, AADHAAR & BOOKING CONFIRMATION    */}
+        {/* ======================================================== */}
+        {currentStep === 2 && (
+          <div className="max-w-3xl mx-auto space-y-6 animate-fadeIn">
+            
+            {/* Back to Step 1 Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setCurrentStep(1);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#063247] hover:text-[#288DA6] transition-colors cursor-pointer bg-white px-4 py-2 rounded-full border border-[#DFE8EC] shadow-xs"
+            >
+              <span>← Back to Car &amp; Date Selection</span>
+            </button>
+
+            {/* Selected Booking Summary Card */}
+            <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
+              <div className="flex items-center gap-3.5">
+                <img
+                  src={vehicle.image_url}
+                  alt={vehicle.title}
+                  className="w-16 h-12 sm:w-20 sm:h-14 rounded-xl object-cover border border-[#DFE8EC] bg-[#F7F7F7] shrink-0"
+                />
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B] block">Selected Reservation</span>
-                  <h4 className="text-sm font-extrabold text-[#063247] flex items-center gap-1.5 mt-0.5">
-                    <span>{vehicle.title}</span>
-                    <span className="text-xs text-[#288DA6]">({tourSubOption === "hourly" ? `${days} Day Tour` : "Transfer"})</span>
-                  </h4>
-                  <p className="text-xs text-[#5A7184] mt-0.5">
-                    📍 Pickup: {pickupDate} at {pickupTime} ({pickupLocation || airportName})
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#288DA6] bg-[#E4F2F5] px-2 py-0.5 rounded-full">
+                    {tourSubOption === "hourly" ? `${days} Day Tour Package` : "Airport Transfer"}
+                  </span>
+                  <h3 className="text-base font-extrabold text-[#063247] mt-0.5">
+                    {vehicle.title}
+                  </h3>
+                  <p className="text-xs text-[#5A7184]">
+                    📅 {pickupDate} at {pickupTime} · 📍 {pickupLocation || airportName}
                   </p>
-                </div>
-
-                <div className="text-right shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFE8EC]">
-                  <span className="text-[10px] text-[#64748B] font-medium block">Total Fare</span>
-                  <div className="text-xl font-black text-[#063247]">{formatINR(totalAmount)}</div>
                 </div>
               </div>
 
+              <div className="text-right border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFE8EC] shrink-0">
+                <span className="text-[10px] font-bold text-[#64748B] block">Total Amount</span>
+                <div className="text-xl font-black text-[#063247]">{formatINR(totalAmount)}</div>
+                <span className="text-[10px] text-emerald-600 font-bold">Pay to Driver</span>
+              </div>
+            </div>
+
+            {/* Main Form: Guest Info, Aadhaar & Drop Destination */}
+            <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-8 shadow-sm space-y-6 text-left">
+              
               {/* If NOT logged in: Security Notice Banner */}
               {!user && (
                 <div className="p-4 rounded-2xl bg-[#E4F2F5] border border-[#288DA6]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
@@ -961,7 +907,7 @@ export default function BookingPage() {
                 </div>
               )}
 
-              {/* Input Fields: Name, Phone, Email, Aadhaar & Drop Location */}
+              {/* Guest Details */}
               <div className="space-y-4">
                 <Label className="text-xs font-extrabold uppercase tracking-wider text-[#063247] block flex items-center gap-1.5">
                   <ShieldCheck size={15} className="text-[#288DA6]" /> Guest Contact &amp; Verification Details
@@ -1046,7 +992,7 @@ export default function BookingPage() {
                       id="drop-location-input"
                       value={dropLocation}
                       onChange={(e) => setDropLocation(e.target.value)}
-                      placeholder="e.g. Baga Beach / Dabolim Airport / Hotel"
+                      placeholder="e.g. Baga Beach / Dabolim Airport / Candolim Resort"
                       className="h-11 pl-9 bg-[#F7F7F7] border-[#DFE8EC] rounded-xl text-xs text-[#063247] focus:border-[#288DA6]"
                     />
                   </div>
@@ -1096,10 +1042,10 @@ export default function BookingPage() {
                   <span>• Zero Deposit: ₹0 · Pay to Driver</span>
                 </div>
               </div>
-            </div>
-          )}
 
-        </div>
+            </div>
+          </div>
+        )}
 
       </main>
 
