@@ -453,143 +453,175 @@ export default function CalendarView() {
           </div>
         </div>
 
-        {/* ── 2. TOOLBAR: NAVIGATOR & FILTERS ── */}
-        <div className="p-3 sm:p-4 rounded-2xl bg-white border border-[#DFE8EC] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
+        {/* ── 2. INTERACTIVE STATUS FILTER PILLS & TOOLBAR ── */}
+        <div className="space-y-3">
           
-          {/* Month Navigation & Quick Jump */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <div className="flex items-center bg-[#F1F5F9] rounded-xl p-0.5 border border-[#DFE8EC]">
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
-                className="hover:bg-white text-[#063247] h-7 w-7 p-0 rounded-lg cursor-pointer"
-                title="Previous Month"
-              >
-                <ChevronLeft size={15} />
-              </Button>
-              <div className="font-display text-xs sm:text-sm font-bold text-[#063247] px-3 min-w-[120px] sm:min-w-[130px] text-center select-none">
-                {format(currentMonth, "MMMM yyyy")}
-              </div>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
-                className="hover:bg-white text-[#063247] h-7 w-7 p-0 rounded-lg cursor-pointer"
-                title="Next Month"
-              >
-                <ChevronRight size={15} />
-              </Button>
-            </div>
-
-            <Button
-              size="sm"
-              onClick={() => {
-                const now = new Date();
-                setCurrentMonth(new Date(now.getFullYear(), now.getMonth(), 1));
-                setSelectedDate(now);
-                setTimeout(scrollToToday, 100);
-              }}
-              className="border border-[#DFE8EC] bg-white hover:bg-[#F8FAFC] text-[#063247] text-xs px-3 h-8 font-semibold rounded-xl transition-colors cursor-pointer shadow-2xs"
+          {/* Quick Interactive Fleet Status Chips */}
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+            <button
+              onClick={() => setFleetStatusFilter("ALL")}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
+                fleetStatusFilter === "ALL"
+                  ? "bg-[#063247] text-white border-[#063247] shadow-xs"
+                  : "bg-white text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+              }`}
             >
-              Today
-            </Button>
+              <Car size={13} />
+              <span>All Fleet ({vehicles.length})</span>
+            </button>
 
-            {/* Timeline Scroll Buttons */}
-            {viewMode === "TIMELINE" && (
-              <div className="flex items-center gap-1 bg-[#F1F5F9] p-0.5 rounded-xl border border-[#DFE8EC]">
-                <button
-                  onClick={() => handleScrollStep("left")}
-                  className="p-1 rounded-lg hover:bg-white text-[#5A7184] hover:text-[#063247] transition-colors cursor-pointer"
-                  title="Scroll left"
-                >
-                  <ChevronLeft size={14} />
-                </button>
-                <button
-                  onClick={scrollToToday}
-                  className="px-2 py-0.5 text-xs font-semibold text-[#0E7490] hover:bg-white rounded-lg transition-colors cursor-pointer flex items-center gap-1"
-                >
-                  <Sparkles size={11} /> <span>Jump</span>
-                </button>
-                <button
-                  onClick={() => handleScrollStep("right")}
-                  className="p-1 rounded-lg hover:bg-white text-[#5A7184] hover:text-[#063247] transition-colors cursor-pointer"
-                  title="Scroll right"
-                >
-                  <ChevronRight size={14} />
-                </button>
-              </div>
-            )}
+            <button
+              onClick={() => setFleetStatusFilter("AVAILABLE")}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
+                fleetStatusFilter === "AVAILABLE"
+                  ? "bg-emerald-700 text-white border-emerald-700 shadow-xs"
+                  : "bg-white text-emerald-700 border-[#DFE8EC] hover:border-emerald-500"
+              }`}
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Ready for Dispatch ({todayMetrics.availableToday})</span>
+            </button>
+
+            <button
+              onClick={() => setFleetStatusFilter("RENTED")}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
+                fleetStatusFilter === "RENTED"
+                  ? "bg-[#0284C7] text-white border-[#0284C7] shadow-xs"
+                  : "bg-white text-[#0284C7] border-[#DFE8EC] hover:border-[#0284C7]"
+              }`}
+            >
+              <ArrowUpRight size={13} />
+              <span>On Road / Rented ({todayMetrics.activeRented})</span>
+            </button>
           </div>
 
-          {/* Search, Filters & Time Range */}
-          <div className="flex items-center gap-2 flex-wrap">
+          {/* Clean Main Navigator Toolbar */}
+          <div className="p-3 sm:p-4 rounded-2xl bg-white border border-[#DFE8EC] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
             
-            {/* Range Presets (Timeline mode) */}
-            {viewMode === "TIMELINE" && (
-              <div className="flex items-center bg-[#F1F5F9] p-0.5 rounded-xl border border-[#DFE8EC] text-xs font-semibold">
-                <button
-                  onClick={() => setDateRangeMode("MONTH")}
-                  className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                    dateRangeMode === "MONTH" ? "bg-white text-[#063247] shadow-2xs font-bold" : "text-[#5A7184]"
-                  }`}
+            {/* Month & Day Scrubber Navigation */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center bg-[#F1F5F9] rounded-xl p-0.5 border border-[#DFE8EC]">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
+                  className="hover:bg-white text-[#063247] h-7 w-7 p-0 rounded-lg cursor-pointer"
+                  title="Previous Month"
                 >
-                  Month
-                </button>
-                <button
-                  onClick={() => setDateRangeMode("14DAYS")}
-                  className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                    dateRangeMode === "14DAYS" ? "bg-white text-[#063247] shadow-2xs font-bold" : "text-[#5A7184]"
-                  }`}
+                  <ChevronLeft size={15} />
+                </Button>
+                <div className="font-display text-xs sm:text-sm font-bold text-[#063247] px-3 min-w-[120px] sm:min-w-[130px] text-center select-none">
+                  {format(currentMonth, "MMMM yyyy")}
+                </div>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
+                  className="hover:bg-white text-[#063247] h-7 w-7 p-0 rounded-lg cursor-pointer"
+                  title="Next Month"
                 >
-                  14d
-                </button>
-                <button
-                  onClick={() => setDateRangeMode("7DAYS")}
-                  className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                    dateRangeMode === "7DAYS" ? "bg-white text-[#063247] shadow-2xs font-bold" : "text-[#5A7184]"
-                  }`}
-                >
-                  7d
-                </button>
+                  <ChevronRight size={15} />
+                </Button>
               </div>
-            )}
 
-            {/* Search Input */}
-            <div className="relative flex-1 sm:flex-initial min-w-[140px]">
-              <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
-              <Input
-                value={searchCar}
-                onChange={(e) => setSearchCar(e.target.value)}
-                placeholder="Search car or reg..."
-                className="pl-8 bg-[#F8FAFC] border-[#DFE8EC] text-[#063247] w-full sm:w-44 lg:w-52 text-xs h-8 font-medium rounded-xl outline-none focus:border-[#063247] focus:bg-white"
-                data-testid="car-calendar-search"
-              />
+              <Button
+                size="sm"
+                onClick={() => {
+                  const now = new Date();
+                  setCurrentMonth(new Date(now.getFullYear(), now.getMonth(), 1));
+                  setSelectedDate(now);
+                  setTimeout(scrollToToday, 100);
+                }}
+                className="border border-[#DFE8EC] bg-white hover:bg-[#F8FAFC] text-[#063247] text-xs px-3.5 h-8 font-bold rounded-xl transition-colors cursor-pointer shadow-2xs flex items-center gap-1.5"
+              >
+                <Sparkles size={12} className="text-[#288DA6]" />
+                <span>Today</span>
+              </Button>
+
+              {/* Timeline Scroll Buttons */}
+              {viewMode === "TIMELINE" && (
+                <div className="flex items-center gap-1 bg-[#F1F5F9] p-0.5 rounded-xl border border-[#DFE8EC]">
+                  <button
+                    onClick={() => handleScrollStep("left")}
+                    className="p-1.5 rounded-lg hover:bg-white text-[#5A7184] hover:text-[#063247] transition-colors cursor-pointer"
+                    title="Scroll left"
+                  >
+                    <ChevronLeft size={13} />
+                  </button>
+                  <button
+                    onClick={scrollToToday}
+                    className="px-2 py-0.5 text-xs font-semibold text-[#0E7490] hover:bg-white rounded-lg transition-colors cursor-pointer flex items-center gap-1"
+                  >
+                    <span>Jump to Today</span>
+                  </button>
+                  <button
+                    onClick={() => handleScrollStep("right")}
+                    className="p-1.5 rounded-lg hover:bg-white text-[#5A7184] hover:text-[#063247] transition-colors cursor-pointer"
+                    title="Scroll right"
+                  >
+                    <ChevronRight size={13} />
+                  </button>
+                </div>
+              )}
             </div>
 
-            {/* Category Select */}
-            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-              <SelectTrigger className="w-28 sm:w-30 bg-[#F8FAFC] border-[#DFE8EC] text-[#063247] text-xs h-8 font-medium rounded-xl" data-testid="car-calendar-filter">
-                <SelectValue placeholder="Category" />
-              </SelectTrigger>
-              <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] text-xs">
-                {categories.map((c) => (
-                  <SelectItem key={c} value={c}>{c}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {/* Search, Filters & Time Range */}
+            <div className="flex items-center gap-2 flex-wrap">
+              
+              {/* Range Presets (Timeline mode) */}
+              {viewMode === "TIMELINE" && (
+                <div className="flex items-center bg-[#F1F5F9] p-0.5 rounded-xl border border-[#DFE8EC] text-xs font-semibold">
+                  <button
+                    onClick={() => setDateRangeMode("MONTH")}
+                    className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                      dateRangeMode === "MONTH" ? "bg-white text-[#063247] shadow-2xs font-bold" : "text-[#5A7184]"
+                    }`}
+                  >
+                    Month
+                  </button>
+                  <button
+                    onClick={() => setDateRangeMode("14DAYS")}
+                    className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                      dateRangeMode === "14DAYS" ? "bg-white text-[#063247] shadow-2xs font-bold" : "text-[#5A7184]"
+                    }`}
+                  >
+                    14d
+                  </button>
+                  <button
+                    onClick={() => setDateRangeMode("7DAYS")}
+                    className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                      dateRangeMode === "7DAYS" ? "bg-white text-[#063247] shadow-2xs font-bold" : "text-[#5A7184]"
+                    }`}
+                  >
+                    7d
+                  </button>
+                </div>
+              )}
 
-            {/* Availability Filter */}
-            <Select value={fleetStatusFilter} onValueChange={setFleetStatusFilter}>
-              <SelectTrigger className="w-28 sm:w-30 bg-[#F8FAFC] border-[#DFE8EC] text-[#063247] text-xs h-8 font-medium rounded-xl">
-                <SelectValue placeholder="Status" />
-              </SelectTrigger>
-              <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] text-xs">
-                <SelectItem value="ALL">All Fleet</SelectItem>
-                <SelectItem value="RENTED">Rented</SelectItem>
-                <SelectItem value="AVAILABLE">Available</SelectItem>
-              </SelectContent>
-            </Select>
+              {/* Search Input */}
+              <div className="relative flex-1 sm:flex-initial min-w-[140px]">
+                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
+                <Input
+                  value={searchCar}
+                  onChange={(e) => setSearchCar(e.target.value)}
+                  placeholder="Search car or reg..."
+                  className="pl-8 bg-[#F8FAFC] border-[#DFE8EC] text-[#063247] w-full sm:w-44 lg:w-48 text-xs h-8 font-medium rounded-xl outline-none focus:border-[#063247] focus:bg-white"
+                  data-testid="car-calendar-search"
+                />
+              </div>
+
+              {/* Category Select */}
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                <SelectTrigger className="w-28 bg-[#F8FAFC] border-[#DFE8EC] text-[#063247] text-xs h-8 font-medium rounded-xl" data-testid="car-calendar-filter">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] text-xs">
+                  {categories.map((c) => (
+                    <SelectItem key={c} value={c}>{c}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
 
@@ -610,8 +642,8 @@ export default function CalendarView() {
             </span>
           </div>
 
-          <div className="text-[11px] text-[#5A7184]">
-            Click booking for details · Click empty slot to reserve
+          <div className="text-[11px] text-[#5A7184] flex items-center gap-1">
+            <span>💡 Click any empty slot to create instant booking</span>
           </div>
         </div>
 
