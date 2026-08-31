@@ -23,35 +23,12 @@ import { MASTER_FLEET } from "../data/fleetData";
 
 const CATEGORIES = ["All", "Sedan", "SUV", "Hatchback"];
 
-const HERO_SLIDES = [
-  {
-    id: "tour-sightseeing",
-    title: "TOUR PACKAGES & CABS",
-    badge: "🧭 CURATED 8H / 80KM GOA SIGHTSEEING & AIRPORT TRANSFERS",
-    subtitle: "Relax with experienced, professional local drivers for North & South Goa day tours, beach hopping, heritage forts, and 24/7 airport terminal pickups.",
-    modelShowing: "Sedan, Ertiga 7-Seater & Innova Crysta",
-    image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    id: "tour-airport",
-    title: "24/7 AIRPORT TRANSFERS",
-    badge: "✈️ MOPA (GOX) & DABOLIM (GOI) DIRECT TERMINAL PICKUPS",
-    subtitle: "Skip airport taxi queues with fixed transparent flat rates. Meet & greet right outside arrival gate with sanitized AC cabs.",
-    modelShowing: "Maruti Dzire / Ertiga / Innova Crysta",
-    image: "/vehicles/maruti_ertiga_2022.webp",
-  },
-];
-
 export default function FleetPage({ defaultService = "tour" } = {}) {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
 
   // Active partition is locked to "tour"
   const serviceMode = "tour";
-
-  // Hero carousel state
-  const [heroSlideIdx, setHeroSlideIdx] = React.useState(0);
-  const currentHero = HERO_SLIDES[heroSlideIdx % HERO_SLIDES.length];
 
   // 1. Initial State
   const [vehicles, setVehicles] = React.useState(() => {
@@ -165,83 +142,34 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
       />
       <Navbar />
 
-      {/* ── 1. FULL-BLEED LANDSCAPE HERO BANNER ── */}
-      <section className="pt-14 sm:pt-16 w-full bg-[#090D16] relative select-none">
-        <div className="relative w-full h-[65vh] min-h-[460px] max-h-[620px] overflow-hidden flex flex-col justify-between items-center text-center p-6 sm:p-12">
-          
-          {/* Background Landscape Car Image */}
-          <div className="absolute inset-0 z-0">
-            <img
-              key={currentHero.id}
-              src={currentHero.image}
-              alt={currentHero.title}
-              className="w-full h-full object-cover object-center transition-all duration-700 brightness-[0.7] scale-102"
-            />
-            {/* Atmospheric Vignette Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#090D16] via-[#090D16]/50 via-55% to-[#090D16]/75 pointer-events-none" />
+      {/* ── 1. CLEAN & SIMPLE HERO BANNER ── */}
+      <section className="pt-20 sm:pt-24 pb-14 sm:pb-18 w-full bg-gradient-to-b from-[#063247] via-[#0A4560] to-[#063247] relative overflow-hidden select-none border-b border-[#DFE8EC]/20">
+        {/* Subtle Ambient Glows */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#288DA6]/20 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40" />
+
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-4 sm:space-y-5">
+          {/* Main Title */}
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white font-display tracking-tight leading-tight drop-shadow-sm">
+            TOUR PACKAGES &amp; CABS
+          </h1>
+
+          {/* Clean Subtitle */}
+          <p className="text-sm sm:text-base text-white/90 max-w-2xl mx-auto leading-relaxed font-normal">
+            Reliable sightseeing day tours, beach hopping, heritage forts, and 24/7 airport terminal pickups with verified local drivers in Goa.
+          </p>
+
+          {/* Action Button */}
+          <div className="pt-3 flex items-center justify-center">
+            <button
+              type="button"
+              onClick={scrollToFleet}
+              className="h-12 px-8 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs sm:text-sm font-black uppercase tracking-wider rounded-full shadow-lg hover:shadow-xl transition-all flex items-center gap-2 cursor-pointer active:scale-95 border border-[#E5A93C]/40"
+            >
+              <span>EXPLORE CABS</span>
+              <ArrowRight size={15} className="text-[#090D16]" />
+            </button>
           </div>
-
-          {/* Left / Right Carousel Arrow Buttons */}
-          <button
-            type="button"
-            onClick={() => setHeroSlideIdx((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
-            className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-[#E5A93C] hover:text-[#090D16] text-white items-center justify-center backdrop-blur-md border border-white/20 transition-all cursor-pointer z-20 shadow-md active:scale-95"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft size={22} />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setHeroSlideIdx((prev) => (prev + 1) % HERO_SLIDES.length)}
-            className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-[#E5A93C] hover:text-[#090D16] text-white items-center justify-center backdrop-blur-md border border-white/20 transition-all cursor-pointer z-20 shadow-md active:scale-95"
-            aria-label="Next slide"
-          >
-            <ChevronRight size={22} />
-          </button>
-
-          {/* Center Hero Content */}
-          <div className="relative z-10 max-w-2xl mx-auto my-auto space-y-3 sm:space-y-4 pt-4">
-            {/* Massive Bold Headline */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white font-display tracking-tight leading-none drop-shadow-xl">
-              {currentHero.title}
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-xs sm:text-sm text-[#E2E8F0] max-w-xl mx-auto leading-relaxed drop-shadow-sm font-normal">
-              {currentHero.subtitle}
-            </p>
-
-            {/* Action Button */}
-            <div className="pt-3 flex items-center justify-center">
-              <button
-                type="button"
-                onClick={scrollToFleet}
-                className="h-12 px-8 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs sm:text-sm font-black uppercase tracking-wider rounded-full shadow-gold transition-all flex items-center gap-2 cursor-pointer active:scale-95 border border-[#E5A93C]/40"
-              >
-                <span>EXPLORE CABS</span>
-                <ArrowRight size={15} className="text-[#090D16]" />
-              </button>
-            </div>
-          </div>
-
-          {/* Carousel Pagination Dots */}
-          <div className="relative z-10 flex items-center justify-center gap-2 pb-2">
-            {HERO_SLIDES.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => setHeroSlideIdx(idx)}
-                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                  idx === heroSlideIdx % HERO_SLIDES.length
-                    ? "w-8 bg-[#E5A93C]"
-                    : "w-2.5 bg-white/40 hover:bg-white/70"
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-
         </div>
       </section>
 
