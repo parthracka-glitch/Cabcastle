@@ -8,7 +8,6 @@ import "./App.css";
 import AdminSkeleton from "./crm/components/AdminSkeleton";
 import CustomerSkeleton from "./website/components/CustomerSkeleton";
 import CookieConsentBanner from "./website/components/CookieConsentBanner";
-import WhatsAppFloatingWidget from "./website/components/WhatsAppFloatingWidget";
 
 // Lazy-loaded routes for 100% code-splitting and minimal initial bundle
 const Landing = lazy(() => import("./website/pages/Landing"));
@@ -171,7 +170,6 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <AppContent />
-          <WhatsAppFloatingWidget />
           <CookieConsentBanner />
         </BrowserRouter>
         <Toaster position="top-right" closeButton />
