@@ -821,6 +821,34 @@ export default function BookingPage() {
                       </Select>
                     </div>
 
+                    {/* Drop Date */}
+                    <div>
+                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Drop Date</label>
+                      <input
+                        ref={dropDateInputRef}
+                        type="date"
+                        value={dropDate}
+                        min={pickupDate || format(new Date(), "yyyy-MM-dd")}
+                        onChange={(e) => handleDropDateChange(e.target.value)}
+                        className="w-full h-10 bg-white border border-[#DFE8EC] rounded-xl px-2.5 text-xs font-bold text-[#063247] outline-none focus:border-[#288DA6] cursor-pointer"
+                      />
+                    </div>
+
+                    {/* Drop Time */}
+                    <div>
+                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Drop Time</label>
+                      <Select value={dropTime} onValueChange={setDropTime}>
+                        <SelectTrigger className="w-full h-10 bg-white border-[#DFE8EC] rounded-xl text-xs font-bold text-[#063247]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] rounded-xl text-xs">
+                          {TIME_OPTIONS.map((t) => (
+                            <SelectItem key={t} value={t}>{t}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
                     {/* Pickup Address */}
                     <div className="sm:col-span-2">
                       <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Pickup Address / Hotel / Airport *</label>
@@ -905,7 +933,7 @@ export default function BookingPage() {
                     {vehicle.title}
                   </h3>
                   <p className="text-xs text-[#5A7184]">
-                    📅 {pickupDate} at {pickupTime} · 📍 {pickupLocation || airportName}
+                    📅 {pickupDate} ({pickupTime}) → {dropDate} ({dropTime}) · 📍 {pickupLocation || airportName}
                   </p>
                 </div>
               </div>
