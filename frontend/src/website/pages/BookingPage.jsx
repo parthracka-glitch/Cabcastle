@@ -1053,25 +1053,15 @@ export default function BookingPage() {
                     </span>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-2.5">
-                    <Button
-                      type="button"
-                      disabled={busy}
-                      onClick={() => handleBookNow(true)}
-                      className="h-11 px-5 bg-white hover:bg-[#25D366] text-[#0F172A] hover:text-white border border-[#E8E0D2] hover:border-[#25D366] text-xs font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
-                    >
-                      <MessageSquare size={15} className="text-[#25D366] group-hover:text-white shrink-0" />
-                      <span>Book via WhatsApp</span>
-                    </Button>
-
+                  <div>
                     <Button
                       type="button"
                       disabled={busy}
                       onClick={() => handleBookNow(false)}
-                      className="h-11 px-6 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs font-black uppercase tracking-wider rounded-xl shadow-gold transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 border border-[#E5A93C]/40"
+                      className="h-12 px-8 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs sm:text-sm font-black uppercase tracking-wider rounded-xl shadow-gold transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 border border-[#E5A93C]/40"
                     >
-                      {busy ? <Loader2 size={15} className="animate-spin text-[#090D16]" /> : <span>Instant Online Book</span>}
-                      <ArrowRight size={14} className="text-[#090D16]" />
+                      {busy ? <Loader2 size={16} className="animate-spin text-[#090D16]" /> : <span>Confirm &amp; Book Cab</span>}
+                      <ArrowRight size={15} className="text-[#090D16]" />
                     </Button>
                   </div>
                 </div>
@@ -1106,33 +1096,20 @@ export default function BookingPage() {
             <button
               type="button"
               onClick={handleProceedToStep2}
-              className="h-10 px-4 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] text-[#090D16] rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer"
+              className="h-10 px-5 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] text-[#090D16] rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer"
             >
               <span>Continue →</span>
             </button>
           ) : (
-            <>
-              <button
-                type="button"
-                disabled={busy}
-                onClick={() => handleBookNow(true)}
-                className="h-10 px-3 bg-[#25D366] text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow-md active:scale-95 cursor-pointer"
-                title="Book via WhatsApp"
-              >
-                <MessageSquare size={14} />
-                <span>WhatsApp</span>
-              </button>
-
-              <button
-                type="button"
-                disabled={busy}
-                onClick={() => handleBookNow(false)}
-                className="h-10 px-4 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] text-[#090D16] rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer"
-              >
-                {busy ? <Loader2 size={14} className="animate-spin" /> : <span>Book Now</span>}
-                <ArrowRight size={13} />
-              </button>
-            </>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => handleBookNow(false)}
+              className="h-10 px-5 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] text-[#090D16] rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer"
+            >
+              {busy ? <Loader2 size={14} className="animate-spin" /> : <span>Confirm Booking</span>}
+              <ArrowRight size={13} />
+            </button>
           )}
         </div>
       </div>
