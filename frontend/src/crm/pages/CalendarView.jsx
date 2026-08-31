@@ -1275,15 +1275,34 @@ export default function CalendarView() {
                 </div>
 
                 <div className="mt-4 flex flex-col sm:flex-row flex-wrap gap-2 justify-end font-body">
+                  {detail.customer?.phone && (
+                    <a
+                      href={`https://wa.me/91${detail.customer.phone.replace(/\D/g, "")}?text=${encodeURIComponent(
+                        `Hello ${detail.customer?.name || "Customer"}, your Cab Castle Goa booking (${detail.booking_no}) for ${detail.vehicle_snapshot?.title || "your vehicle"} has been confirmed for ${format(new Date(detail.start_date), "dd MMM yyyy")}. Our chauffeur will arrive at ${detail.pickup_location || "your pickup location"}. Thank you for choosing Cab Castle!`
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full sm:w-auto"
+                    >
+                      <Button
+                        type="button"
+                        className="w-full sm:w-auto bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs rounded-xl px-4 cursor-pointer justify-center shadow-xs"
+                      >
+                        <Phone size={14} className="mr-1.5" /> WhatsApp Dispatch
+                      </Button>
+                    </a>
+                  )}
+
                   <a href={`${API}/bookings/${detail.id}/invoice`} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
                     <Button
                       variant="outline"
                       className="w-full sm:w-auto border-[#DFE8EC] bg-[#F8FAFC] text-[#063247] hover:bg-[#F1F5F9] font-semibold text-xs rounded-xl px-4 cursor-pointer justify-center"
                       data-testid="cal-invoice-btn"
                     >
-                      <Download size={14} className="mr-1.5 text-[#0E7490]" /> Download PDF Invoice
+                      <Download size={14} className="mr-1.5 text-[#0E7490]" /> PDF Invoice
                     </Button>
                   </a>
+
                   {detail.status !== "Completed" && (
                     <Button
                       variant="outline"
