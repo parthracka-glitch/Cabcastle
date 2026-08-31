@@ -838,20 +838,20 @@ export default function BookingPage() {
                   </div>
                 </div>
 
-                {/* Live Fare Summary Bar */}
-                <div className="p-3.5 rounded-2xl bg-[#063247] text-white flex items-center justify-between">
+                {/* Minimalist Live Fare Summary Bar */}
+                <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#E8E0D2] flex items-center justify-between">
                   <div>
-                    <span className="text-[9.5px] uppercase tracking-wider text-[#C3E7FA] font-bold block">
-                      Total Calculated Tariff
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#64748B] block">
+                      Total Estimated Tariff
                     </span>
-                    <div className="text-xl font-black text-[#288DA6] leading-tight">
+                    <div className="text-2xl font-black text-[#0F172A] tracking-tight leading-tight mt-0.5">
                       {formatINR(totalAmount)}
                     </div>
-                    <span className="text-[10px] text-white/80">{rateDescription}</span>
+                    <span className="text-[11px] text-[#475569]">{rateDescription}</span>
                   </div>
 
-                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-1 rounded-full">
-                    Zero Advance
+                  <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                    ✓ Zero Advance · Pay to Driver
                   </span>
                 </div>
 
@@ -1038,27 +1038,29 @@ export default function BookingPage() {
                 </div>
               </div>
 
-              {/* FARE & BILLING SUMMARY */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#063247] text-white space-y-3 shadow-lg">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              {/* Minimalist Professional Fare & Confirmation Card */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-[#E8E0D2] space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#C3E7FA]">Total Fare</span>
-                    <div className="font-display text-2xl sm:text-3xl font-extrabold text-[#288DA6]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B] block">
+                      Total Payable to Driver
+                    </span>
+                    <div className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-tight mt-0.5">
                       {formatINR(totalAmount)}
                     </div>
-                    <span className="text-xs text-[#E4F2F5]/90 font-normal">
-                      {rateDescription} · Zero Advance Payment
+                    <span className="text-xs text-[#475569] font-medium block mt-0.5">
+                      {rateDescription} · Zero Advance Deposit
                     </span>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2.5">
                     <Button
                       type="button"
                       disabled={busy}
                       onClick={() => handleBookNow(true)}
-                      className="h-12 px-6 bg-[#25D366] hover:bg-[#1E7E34] text-white text-xs font-extrabold uppercase tracking-wider rounded-full shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 border-t border-white/20"
+                      className="h-11 px-5 bg-white hover:bg-[#25D366] text-[#0F172A] hover:text-white border border-[#E8E0D2] hover:border-[#25D366] text-xs font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
                     >
-                      <MessageSquare size={16} />
+                      <MessageSquare size={15} className="text-[#25D366] group-hover:text-white shrink-0" />
                       <span>Book via WhatsApp</span>
                     </Button>
 
@@ -1066,19 +1068,18 @@ export default function BookingPage() {
                       type="button"
                       disabled={busy}
                       onClick={() => handleBookNow(false)}
-                      className="h-12 px-6 bg-[#288DA6] hover:bg-[#22768C] text-white text-xs font-black uppercase tracking-wider rounded-full shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 border-t border-white/30"
+                      className="h-11 px-6 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs font-black uppercase tracking-wider rounded-xl shadow-gold transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 border border-[#E5A93C]/40"
                     >
-                      {busy ? <Loader2 size={16} className="animate-spin text-white" /> : <span>Instant Online Book</span>}
-                      <ArrowRight size={15} className="text-white" />
+                      {busy ? <Loader2 size={15} className="animate-spin text-[#090D16]" /> : <span>Instant Online Book</span>}
+                      <ArrowRight size={14} className="text-[#090D16]" />
                     </Button>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-y-1 text-[11px] text-[#DFE8EC]/85 font-mono">
-                  <span>• Extra Hour: ₹{vehicle.extraHr}/hr</span>
-                  <span>• Extra Km: ₹{vehicle.extraKm}/km</span>
-                  <span>• Night Charge: ₹{vehicle.nightCharge} (after 10 PM)</span>
-                  <span>• Zero Deposit: ₹0 · Pay to Driver</span>
+                <div className="pt-3 border-t border-[#E8E0D2] flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#64748B]">
+                  <span>✓ Free Cancellation up to 2h before pickup</span>
+                  <span>✓ Sanitized AC Cab &amp; Polite Chauffeur</span>
+                  <span>✓ Extra Hr: ₹{vehicle.extraHr}/h · Extra Km: ₹{vehicle.extraKm}/km</span>
                 </div>
               </div>
 
