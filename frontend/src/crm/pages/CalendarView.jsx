@@ -327,13 +327,13 @@ export default function CalendarView() {
     <TooltipProvider delayDuration={150}>
       <div className="space-y-5 font-body text-[#063247] max-w-[1400px] mx-auto w-full pb-8 text-left">
         
-        {/* ── 1. CLEAN PAPER RUNWAY HEADER & KPI STRIP ── */}
+        {/* ── 1. CLEAN PAPER CALENDAR HEADER & KPI STRIP ── */}
         <div className="bg-white border border-[#EAEAEA] rounded-[24px] p-5 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.02)] space-y-4">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#F0F0F0]">
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
                 <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063247] tracking-tight">
-                  Fleet Runway
+                  Fleet Calendar
                 </h1>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FAF8F5] text-[#063247] border border-[#E8E0D2]">
                   <CalendarDays size={13} className="text-[#288DA6]" />
@@ -345,7 +345,7 @@ export default function CalendarView() {
                 </span>
               </div>
               <p className="text-xs text-[#64748B] mt-1 font-normal">
-                Minimalist linear dispatch runway, real-time car occupancy, and customer timeline matrix.
+                Live vehicle availability, reservation timelines &amp; dispatch schedule.
               </p>
             </div>
 
@@ -362,7 +362,7 @@ export default function CalendarView() {
                   data-testid="view-timeline-btn"
                 >
                   <LayoutGrid size={13} />
-                  <span>Runway</span>
+                  <span>Timeline</span>
                 </button>
                 <button
                   onClick={() => setViewMode("DAILY")}
