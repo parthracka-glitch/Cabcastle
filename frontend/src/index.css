@@ -1,0 +1,306 @@
+/* Cab Castle Goa Design System */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Cab Castle Goa Brand Palette */
+  --castle-primary: #0F172A;           /* Midnight Obsidian / Royal Navy */
+  --castle-primary-hover: #090D16;     /* Deepest Velvet Obsidian */
+  --castle-primary-active: #05080E;
+  --castle-gold: #E5A93C;              /* Royal Champagne Gold */
+  --castle-gold-hover: #D4901F;        /* Deep Lustrous Gold */
+  --castle-gold-light: #F6D285;        /* Soft Shimmer Gold */
+  --castle-gold-pale: #FDF8EE;         /* Warm Ivory Gold Glow */
+  --castle-teal: #E5A93C;              /* Aliased to Gold */
+  --castle-teal-hover: #D4901F;
+  --castle-cyan: #FDF8EE;
+  --castle-slate: #475569;             /* Refined Slate Gray */
+  --castle-pale-blue: #F6D285;
+  --castle-canvas: #FAF8F5;            /* Castle Ivory Canvas */
+  --castle-white: #FFFFFF;             /* Card Surface */
+  --castle-text-primary: #0F172A;      /* Primary Text */
+  --castle-text-secondary: #475569;    /* Secondary Text */
+  --castle-text-tertiary: #64748B;     /* Tertiary / Placeholder */
+  --castle-border: #E8E0D2;            /* Subtle Gold-Ivory Border */
+  --castle-disabled: #F1ECE2;          /* Disabled BG */
+
+  /* Legacy variable aliases for smooth transition */
+  --coastal-primary: #0F172A;
+  --coastal-primary-hover: #090D16;
+  --coastal-primary-active: #05080E;
+  --coastal-teal: #E5A93C;
+  --coastal-teal-hover: #D4901F;
+  --coastal-cyan: #FDF8EE;
+  --coastal-slate: #475569;
+  --coastal-pale-blue: #F6D285;
+  --coastal-canvas: #FAF8F5;
+  --coastal-white: #FFFFFF;
+  --coastal-text-primary: #0F172A;
+  --coastal-text-secondary: #475569;
+  --coastal-text-tertiary: #64748B;
+  --coastal-border: #E8E0D2;
+  --coastal-disabled: #F1ECE2;
+
+  /* Typography */
+  --castle-font: 'Plus Jakarta Sans', 'Outfit', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --coastal-font: 'Plus Jakarta Sans', 'Outfit', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Aliases for Shadcn / Tailwind variables */
+  --background: 40 33% 97%;             /* #FAF8F5 */
+  --foreground: 222 47% 11%;           /* #0F172A */
+  --card: 0 0% 100%;                   /* #FFFFFF */
+  --card-foreground: 222 47% 11%;      /* #0F172A */
+  --popover: 0 0% 100%;                /* #FFFFFF */
+  --popover-foreground: 222 47% 11%;   /* #0F172A */
+  --primary: 222 47% 11%;              /* #0F172A */
+  --primary-foreground: 0 0% 100%;     /* #FFFFFF */
+  --secondary: 40 70% 96%;             /* #FDF8EE */
+  --secondary-foreground: 222 47% 11%; /* #0F172A */
+  --muted: 40 33% 97%;                 /* #FAF8F5 */
+  --muted-foreground: 215 16% 47%;     /* #475569 */
+  --accent: 38 78% 56%;                /* #E5A93C */
+  --accent-foreground: 222 47% 11%;    /* #0F172A */
+  --destructive: 0 74% 53%;            /* #E03131 */
+  --destructive-foreground: 0 0% 100%;
+  --border: 38 25% 87%;                /* #E8E0D2 */
+  --input: 38 25% 87%;                 /* #E8E0D2 */
+  --ring: 38 78% 56%;                  /* #E5A93C */
+  --radius: 20px;                      /* 20px-24px rounded corners */
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: scroll !important;
+  width: 100%;
+  background-color: #FAF8F5;
+}
+
+body,
+html body,
+body[data-scroll-locked],
+html body[data-scroll-locked] {
+  background: #F7F7F7;
+  color: #063247;
+  font-family: var(--coastal-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden !important;
+  overflow-y: scroll !important;
+  width: 100%;
+  position: relative;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+/* Force override any inline styles applied by react-remove-scroll / Radix UI */
+body[style*="padding-right"],
+html[style*="padding-right"],
+body[style*="padding-left"],
+html[style*="padding-left"],
+body[style*="overflow: hidden"],
+html[style*="overflow: hidden"],
+body[style*="overflow-y: hidden"] {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  overflow-y: scroll !important;
+}
+
+/* Prevent layout shift when popper/select opens */
+[data-radix-popper-content-wrapper] {
+  z-index: 60 !important;
+}
+
+/* Coastal Custom Sleek Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #F7F7F7;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #DFE8EC;
+  border-radius: 999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #4C606E;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Coastal Header Navigation */
+.glass-nav-header {
+  background: rgba(247, 247, 247, 0.94);
+  border-bottom: 1px solid #DFE8EC;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Focus Ring */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0px 0px 0px 3px rgba(42, 143, 168, 0.25) !important;
+}
+
+::selection {
+  background-color: #063247;
+  color: #FFFFFF;
+}
+
+/* ── HERO LIQUID FLUID BLOB MORPHING ANIMATION ── */
+@keyframes heroLiquidMorph {
+  0% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 58% 42% 40% 60% / 60% 35% 65% 40%;
+    transform: rotate(2.5deg) scale(1.02);
+  }
+  50% {
+    border-radius: 35% 65% 62% 38% / 40% 62% 38% 60%;
+    transform: rotate(-2deg) scale(0.98);
+  }
+  75% {
+    border-radius: 65% 35% 42% 58% / 55% 42% 58% 45%;
+    transform: rotate(3deg) scale(1.03);
+  }
+  100% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.hero-liquid-shape {
+  background: radial-gradient(circle at 35% 30%, #C3E7FA 0%, #2A8FA8 55%, #063247 100%);
+  box-shadow: 
+    0 25px 50px -12px rgba(6, 50, 71, 0.35),
+    0 10px 30px rgba(42, 143, 168, 0.25),
+    inset 0 -10px 20px rgba(6, 50, 71, 0.25),
+    inset 0 10px 20px rgba(255, 255, 255, 0.4);
+  animation: heroLiquidMorph 9s ease-in-out infinite;
+  will-change: border-radius, transform;
+  transform: translateZ(0);
+}
+
+.hero-liquid-glow {
+  background: radial-gradient(circle, rgba(42, 143, 168, 0.35) 0%, rgba(195, 231, 250, 0.2) 50%, rgba(6, 50, 71, 0) 75%);
+  filter: blur(28px);
+  animation: heroLiquidMorph 12s ease-in-out infinite reverse;
+  will-change: border-radius, transform;
+  transform: translateZ(0);
+}
+
+/* ── HERO CAR SWIPE TRANSITION ── */
+@keyframes heroCarSwipeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(35px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.hero-car-swipe {
+  animation: heroCarSwipeIn 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* ── HERO BANNER CONTENT FADE & SLIDE ANIMATION ── */
+@keyframes heroBannerFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-banner-content-animate {
+  animation: heroBannerFadeIn 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroGlowPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+.hero-glow-pulse {
+  animation: heroGlowPulse 4s ease-in-out infinite;
+}
+
+/* ── HIGH PERFORMANCE RENDERING OPTIMIZATIONS ── */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img, video {
+  content-visibility: auto;
+}
+
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 400px;
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* ── CAB CASTLE LUXURY STYLING UTILITIES ── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FDE68A 0%, #E5A93C 50%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold-shimmer {
+  background: linear-gradient(90deg, #F5D77F 0%, #FFFFFF 50%, #E5A93C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #F5D061 0%, #E5A93C 50%, #C58B24 100%);
+}
+
+.bg-gold-gradient:hover {
+  background: linear-gradient(135deg, #F7D875 0%, #E8B045 50%, #D4901F 100%);
+}
+
+.border-gold-subtle {
+  border: 1px solid rgba(229, 169, 60, 0.28);
+}
+
+.castle-gold-glow {
+  box-shadow: 0 0 28px rgba(229, 169, 60, 0.22);
+}
+
+

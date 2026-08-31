@@ -1,0 +1,73 @@
+name: DriveHub Goa CI / Quality Assurance
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  backend-test:
+    name: Backend Lint, Typecheck & Vitest Suite
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:7.0
+        ports:
+          - 27017:27017
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: TypeScript Type Checking
+        run: npx tsc --noEmit
+
+      - name: Run Vitest Integration Test Suite
+        run: npm test
+        env:
+          NODE_ENV: test
+          JWT_SECRET: ci-testing-jwt-secret-key-32-chars-long
+          PORT: 8000
+          MONGO_URL: mongodb://127.0.0.1:27017/drivehub_goa
+          DB_NAME: drivehub_goa
+
+  frontend-build:
+    name: Frontend Build & Asset Verification
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          cache-dependency-path: frontend/yarn.lock
+
+      - name: Install Yarn Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Verify Production Build
+        run: yarn build
+        env:
+          CI: false
+          REACT_APP_API_URL: https://api.drivehubgoa.com

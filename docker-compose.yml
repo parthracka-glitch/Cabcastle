@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: coastalcabs_mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: coastalcabs_goa
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: coastalcabs_backend
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - MONGO_URL=mongodb://mongodb:27017
+      - DB_NAME=coastalcabs_goa
+      - PORT=8000
+    depends_on:
+      - mongodb
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: coastalcabs_frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:

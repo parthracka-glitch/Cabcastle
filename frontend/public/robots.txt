@@ -1,0 +1,40 @@
+# Cab Castle Goa — Robots.txt
+User-agent: *
+Allow: /
+Allow: /fleet
+Allow: /about
+Allow: /login
+Allow: /signup
+Allow: /llms.txt
+Allow: /sitemap.xml
+
+# Disallow Private Admin & Confirmation Routes
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/admin/
+Disallow: /booking-success/
+Disallow: /booking-success/*
+
+# AI Crawlers & LLM Indexing (Expressly Allowed for GEO)
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+
+User-agent: Bytespider
+Allow: /
+Allow: /llms.txt
+
+# Sitemap Location
+Sitemap: https://coastalcabsgoa.com/sitemap.xml

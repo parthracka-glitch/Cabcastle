@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="theme-color" content="#F7F7F7" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="description" content="Cab Castle Goa - Premium Cab Rental & Tour Travels in Goa. Transparent hourly packages, airport transfers, zero hidden charges." />
+        <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="shortcut icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
+        <!-- Preconnect to critical origins for faster resource fetching -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://accounts.google.com" />
+        <!-- Non-blocking font loading with display=swap (prevents FOIT) -->
+        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" />
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+        <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
+        <title>Cab Castle Goa — Premium Cabs &amp; Tour Travels in Goa</title>
+        <!-- Search Engine Site Verification Slots -->
+        <meta name="google-site-verification" content="%REACT_APP_GSC_VERIFICATION%" />
+        <meta name="msvalidate.01" content="%REACT_APP_BING_VERIFICATION%" />
+        <!-- Google Analytics 4 (GA4) Hook -->
+        <script>
+          (function() {
+            var gaId = "%REACT_APP_GA_MEASUREMENT_ID%";
+            if (gaId && gaId.indexOf("REACT_APP") === -1 && gaId.indexOf("G-") === 0) {
+              var s = document.createElement("script");
+              s.async = true;
+              s.src = "https://www.googletagmanager.com/gtag/js?id=" + gaId;
+              document.head.appendChild(s);
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', gaId);
+            }
+          })();
+        </script>
+        <script>
+          (function () {
+            var isIgnorable = function (msg) {
+              if (!msg) return false;
+              var str = typeof msg === "string" ? msg : (msg.message || (msg.reason && msg.reason.message) || msg.toString?.() || "");
+              return (
+                str.indexOf("ResizeObserver") !== -1 ||
+                str.indexOf("undelivered notifications") !== -1 ||
+                str.indexOf("loop limit exceeded") !== -1 ||
+                (str.indexOf("DataCloneError") !== -1 && str.indexOf("PerformanceServerTiming") !== -1)
+              );
+            };
+
+            // 1. Intercept standard error events
+            window.addEventListener("error", function (e) {
+              if (isIgnorable(e.message) || isIgnorable(e.error)) {
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                e.preventDefault();
+                return true;
+              }
+            }, true);
+
+            // 2. Intercept unhandled rejections
+            window.addEventListener("unhandledrejection", function (e) {
+              if (isIgnorable(e.reason)) {
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                e.preventDefault();
+              }
+            }, true);
+
+            // 3. Suppress in window.onerror
+            var origOnError = window.onerror;
+            window.onerror = function (message, source, lineno, colno, error) {
+              if (isIgnorable(message) || isIgnorable(error)) {
+                return true;
+              }
+              if (typeof origOnError === "function") {
+                return origOnError.apply(this, arguments);
+              }
+            };
+
+            // 4. Wrap ResizeObserver with requestAnimationFrame to prevent notification loops
+            if (typeof window !== "undefined" && window.ResizeObserver) {
+              var NativeRO = window.ResizeObserver;
+              window.ResizeObserver = function (callback) {
+                return new NativeRO(function (entries, observer) {
+                  window.requestAnimationFrame(function () {
+                    try {
+                      callback(entries, observer);
+                    } catch (err) {
+                      // ignore
+                    }
+                  });
+                });
+              };
+              window.ResizeObserver.prototype = NativeRO.prototype;
+            }
+
+            // 5. Intercept dev server error overlay event listeners
+            var origAddEventListener = window.addEventListener;
+            window.addEventListener = function (type, listener, options) {
+              if ((type === "error" || type === "unhandledrejection") && typeof listener === "function") {
+                var wrapped = function (event) {
+                  if (event && (isIgnorable(event.message) || isIgnorable(event.error) || isIgnorable(event.reason))) {
+                    return;
+                  }
+                  return listener.apply(this, arguments);
+                };
+                return origAddEventListener.call(this, type, wrapped, options);
+              }
+              return origAddEventListener.apply(this, arguments);
+            };
+          })();
+        </script>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+        <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+    </body>
+</html>
