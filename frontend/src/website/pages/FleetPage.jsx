@@ -16,10 +16,7 @@ import {
   Car,
   ChevronRight,
   ChevronLeft,
-  Phone,
-  MessageSquare,
   ArrowRight,
-  Compass,
 } from "lucide-react";
 
 import { MASTER_FLEET } from "../data/fleetData";
@@ -205,12 +202,6 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
 
           {/* Center Hero Content */}
           <div className="relative z-10 max-w-2xl mx-auto my-auto space-y-3 sm:space-y-4 pt-4">
-            {/* Badge Pill */}
-            <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest bg-black/60 backdrop-blur-md border border-[#E5A93C]/40 text-[#F6D285] shadow-gold">
-              <Compass size={13} className="text-[#E5A93C]" />
-              <span>{currentHero.badge}</span>
-            </div>
-
             {/* Massive Bold Headline */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white font-display tracking-tight leading-none drop-shadow-xl">
               {currentHero.title}
@@ -221,44 +212,16 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
               {currentHero.subtitle}
             </p>
 
-            {/* Showing chip */}
-            <div className="pt-0.5">
-              <span className="inline-block bg-black/50 backdrop-blur-md border border-[#E5A93C]/30 text-[#F6D285] text-[11px] font-mono font-bold px-3 py-1 rounded-full">
-                Showing: {currentHero.modelShowing}
-              </span>
-            </div>
-
-            {/* 3 Action Buttons */}
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
-              {/* Button 1: Explore Services / Fleet */}
+            {/* Action Button */}
+            <div className="pt-3 flex items-center justify-center">
               <button
                 type="button"
                 onClick={scrollToFleet}
-                className="h-11 px-6 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs font-black uppercase tracking-wider rounded-full shadow-gold transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 border border-[#E5A93C]/40"
+                className="h-12 px-8 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs sm:text-sm font-black uppercase tracking-wider rounded-full shadow-gold transition-all flex items-center gap-2 cursor-pointer active:scale-95 border border-[#E5A93C]/40"
               >
                 <span>EXPLORE CABS</span>
-                <ArrowRight size={14} className="text-[#090D16]" />
+                <ArrowRight size={15} className="text-[#090D16]" />
               </button>
-
-              {/* Button 2: Call Now */}
-              <a
-                href="tel:+917026648960"
-                className="h-11 px-5 bg-black/50 hover:bg-black/80 text-white border border-white/30 backdrop-blur-md text-xs font-bold rounded-full transition-all flex items-center gap-1.5 cursor-pointer shadow-md active:scale-95"
-              >
-                <Phone size={13} className="text-[#F6D285]" />
-                <span>Call +91 70266 48960</span>
-              </a>
-
-              {/* Button 3: WhatsApp Button */}
-              <a
-                href="https://wa.me/917026648960?text=Hello%20Cab%20Castle%20Goa,%20I%20would%20like%20to%20enquire%20about%20Tour%20Packages%20and%20Cabs"
-                target="_blank"
-                rel="noreferrer"
-                className="h-11 px-5 bg-gradient-to-r from-[#25D366] via-[#22be5c] to-[#1a9a49] hover:from-[#2ce06e] hover:to-[#1ea750] text-white text-xs font-extrabold rounded-full shadow-md transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 border-t border-white/30"
-              >
-                <MessageSquare size={14} />
-                <span>WhatsApp +91 70266 48960</span>
-              </a>
             </div>
           </div>
 
