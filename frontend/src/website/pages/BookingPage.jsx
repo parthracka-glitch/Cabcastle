@@ -968,6 +968,42 @@ export default function BookingPage() {
 
       </main>
 
+      {/* ── MOBILE STICKY FLOATING BOTTOM BAR ── */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#063247]/95 backdrop-blur-md border-t border-white/10 p-3 px-4 shadow-2xl flex items-center justify-between text-left">
+        <div>
+          <span className="text-[9.5px] uppercase tracking-wider text-[#C3E7FA] font-bold block">
+            {tourSubOption === "hourly" ? `${days} Day(s) Tour` : "Transfer Fare"}
+          </span>
+          <div className="text-xl font-black text-[#288DA6] leading-tight">
+            {formatINR(totalAmount)}
+          </div>
+          <span className="text-[9.5px] text-white/80 font-medium">Pay to Driver</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => handleBookNow(true)}
+            className="h-10 px-3 bg-[#25D366] text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow-md active:scale-95 cursor-pointer"
+            title="Book via WhatsApp"
+          >
+            <MessageSquare size={14} />
+            <span>WhatsApp</span>
+          </button>
+
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => handleBookNow(false)}
+            className="h-10 px-4 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] text-[#090D16] rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer"
+          >
+            {busy ? <Loader2 size={14} className="animate-spin" /> : <span>Book Now</span>}
+            <ArrowRight size={13} />
+          </button>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
