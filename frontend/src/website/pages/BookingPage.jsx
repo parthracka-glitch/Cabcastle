@@ -197,7 +197,7 @@ export default function BookingPage() {
       return {
         totalAmount: total,
         perDayRate: vehicle.hourlyRate,
-        rateDescription: `8h / 80km Tour Package (${days} ${days === 1 ? "Day" : "Days"})`,
+        rateDescription: `${days * 8}h · ${days * 80}km included (${days} ${days === 1 ? "Day" : "Days"} Tour Package)`,
       };
     } else {
       let total = vehicle.transfers.airport;
