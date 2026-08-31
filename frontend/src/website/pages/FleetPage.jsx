@@ -142,33 +142,43 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
       />
       <Navbar />
 
-      {/* ── 1. CLEAN & SIMPLE HERO BANNER ── */}
-      <section className="pt-20 sm:pt-24 pb-14 sm:pb-18 w-full bg-gradient-to-b from-[#063247] via-[#0A4560] to-[#063247] relative overflow-hidden select-none border-b border-[#DFE8EC]/20">
-        {/* Subtle Ambient Glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#288DA6]/20 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40" />
+      {/* ── 1. CLEAN & CRISP HERO BANNER WITH SCENIC GOA BACKGROUND ── */}
+      <section className="pt-14 sm:pt-16 w-full bg-[#063247] relative select-none">
+        <div className="relative w-full h-[60vh] min-h-[440px] max-h-[580px] overflow-hidden flex flex-col justify-center items-center text-center p-6 sm:p-12">
+          
+          {/* Clear Scenic Goa Landscape Background Image */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1600&q=80"
+              alt="Goa Beach & Cabs"
+              className="w-full h-full object-cover object-center brightness-[0.75]"
+            />
+            {/* Clean Light-to-Dark Protective Tint */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#063247] via-[#063247]/40 to-[#063247]/60 pointer-events-none" />
+          </div>
 
-        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-4 sm:space-y-5">
-          {/* Main Title */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white font-display tracking-tight leading-tight drop-shadow-sm">
-            TOUR PACKAGES &amp; CABS
-          </h1>
+          <div className="relative z-10 max-w-3xl mx-auto space-y-4 sm:space-y-5">
+            {/* Main Title */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white font-display tracking-tight leading-none drop-shadow-xl">
+              TOUR PACKAGES &amp; CABS
+            </h1>
 
-          {/* Clean Subtitle */}
-          <p className="text-sm sm:text-base text-white/90 max-w-2xl mx-auto leading-relaxed font-normal">
-            Reliable sightseeing day tours, beach hopping, heritage forts, and 24/7 airport terminal pickups with verified local drivers in Goa.
-          </p>
+            {/* Subtitle */}
+            <p className="text-xs sm:text-base text-white/95 max-w-xl mx-auto leading-relaxed drop-shadow-md font-normal">
+              Relax with experienced, professional local drivers for North &amp; South Goa day tours, beach hopping, heritage forts, and 24/7 airport terminal pickups.
+            </p>
 
-          {/* Action Button */}
-          <div className="pt-3 flex items-center justify-center">
-            <button
-              type="button"
-              onClick={scrollToFleet}
-              className="h-12 px-8 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs sm:text-sm font-black uppercase tracking-wider rounded-full shadow-lg hover:shadow-xl transition-all flex items-center gap-2 cursor-pointer active:scale-95 border border-[#E5A93C]/40"
-            >
-              <span>EXPLORE CABS</span>
-              <ArrowRight size={15} className="text-[#090D16]" />
-            </button>
+            {/* Action Button */}
+            <div className="pt-2 flex items-center justify-center">
+              <button
+                type="button"
+                onClick={scrollToFleet}
+                className="h-12 px-8 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs sm:text-sm font-black uppercase tracking-wider rounded-full shadow-gold transition-all flex items-center gap-2 cursor-pointer active:scale-95 border border-[#E5A93C]/40"
+              >
+                <span>EXPLORE CABS</span>
+                <ArrowRight size={15} className="text-[#090D16]" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
