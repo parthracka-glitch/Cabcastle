@@ -1,6 +1,6 @@
-/* Cab Castle Goa Design System */
 import React from "react";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
+import Marquee from "react-fast-marquee";
 import SEO from "../components/seo/SEO";
 import { BreadcrumbStructuredData } from "../components/seo/AdditiveSchemas";
 import Navbar from "../components/layout/Navbar";
@@ -326,73 +326,103 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
 
       </section>
 
-      {/* ── Verified Customer Reviews & Social Proof ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-[#DFE8EC]/80">
-        <div className="text-center max-w-2xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-1 text-xs font-bold text-[#063247] bg-[#E4F2F5] px-3 py-1 rounded-full border border-[#288DA6]/30 mb-2">
-            ⭐ 4.9 / 5 Rated by 500+ Travelers
+      {/* ── Verified Customer Reviews & Infinite Scrolling Social Proof ── */}
+      <section className="py-14 bg-gradient-to-b from-[#F7F7F7] to-[#FFFFFF] border-t border-[#DFE8EC]/80 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#063247] bg-[#E4F2F5] px-3.5 py-1 rounded-full border border-[#288DA6]/30 mb-2.5">
+            ⭐ 4.9 / 5 Rated · 500+ Verified Goa Trips
           </div>
-          <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#063247]">
+          <h2 className="font-display font-extrabold text-2xl sm:text-4xl text-[#063247] tracking-tight">
             Loved by Goa Tourists &amp; Families
           </h2>
-          <p className="text-xs text-[#5A7184] mt-1">
-            Real experiences from travelers who explored North &amp; South Goa with Cab Castle.
+          <p className="text-xs sm:text-sm text-[#5A7184] mt-1.5 max-w-xl mx-auto">
+            Real stories and ratings from travelers exploring North &amp; South Goa with Cab Castle.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
-          {[
-            {
-              name: "Pooja & Rohan Mehta",
-              city: "Mumbai",
-              trip: "3-Day North & South Goa Tour",
-              car: "Toyota Innova Crysta",
-              text: "Our chauffeur Suresh was exceptionally polite and knew all the hidden beach viewpoints in South Goa. The car was spotless and AC was freezing cold throughout.",
-              rating: 5,
-            },
-            {
-              name: "Dr. Arvind Swaminathan",
-              city: "Bangalore",
-              trip: "Mopa Airport Pickup + Sightseeing",
-              car: "Maruti Ertiga AC",
-              text: "Flight landed at Mopa airport at 11 PM and driver was already waiting outside with our name board. Zero advance payment and honest pricing. Highly recommend!",
-              rating: 5,
-            },
-            {
-              name: "Elena & David Wright",
-              city: "UK (International Tourist)",
-              trip: "Dudhsagar Falls & Heritage Tour",
-              car: "Maruti Baleno AC",
-              text: "Booking on WhatsApp was seamless. Clear English speaking driver who helped us buy tickets at Dudhsagar without standing in queues. 10/10 experience!",
-              rating: 5,
-            },
-          ].map((rev, i) => (
-            <div key={i} className="p-5 rounded-3xl bg-white border border-[#DFE8EC] shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-1 mb-2.5">
-                  <div className="flex text-amber-400 text-xs tracking-tight">
-                    {"★".repeat(rev.rating)}
+        {/* Infinite Scrolling Horizontal Marquee */}
+        <div className="relative w-full">
+          <Marquee speed={36} pauseOnHover={true} gradient={false} className="py-2">
+            {[
+              {
+                name: "Pooja & Rohan Mehta",
+                city: "Mumbai",
+                trip: "3-Day North & South Goa Tour",
+                car: "Toyota Innova Crysta",
+                text: "Our chauffeur Suresh was exceptionally polite and knew all the hidden beach viewpoints in South Goa. The car was spotless and AC was freezing cold throughout.",
+                rating: 5,
+              },
+              {
+                name: "Dr. Arvind Swaminathan",
+                city: "Bangalore",
+                trip: "Mopa Airport Pickup + Sightseeing",
+                car: "Maruti Ertiga AC",
+                text: "Flight landed at Mopa airport at 11 PM and driver was already waiting outside with our name board. Zero advance payment and honest pricing. Highly recommend!",
+                rating: 5,
+              },
+              {
+                name: "Elena & David Wright",
+                city: "UK (International Tourist)",
+                trip: "Dudhsagar Falls & Heritage Tour",
+                car: "Maruti Baleno AC",
+                text: "Booking on WhatsApp was seamless. Clear English speaking driver who helped us buy tickets at Dudhsagar without standing in queues. 10/10 experience!",
+                rating: 5,
+              },
+              {
+                name: "Sameer Deshmukh",
+                city: "Pune",
+                trip: "South Goa Beaches & Sunset Trip",
+                car: "Swift Dzire AC",
+                text: "We visited Palolem, Cabo de Rama, and Cola Beach. The driver gave great local seafood restaurant tips and drove very safely on the ghat roads.",
+                rating: 5,
+              },
+              {
+                name: "Rajesh & Sneha Kulkarni",
+                city: "Hyderabad",
+                trip: "4-Day Complete Goa Vacation",
+                car: "Innova Crysta Luxury",
+                text: "Travelled with elderly parents and two kids. The spacious Innova Crysta made the entire trip smooth and relaxing. Punctual every single morning!",
+                rating: 5,
+              },
+              {
+                name: "Vikramjit Singh",
+                city: "Delhi NCR",
+                trip: "North Goa Beach & Club Hopping",
+                car: "Maruti Ertiga AC",
+                text: "No surge pricing at midnight after Baga clubs. Driver was professional and respectful. Best cab service in Goa by far!",
+                rating: 5,
+              },
+            ].map((rev, i) => (
+              <div
+                key={i}
+                className="mx-3.5 w-[330px] sm:w-[370px] p-5 rounded-3xl bg-white border border-[#DFE8EC] shadow-2xs hover:shadow-md hover:border-[#288DA6]/40 transition-all flex flex-col justify-between text-left shrink-0 select-none"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-3">
+                    <div className="flex text-amber-400 text-xs tracking-tight">
+                      {"★".repeat(rev.rating)}
+                    </div>
+                    <span className="text-[10px] font-bold text-[#288DA6] bg-[#E4F2F5] px-2.5 py-0.5 rounded-full">
+                      {rev.trip}
+                    </span>
                   </div>
-                  <span className="text-[10px] font-bold text-[#288DA6] bg-[#E4F2F5] px-2 py-0.5 rounded-full">
-                    {rev.trip}
+                  <p className="text-xs text-[#334155] leading-relaxed italic mb-4">
+                    "{rev.text}"
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-[#F1F5F9] flex items-center justify-between">
+                  <div>
+                    <div className="font-bold text-xs text-[#063247]">{rev.name}</div>
+                    <div className="text-[10px] text-[#64748B] font-medium">{rev.city} · {rev.car}</div>
+                  </div>
+                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    ✓ Verified Trip
                   </span>
                 </div>
-                <p className="text-xs text-[#334155] leading-relaxed italic mb-4">
-                  "{rev.text}"
-                </p>
               </div>
-
-              <div className="pt-3 border-t border-[#F1F5F9] flex items-center justify-between">
-                <div>
-                  <div className="font-bold text-xs text-[#063247]">{rev.name}</div>
-                  <div className="text-[10px] text-[#64748B]">{rev.city} · {rev.car}</div>
-                </div>
-                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                  ✓ Verified Trip
-                </span>
-              </div>
-            </div>
-          ))}
+            ))}
+          </Marquee>
         </div>
       </section>
 
