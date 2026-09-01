@@ -53,7 +53,7 @@ describe('Coastal Cabs Goa Express Backend Test Suite', () => {
       const res = await request(app).get('/');
       expect(res.status).toBe(200);
       expect(res.body.status).toBe('online');
-      expect(res.body.service).toBe('Coastal Cabs Goa API');
+      expect(res.body.service).toContain('Cab Castle Goa');
     });
 
     it('GET /api/ should return ok', async () => {
@@ -65,14 +65,14 @@ describe('Coastal Cabs Goa Express Backend Test Suite', () => {
     it('GET /api/healthz should return healthy status', async () => {
       const res = await request(app).get('/api/healthz');
       expect(res.status).toBe(200);
-      expect(res.body.service).toBe('coastal-cabs-goa-backend');
+      expect(res.body.status).toBe('healthy');
     });
   });
 
   describe('2. Authentication Flow', () => {
     it('POST /api/auth/login with admin credentials', async () => {
       const res = await request(app).post('/api/auth/login').send({
-        email: 'admin@coastalcabsgoa.com',
+        email: 'dasgiradur@gmail.com',
         password: 'Admin@123',
       });
       expect(res.status).toBe(200);
@@ -100,7 +100,7 @@ describe('Coastal Cabs Goa Express Backend Test Suite', () => {
         .get('/api/auth/me')
         .set('Authorization', `Bearer ${adminToken}`);
       expect(res.status).toBe(200);
-      expect(res.body.email).toBe('admin@coastalcabsgoa.com');
+      expect(res.body.email).toBe('dasgiradur@gmail.com');
     });
 
     it('GET /api/auth/me without token should return 401', async () => {
@@ -230,7 +230,7 @@ describe('Coastal Cabs Goa Express Backend Test Suite', () => {
           end_date: end,
           add_ons: { helmets: 2, infant_seat: true, airport_pickup: true },
           airport_pickup: true,
-          coupon_code: 'COASTAL10',
+          coupon_code: 'CASTLE10',
         });
       expect(res.status).toBe(200);
       expect(res.body.days).toBeGreaterThanOrEqual(1);
@@ -305,18 +305,18 @@ describe('Coastal Cabs Goa Express Backend Test Suite', () => {
         .set('Accept', 'text/html');
       expect(res.status).toBe(200);
       expect(res.headers['content-type']).toContain('text/html');
-      expect(res.text).toContain('COASTAL CABS GOA');
+      expect(res.text).toContain('Cab Castle Goa');
     });
   });
 
   describe('5. Coupons Operations', () => {
-    it('POST /api/coupons/validate should validate COASTAL10 promo', async () => {
+    it('POST /api/coupons/validate should validate CASTLE10 promo', async () => {
       const res = await request(app).post('/api/coupons/validate').send({
-        code: 'COASTAL10',
+        code: 'CASTLE10',
         amount: 3000,
       });
       expect(res.status).toBe(200);
-      expect(res.body.code).toBe('COASTAL10');
+      expect(res.body.code).toBe('CASTLE10');
       expect(res.body.discount).toBe(300);
     });
 
