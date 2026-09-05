@@ -11,22 +11,30 @@ async function startServer() {
   try {
     let conn = await connectDB();
     if (!conn || mongoose.connection.readyState !== 1) {
-      console.log('Local MongoDB not reachable, starting in-memory database instance for local development...');
-      const { MongoMemoryServer } = await import('mongodb-memory-server');
-      mongodInstance = await MongoMemoryServer.create();
-      const uri = mongodInstance.getUri();
-      conn = await mongoose.connect(uri, { dbName: 'coastal_cabs_goa' });
-      console.log('Connected to In-Memory MongoDB Database:', conn.connection.name);
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('Local MongoDB not reachable, starting in-memory database instance for local development...');
+        try {
+          const { MongoMemoryServer } = await import('mongodb-memory-server');
+          mongodInstance = await MongoMemoryServer.create();
+          const uri = mongodInstance.getUri();
+          conn = await mongoose.connect(uri, { dbName: 'cab_castle_goa' });
+          console.log('Connected to In-Memory MongoDB Database:', conn.connection.name);
+        } catch (memErr) {
+          console.warn('In-memory MongoDB not available:', memErr);
+        }
+      } else {
+        console.warn('Production Notice: MongoDB Atlas connection not yet established. Operating with in-memory fallback catalogs.');
+      }
     }
-    if (conn) {
+    if (conn && mongoose.connection.readyState === 1) {
       await seedInitialData();
     }
   } catch (err) {
     console.warn('Database initialization note:', err);
   }
 
-  server = app.listen(PORT, () => {
-    console.log(`Cab Castle Goa Express API server listening on port ${PORT} (PID: ${process.pid})`);
+  server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Cab Castle Goa Express API server listening on port ${PORT} on 0.0.0.0 (PID: ${process.pid})`);
   });
 }
 
