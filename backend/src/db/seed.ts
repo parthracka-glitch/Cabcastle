@@ -192,32 +192,6 @@ export const SEED_VEHICLES: any[] = [
     description: "3-row executive SUV equipped with ambient cabin lighting, ventilated seats, and diesel torque."
   },
   {
-    id: "v-thar",
-    title: "Thar (ST / HT)",
-    subtitle: "Convertible soft-top & hard-top — proper 4x4.",
-    reg_no: "GA07-TH-2008",
-    category: "SUV",
-    fuel_type: "Diesel",
-    transmission: "Automatic",
-    seating: 4,
-    self_drive_rate: 3500,
-    rate_manual: 3200,
-    rate_auto: 3500,
-    daily_rate_manual: 3200,
-    daily_rate_automatic: 3500,
-    security_deposit: 3000,
-    delivery_fee: 500,
-    daily_rate: 4000,
-    airport_rate: 2500,
-    status: "Available",
-    image_url: "/vehicles/hero_thar_front_cutout.png",
-    images: [
-      "/vehicles/hero_thar_front_cutout.png",
-      "/vehicles/hero_thar_cutout.png"
-    ],
-    description: "Iconic 4x4 convertible off-roader. The ultimate ride to cruise Goa's beaches and coastal trails."
-  },
-  {
     id: "v-hyundai-creta",
     title: "Hyundai Creta",
     subtitle: "The default premium urban SUV.",
@@ -268,32 +242,6 @@ export const SEED_VEHICLES: any[] = [
       "/vehicles/maruti_ertiga_2022.webp"
     ],
     description: "Next-gen hybrid luxury MPV with ottoman lounge seating and whisper-quiet electric cruising."
-  },
-  {
-    id: "v-thar-roxx",
-    title: "Thar Roxx",
-    subtitle: "Five-door Thar — 4x4 plus a proper boot.",
-    reg_no: "GA10-TR-2011",
-    category: "Luxury",
-    fuel_type: "Diesel",
-    transmission: "Automatic",
-    seating: 5,
-    self_drive_rate: 6000,
-    rate_manual: null,
-    rate_auto: 6000,
-    daily_rate_manual: 6000,
-    daily_rate_automatic: 6000,
-    security_deposit: 5000,
-    delivery_fee: 500,
-    daily_rate: 6500,
-    airport_rate: 3500,
-    status: "Available",
-    image_url: "/vehicles/hero_thar_cutout.png",
-    images: [
-      "/vehicles/hero_thar_cutout.png",
-      "/vehicles/hero_thar_front_cutout.png"
-    ],
-    description: "Brand new 5-door Thar Roxx with Harman Kardon audio, white leatherette interior, and true 4x4 grit."
   },
   {
     id: "v-fortuner",
@@ -364,6 +312,14 @@ export async function seedInitialData() {
     await demo.save();
     console.log('Seeded demo customer: demo@cabcastlegoa.com / Demo@1234');
   }
+
+  // Purge removed vehicles (Thar and Thar Roxx)
+  await VehicleModel.deleteMany({
+    $or: [
+      { id: { $in: ['v-thar', 'v-thar-roxx'] } },
+      { title: { $regex: /thar/i } }
+    ]
+  });
 
   // Seed / Upsert All Fleet Vehicles
   for (const v of SEED_VEHICLES) {

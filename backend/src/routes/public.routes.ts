@@ -8,7 +8,7 @@ const STATIC_REVIEWS = [
     name: 'Priya Sharma',
     avatar: 'https://i.pravatar.cc/100?img=47',
     rating: 5,
-    text: 'Excellent service! Thar was in top shape and delivered right at Dabolim Airport. Highly recommended.',
+    text: 'Excellent service! Car was in top shape and delivered right at Dabolim Airport. Highly recommended.',
     date: '2 weeks ago',
   },
   {
@@ -43,16 +43,18 @@ const STATIC_REVIEWS = [
     name: 'Marco Bianchi',
     avatar: 'https://i.pravatar.cc/100?img=8',
     rating: 5,
-    text: 'Drove around North Goa in a Thar 4x4. Zero hassles. Would rent again on next visit.',
+    text: 'Drove around North Goa in an executive SUV. Zero hassles. Would rent again on next visit.',
     date: '1 week ago',
   },
 ];
 
 publicRouter.get('/reviews', (_req: Request, res: Response) => {
+  res.setHeader('Cache-Control', 'public, max-age=300');
   return res.json(STATIC_REVIEWS);
 });
 
 publicRouter.get('/locations', (_req: Request, res: Response) => {
+  res.setHeader('Cache-Control', 'public, max-age=300');
   return res.json({
     free_hubs: ['Candolim (Main Hub)', 'Calangute', 'Baga'],
     airports: ['Dabolim Airport (GOI)', 'Mopa Airport (GOX)'],
@@ -89,10 +91,10 @@ publicRouter.get('/trip-planner', (_req: Request, res: Response) => {
       title: '3 Days · South Goa Cliffside & Serene Beaches',
       duration: '3 Days',
       region: 'South Goa',
-      recommended_vehicle: 'Thar 4x4',
+      recommended_vehicle: 'Creta SUV',
       est_distance: '120 km total drive',
       est_drive_time: '3 hours total driving',
-      best_for: 'Couples, Nature & Off-road Exploration',
+      best_for: 'Couples, Nature & Coastal Exploration',
       highlights: ['Cabo de Rama Fort & Cliff', 'Palolem Curved Bay', 'Agonda Peaceful Beach', 'Sal River Boat Cruise'],
       image:
         'https://images.pexels.com/photos/6239334/pexels-photo-6239334.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
@@ -101,7 +103,7 @@ publicRouter.get('/trip-planner', (_req: Request, res: Response) => {
         { time: 'Day 2', spot: 'Palolem Kayaking & Butterfly Beach Boat Ride — Fresh Seafood dinner at Agonda' },
         { time: 'Day 3', spot: 'Sal River backwaters drive, Cola Beach lagoon dip & return drive' },
       ],
-      tips: 'South Goa roads have scenic coastal curves — Thar 4x4 or Creta SUV provides ultimate ground clearance.',
+      tips: 'South Goa roads have scenic coastal curves — Creta SUV or Innova provides ultimate comfort and ground clearance.',
     },
     {
       id: '5d-full',

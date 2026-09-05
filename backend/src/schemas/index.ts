@@ -29,7 +29,7 @@ export const CreateVehicleSchema: SchemaDefinition = {
   category: {
     type: 'string',
     required: true,
-    enum: ['Sedan', 'SUV', 'Hatchback', 'Convertible', 'Thar 4x4'],
+    enum: ['Sedan', 'SUV', 'Hatchback', 'Luxury', 'Convertible'],
     message: 'Valid category is required',
   },
   fuel_type: {

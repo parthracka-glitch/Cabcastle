@@ -29,7 +29,7 @@ export default function CustomerAuth({ defaultSignup = false }) {
 
   const redirectPath = location.state?.from || "/";
 
-  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || "87779217954-ras0gb00vjagugnkh5gpvnv5l0nsh8tg.apps.googleusercontent.com";
+  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || "536546997303-o0aa2d875vgqdhaigl68k2k3ma6v5os1.apps.googleusercontent.com";
 
   useEffect(() => {
     let checkTimer;
@@ -193,65 +193,65 @@ export default function CustomerAuth({ defaultSignup = false }) {
   };
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col justify-between overflow-y-auto overflow-x-hidden font-body text-[#2A354F] bg-[#FEFEF2]">
+    <div className="relative min-h-screen w-full flex flex-col justify-between overflow-y-auto overflow-x-hidden font-body text-[#1B2922] bg-[#E7EDEB]">
       <SEO
-        title={isSignup ? "Create an Account | Cab Castle Goa" : "Customer Sign In | Cab Castle Goa"}
-        description="Sign in or register for Cab Castle Goa. View active bookings, download invoices, and manage trip itineraries."
+        title={isSignup ? "Sign Up | Customer Portal — Cab Castle Goa" : "Sign In | Customer Portal — Cab Castle Goa"}
+        description="Sign in or register to access your tour cab reservations, driver details, itineraries, and receipts."
         canonical={isSignup ? "/signup" : "/login"}
       />
 
       {/* Ambient background glows */}
-      <div className="absolute -top-32 right-1/4 w-[400px] h-[400px] bg-[#F2D965]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 -left-20 w-[400px] h-[400px] bg-[#929FC1]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-32 right-1/4 w-[400px] h-[400px] bg-[#69A481]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -left-20 w-[400px] h-[400px] bg-[#7C1F31]/15 rounded-full blur-3xl pointer-events-none" />
 
       <header className="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-5 pb-2 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-full overflow-hidden border border-[#DFE8EC] bg-white flex items-center justify-center p-0.5 shadow-2xs">
+          <div className="w-11 h-11 rounded-full overflow-hidden border border-[#CBD8D4] bg-white flex items-center justify-center p-0.5 shadow-2xs">
             <img src="/logo.png" alt="Cab Castle Goa" className="w-full h-full object-contain" />
           </div>
           <div className="flex flex-col text-left">
-            <span className="font-display font-extrabold text-base tracking-tight text-[#063247]">
-              Cab<span className="text-[#288DA6]">Castle</span>
+            <span className="font-display font-extrabold text-base tracking-tight text-[#1B2922]">
+              Cab<span className="text-[#69A481]">Castle</span>
             </span>
-            <span className="text-[9px] font-bold tracking-wider uppercase text-[#4C606E]">
-              Goa Cabs &amp; Tour Travels
+            <span className="text-[9px] font-bold tracking-wider uppercase text-[#4D6257]">
+              Goa Car Rentals &amp; Tour Travels
             </span>
           </div>
         </Link>
 
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-[#DFE8EC] text-[#063247] hover:bg-[#E4F2F5] text-xs font-bold transition-all shadow-xs group cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-[#CBD8D4] text-[#1B2922] hover:bg-[#DEEDE4] text-xs font-bold transition-all shadow-xs group cursor-pointer"
           data-testid="return-to-site-btn"
         >
-          <ArrowLeft size={14} className="text-[#063247] group-hover:-translate-x-0.5 transition-transform" />
+          <ArrowLeft size={14} className="text-[#1B2922] group-hover:-translate-x-0.5 transition-transform" />
           <span>Return Home</span>
         </Link>
       </header>
 
       <main className="relative z-10 py-8 px-4 sm:px-6 flex-1 flex items-center justify-center my-auto">
-        <div className="w-full max-w-[420px] bg-white border border-[#DFE8EC] rounded-3xl p-6 sm:p-8 shadow-xl relative text-center">
+        <div className="w-full max-w-[420px] bg-white border border-[#CBD8D4] rounded-3xl p-6 sm:p-8 shadow-xl relative text-center">
           
           {/* Header Typography */}
           <div className="mb-6 space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#E4F2F5] text-[#063247] border border-[#C3E7FA] mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#DEEDE4] text-[#245339] border border-[#69A481]/30 mb-2">
               <span>Verified Customer Portal</span>
             </div>
-            <h1 className="font-display text-2xl sm:text-3xl font-black text-[#063247] tracking-tight">
+            <h1 className="font-display text-2xl sm:text-3xl font-black text-[#1B2922] tracking-tight">
               {!isSignup ? "Sign in to Cab Castle" : "Create Your Account"}
             </h1>
-            <p className="text-xs text-[#4C606E]">
-              {!isSignup ? "Manage your bookings, invoices & tour cab dispatches" : "Quick 30-second sign up with zero advance payment"}
+            <p className="text-xs text-[#4D6257]">
+              {!isSignup ? "Manage your bookings, invoices & tour car dispatches" : "Quick 30-second sign up with zero advance payment"}
             </p>
           </div>
 
           {/* Dual Toggle Tabs */}
-          <div className="relative flex p-1 rounded-2xl bg-[#F7F7F7] border border-[#DFE8EC] mb-5 overflow-hidden">
+          <div className="relative flex p-1 rounded-2xl bg-[#E7EDEB] border border-[#CBD8D4] mb-5 overflow-hidden">
             <button
               type="button"
               onClick={() => setIsSignup(false)}
               className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                !isSignup ? "bg-[#063247] text-white shadow-xs" : "text-[#4C606E] hover:text-[#063247]"
+                !isSignup ? "bg-[#7C1F31] text-white shadow-xs" : "text-[#4D6257] hover:text-[#1B2922]"
               }`}
               data-testid="tab-login"
             >
@@ -261,7 +261,7 @@ export default function CustomerAuth({ defaultSignup = false }) {
               type="button"
               onClick={() => setIsSignup(true)}
               className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                isSignup ? "bg-[#063247] text-white shadow-xs" : "text-[#4C606E] hover:text-[#063247]"
+                isSignup ? "bg-[#7C1F31] text-white shadow-xs" : "text-[#4D6257] hover:text-[#1B2922]"
               }`}
               data-testid="tab-signup"
             >
@@ -273,7 +273,7 @@ export default function CustomerAuth({ defaultSignup = false }) {
           {!isSignup ? (
             <form onSubmit={handleLogin} className="space-y-3.5 text-left" autoComplete="off" data-testid="customer-login-form">
               <div className="relative">
-                <Mail size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#929FC1]" />
+                <Mail size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                 <Input
                   type="email"
                   required
@@ -281,14 +281,14 @@ export default function CustomerAuth({ defaultSignup = false }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="off"
-                  className="pl-10 pr-4 h-11 rounded-xl bg-[#FEFEF2] border border-[#E8ECF2] text-[#2A354F] font-body text-xs font-medium placeholder:text-[#8FA0BF] focus-visible:ring-1 focus-visible:ring-[#2A354F]"
+                  className="pl-10 pr-4 h-11 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] text-[#1B2922] font-body text-xs font-medium placeholder:text-[#6C8277] focus-visible:ring-1 focus-visible:ring-[#69A481]"
                   data-testid="login-email-input"
                 />
               </div>
 
               <div>
                 <div className="relative">
-                  <Lock size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#929FC1]" />
+                  <Lock size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                   <Input
                     type={showPassword ? "text" : "password"}
                     required
@@ -296,13 +296,13 @@ export default function CustomerAuth({ defaultSignup = false }) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="current-password"
-                    className="pl-10 pr-10 h-11 rounded-xl bg-[#FEFEF2] border border-[#E8ECF2] text-[#2A354F] font-body text-xs font-medium placeholder:text-[#8FA0BF] focus-visible:ring-1 focus-visible:ring-[#2A354F]"
+                    className="pl-10 pr-10 h-11 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] text-[#1B2922] font-body text-xs font-medium placeholder:text-[#6C8277] focus-visible:ring-1 focus-visible:ring-[#69A481]"
                     data-testid="login-password-input"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8FA0BF] hover:text-[#2A354F] cursor-pointer"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#6C8277] hover:text-[#1B2922] cursor-pointer"
                   >
                     {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                   </button>
@@ -314,7 +314,7 @@ export default function CustomerAuth({ defaultSignup = false }) {
                       if (!email) toast.error("Please enter email address first");
                       else toast.success(`Password reset link dispatched to ${email}`);
                     }}
-                    className="text-[11px] text-[#6B7C9E] hover:text-[#2A354F] hover:underline cursor-pointer font-medium"
+                    className="text-[11px] text-[#6C8277] hover:text-[#7C1F31] hover:underline cursor-pointer font-medium"
                     data-testid="forgot-password-link"
                   >
                     Forgot password?
@@ -325,7 +325,7 @@ export default function CustomerAuth({ defaultSignup = false }) {
               <Button
                 type="submit"
                 disabled={busy}
-                className="w-full bg-[#F2D965] hover:bg-[#E5C94B] text-[#1A202C] font-black rounded-xl h-11 transition-all text-xs tracking-wider uppercase cursor-pointer shadow-md border border-[#DFBA35] mt-1"
+                className="w-full bg-[#7C1F31] hover:bg-[#631826] text-white font-black rounded-xl h-11 transition-all text-xs tracking-wider uppercase cursor-pointer shadow-sm border border-[#7C1F31] mt-1"
                 data-testid="login-submit-btn"
               >
                 {busy ? <Loader2 size={14} className="animate-spin mr-2" /> : "Sign In to Account"}
@@ -334,7 +334,7 @@ export default function CustomerAuth({ defaultSignup = false }) {
           ) : (
             <form onSubmit={handleSignup} className="space-y-3.5 text-left" autoComplete="off" data-testid="customer-signup-form">
               <div className="relative">
-                <User size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#929FC1]" />
+                <User size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                 <Input
                   type="text"
                   required
@@ -342,13 +342,13 @@ export default function CustomerAuth({ defaultSignup = false }) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   autoComplete="off"
-                  className="pl-10 pr-4 h-11 rounded-xl bg-[#FEFEF2] border border-[#E8ECF2] text-[#2A354F] font-body text-xs font-medium placeholder:text-[#8FA0BF] focus-visible:ring-1 focus-visible:ring-[#2A354F]"
+                  className="pl-10 pr-4 h-11 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] text-[#1B2922] font-body text-xs font-medium placeholder:text-[#6C8277] focus-visible:ring-1 focus-visible:ring-[#69A481]"
                   data-testid="signup-name-input"
                 />
               </div>
 
               <div className="relative">
-                <Phone size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#929FC1]" />
+                <Phone size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                 <Input
                   type="tel"
                   required
@@ -356,13 +356,13 @@ export default function CustomerAuth({ defaultSignup = false }) {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   autoComplete="off"
-                  className="pl-10 pr-4 h-11 rounded-xl bg-[#FEFEF2] border border-[#E8ECF2] text-[#2A354F] font-mono text-xs font-medium placeholder:text-[#8FA0BF] focus-visible:ring-1 focus-visible:ring-[#2A354F]"
+                  className="pl-10 pr-4 h-11 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] text-[#1B2922] font-mono text-xs font-medium placeholder:text-[#6C8277] focus-visible:ring-1 focus-visible:ring-[#69A481]"
                   data-testid="signup-phone-input"
                 />
               </div>
 
               <div className="relative">
-                <Mail size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#929FC1]" />
+                <Mail size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                 <Input
                   type="email"
                   required
@@ -370,13 +370,13 @@ export default function CustomerAuth({ defaultSignup = false }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="off"
-                  className="pl-10 pr-4 h-11 rounded-xl bg-[#FEFEF2] border border-[#E8ECF2] text-[#2A354F] font-body text-xs font-medium placeholder:text-[#8FA0BF] focus-visible:ring-1 focus-visible:ring-[#2A354F]"
+                  className="pl-10 pr-4 h-11 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] text-[#1B2922] font-body text-xs font-medium placeholder:text-[#6C8277] focus-visible:ring-1 focus-visible:ring-[#69A481]"
                   data-testid="signup-email-input"
                 />
               </div>
 
               <div className="relative">
-                <Lock size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#929FC1]" />
+                <Lock size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                 <Input
                   type={showPassword ? "text" : "password"}
                   required
@@ -384,13 +384,13 @@ export default function CustomerAuth({ defaultSignup = false }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="new-password"
-                  className="pl-10 pr-10 h-11 rounded-xl bg-[#FEFEF2] border border-[#E8ECF2] text-[#2A354F] font-body text-xs font-medium placeholder:text-[#8FA0BF] focus-visible:ring-1 focus-visible:ring-[#2A354F]"
+                  className="pl-10 pr-10 h-11 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] text-[#1B2922] font-body text-xs font-medium placeholder:text-[#6C8277] focus-visible:ring-1 focus-visible:ring-[#69A481]"
                   data-testid="signup-password-input"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8FA0BF] hover:text-[#2A354F] cursor-pointer"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#6C8277] hover:text-[#1B2922] cursor-pointer"
                 >
                   {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                 </button>
@@ -399,7 +399,7 @@ export default function CustomerAuth({ defaultSignup = false }) {
               <Button
                 type="submit"
                 disabled={busy}
-                className="w-full bg-[#F2D965] hover:bg-[#E5C94B] text-[#1A202C] font-black rounded-xl h-11 transition-all text-xs tracking-wider uppercase cursor-pointer shadow-md border border-[#DFBA35] mt-1"
+                className="w-full bg-[#7C1F31] hover:bg-[#631826] text-white font-black rounded-xl h-11 transition-all text-xs tracking-wider uppercase cursor-pointer shadow-sm border border-[#7C1F31] mt-1"
                 data-testid="signup-submit-btn"
               >
                 {busy ? <Loader2 size={14} className="animate-spin mr-2" /> : "Create Account"}
@@ -409,9 +409,9 @@ export default function CustomerAuth({ defaultSignup = false }) {
 
           {/* Divider */}
           <div className="relative flex items-center justify-center my-5">
-            <div className="border-t border-[#E8ECF2] w-full" />
-            <span className="bg-white px-3 text-[10px] uppercase text-[#8FA0BF] shrink-0 font-bold">Or</span>
-            <div className="border-t border-[#E8ECF2] w-full" />
+            <div className="border-t border-[#CBD8D4] w-full" />
+            <span className="bg-white px-3 text-[10px] uppercase text-[#6C8277] shrink-0 font-bold">Or</span>
+            <div className="border-t border-[#CBD8D4] w-full" />
           </div>
 
           {/* Google Sign In Button */}
@@ -419,7 +419,7 @@ export default function CustomerAuth({ defaultSignup = false }) {
             type="button"
             disabled={busy}
             onClick={handleGoogleSignIn}
-            className="w-full flex items-center justify-center gap-3 bg-[#FEFEF2] hover:bg-[#FCF5D5] text-[#2A354F] font-bold border border-[#E8ECF2] rounded-xl h-11 transition-all text-xs tracking-wider uppercase cursor-pointer active:scale-98 shadow-2xs"
+            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-[#DEEDE4] text-[#1B2922] font-bold border border-[#CBD8D4] rounded-xl h-11 transition-all text-xs tracking-wider uppercase cursor-pointer active:scale-98 shadow-2xs"
             title="Continue with Google"
             data-testid="google-auth-btn"
           >
@@ -433,15 +433,15 @@ export default function CustomerAuth({ defaultSignup = false }) {
           </button>
 
           {/* Security Guarantee Strip */}
-          <div className="mt-6 pt-4 border-t border-[#E8ECF2] text-[11px] text-[#8FA0BF] space-y-1">
-            <p>🔒 256-Bit SSL Encryption · Zero Spam Guarantee</p>
+          <div className="mt-6 pt-4 border-t border-[#CBD8D4] text-[11px] text-[#6C8277] space-y-1">
+
             <p>
               By proceeding, you agree to our{" "}
-              <Link to="/terms-of-service" className="text-[#2A354F] font-bold hover:underline">
+              <Link to="/legal/terms-and-conditions" className="text-[#1B2922] font-bold hover:underline">
                 Terms of Service
               </Link>{" "}
               &amp;{" "}
-              <Link to="/privacy-policy" className="text-[#2A354F] font-bold hover:underline">
+              <Link to="/legal/privacy-policy" className="text-[#1B2922] font-bold hover:underline">
                 Privacy Policy
               </Link>.
             </p>
@@ -450,7 +450,7 @@ export default function CustomerAuth({ defaultSignup = false }) {
         </div>
       </main>
 
-      <footer className="relative z-10 py-4 text-center text-xs text-[#8FA0BF]">
+      <footer className="relative z-10 py-4 text-center text-xs text-[#6C8277]">
         © {new Date().getFullYear()} Cab Castle Goa · All Rights Reserved
       </footer>
     </div>

@@ -364,7 +364,7 @@ export async function getCurrentAdmin(req: AuthenticatedRequest, res: Response, 
 
     let user: any = null;
     try {
-      user = await UserModel.findOne({ $or: [{ id: decoded.sub }, { email: decoded.email }, { role: 'admin' }] }).lean();
+      user = await UserModel.findOne({ $or: [{ id: decoded.sub }, { email: decoded.email }] }).lean();
     } catch {
       // Fallback
     }

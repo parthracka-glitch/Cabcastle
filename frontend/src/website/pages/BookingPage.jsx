@@ -12,11 +12,12 @@ import { format, addDays } from "date-fns";
 import {
   Calendar as CalIcon, MapPin, Plane, User, Phone, Mail,
   Check, ArrowRight, Loader2, ShieldCheck, Users, Clock,
-  MessageSquare, Train, CreditCard, Lock, LogIn, Compass
+  MessageSquare, Train, CreditCard, Lock, LogIn, Compass, Maximize2, Images
 } from "lucide-react";
 import { toast } from "sonner";
-import api, { formatINR } from "@/lib/api";
+import api, { formatINR, getOptimizedImageUrl } from "@/lib/api";
 import { MASTER_FLEET } from "../data/fleetData";
+import LightboxModal from "../components/LightboxModal";
 
 export const FLEET_SPECS = {};
 MASTER_FLEET.forEach((v) => {
@@ -52,8 +53,39 @@ export default function BookingPage() {
   const nav = useNavigate();
   const { user } = useAuth();
 
+  const [liveVehicle, setLiveVehicle] = React.useState(null);
+  const [lightboxOpen, setLightboxOpen] = React.useState(false);
+  const [activeImageIdx, setActiveImageIdx] = React.useState(0);
+
+  // Auto-fetch fresh vehicle from API
+  React.useEffect(() => {
+    if (!vehicleId) return;
+    api.get(`/vehicles/${vehicleId}`)
+      .then(({ data }) => {
+        if (data && (data.id || data.title)) {
+          setLiveVehicle(data);
+        }
+      })
+      .catch(() => {
+        api.get("/vehicles")
+          .then(({ data }) => {
+            if (Array.isArray(data)) {
+              const idLower = (vehicleId || "").toLowerCase();
+              const match = data.find(
+                (m) =>
+                  m.id?.toLowerCase() === idLower ||
+                  m.title?.toLowerCase().includes(idLower) ||
+                  idLower.includes(m.title?.toLowerCase())
+              );
+              if (match) setLiveVehicle(match);
+            }
+          })
+          .catch(() => {});
+      });
+  }, [vehicleId]);
+
   // Resolve vehicle details & rates
-  const vehicle = React.useMemo(() => {
+  const baseVehicle = React.useMemo(() => {
     if (vehicleId && FLEET_SPECS[vehicleId]) return FLEET_SPECS[vehicleId];
     const idLower = (vehicleId || "").toLowerCase();
     const match = MASTER_FLEET.find(
@@ -65,6 +97,28 @@ export default function BookingPage() {
     if (match && FLEET_SPECS[match.id]) return FLEET_SPECS[match.id];
     return FLEET_SPECS["v-swift"] || Object.values(FLEET_SPECS)[0];
   }, [vehicleId]);
+
+  const vehicle = React.useMemo(() => {
+    if (!liveVehicle) return baseVehicle;
+    return {
+      ...baseVehicle,
+      ...liveVehicle,
+      transfers: {
+        ...baseVehicle.transfers,
+        airport: liveVehicle.airport_rate || baseVehicle.transfers?.airport,
+        margao: (liveVehicle.airport_rate || baseVehicle.transfers?.airport || 1300) + 200,
+        thivim: Math.max(1100, (liveVehicle.airport_rate || baseVehicle.transfers?.airport || 1300) - 200),
+      },
+    };
+  }, [baseVehicle, liveVehicle]);
+
+  const vehicleImages = React.useMemo(() => {
+    if (Array.isArray(vehicle.images) && vehicle.images.length > 0) {
+      const valid = vehicle.images.filter(Boolean);
+      if (valid.length > 0) return valid;
+    }
+    return vehicle.image_url ? [vehicle.image_url] : ["/vehicles/maruti_dzire.webp"];
+  }, [vehicle.images, vehicle.image_url]);
 
   // Tour mode: "hourly" (8h/80km package) OR "transfer" (Point-to-point transfer)
   const [tourSubOption, setTourSubOption] = React.useState(() => {
@@ -397,7 +451,7 @@ export default function BookingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] text-[#063247] font-body no-scroll-x">
+    <div className="min-h-screen bg-[#E7EDEB] text-[#1B2922] font-body no-scroll-x">
       <SEO
         title={`Book ${vehicle.title} | Cab Castle Goa`}
         description={`Book ${vehicle.title} tour cab or airport transfer. Transparent rates, fast booking.`}
@@ -408,7 +462,7 @@ export default function BookingPage() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-16">
         
         {/* Top Step Progress Bar */}
-        <div className="bg-white border border-[#DFE8EC] rounded-2xl p-4 sm:p-5 mb-6 shadow-xs flex items-center justify-between">
+        <div className="bg-white border border-[#CBD8D4] rounded-2xl p-4 sm:p-5 mb-6 shadow-xs flex items-center justify-between">
           <button
             type="button"
             onClick={() => setCurrentStep(1)}
@@ -417,23 +471,23 @@ export default function BookingPage() {
             <span
               className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all ${
                 currentStep === 1
-                  ? "bg-[#063247] text-white shadow-xs"
-                  : "bg-emerald-500 text-white"
+                  ? "bg-[#7C1F31] text-white shadow-xs"
+                  : "bg-[#69A481] text-white"
               }`}
             >
               {currentStep > 1 ? "✓" : "1"}
             </span>
             <div>
-              <span className={`text-xs font-bold block ${currentStep === 1 ? "text-[#063247]" : "text-[#5A7184]"}`}>
+              <span className={`text-xs font-bold block ${currentStep === 1 ? "text-[#1B2922]" : "text-[#4D6257]"}`}>
                 1. Car Details &amp; Date Selection
               </span>
-              <span className="text-[10px] text-[#8496A2] hidden sm:block">Vehicle Specs, Duration &amp; Pickup</span>
+              <span className="text-[10px] text-[#6C8277] hidden sm:block">Vehicle Specs, Duration &amp; Pickup</span>
             </div>
           </button>
 
-          <div className="flex-1 max-w-[80px] sm:max-w-[160px] h-1 bg-[#DFE8EC] rounded-full mx-4 overflow-hidden">
+          <div className="flex-1 max-w-[80px] sm:max-w-[160px] h-1 bg-[#CBD8D4] rounded-full mx-4 overflow-hidden">
             <div
-              className={`h-full bg-[#063247] transition-all duration-300 ${
+              className={`h-full bg-[#7C1F31] transition-all duration-300 ${
                 currentStep === 2 ? "w-full" : "w-0"
               }`}
             />
@@ -449,17 +503,17 @@ export default function BookingPage() {
             <span
               className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all ${
                 currentStep === 2
-                  ? "bg-[#063247] text-white shadow-xs"
-                  : "bg-[#F1F5F9] text-[#5A7184] border border-[#DFE8EC]"
+                  ? "bg-[#7C1F31] text-white shadow-xs"
+                  : "bg-[#E7EDEB] text-[#4D6257] border border-[#CBD8D4]"
               }`}
             >
               2
             </span>
             <div>
-              <span className={`text-xs font-bold block ${currentStep === 2 ? "text-[#063247]" : "text-[#5A7184]"}`}>
+              <span className={`text-xs font-bold block ${currentStep === 2 ? "text-[#1B2922]" : "text-[#4D6257]"}`}>
                 2. Personal Info &amp; Booking
               </span>
-              <span className="text-[10px] text-[#8496A2] hidden sm:block">Guest Verification &amp; Confirm</span>
+              <span className="text-[10px] text-[#6C8277] hidden sm:block">Guest Verification &amp; Confirm</span>
             </div>
           </button>
         </div>
@@ -472,82 +526,124 @@ export default function BookingPage() {
             
             {/* LEFT SIDE: CAR DETAILS, IMAGE & FEATURES */}
             <div className="lg:col-span-5 space-y-4">
-              <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-6 shadow-sm text-left space-y-4">
+              <div className="bg-white border border-[#CBD8D4] rounded-[24px] p-5 sm:p-6 shadow-sm text-left space-y-4">
                 
-                {/* Vehicle Image */}
-                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#FAF8F5] border border-[#DFE8EC]">
-                  <img
-                    src={vehicle.image_url}
-                    alt={vehicle.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-2.5 left-2.5 bg-[#063247]/90 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/20 text-[10px] font-black text-white flex items-center gap-1 shadow-xs">
-                    <span>👑 Castle Class</span>
+                {/* Interactive Vehicle Image Gallery with Fullscreen Lightbox trigger */}
+                <div className="space-y-2.5">
+                  <div
+                    className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#E7EDEB] border border-[#CBD8D4] cursor-pointer group select-none"
+                    onClick={() => setLightboxOpen(true)}
+                    title="Click to view fullscreen gallery"
+                  >
+                    <img
+                      src={getOptimizedImageUrl(vehicleImages[activeImageIdx] || vehicle.image_url)}
+                      alt={vehicle.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-103"
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#7C1F31]/95 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-[#69A481]/40 text-[10px] font-black text-[#E7EDEB] flex items-center gap-1 shadow-xs">
+                      <span>👑 Castle Class</span>
+                    </div>
+                    <div className="absolute bottom-2.5 right-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full border border-[#CBD8D4] text-[10px] font-bold text-[#1B2922]">
+                      {vehicle.category}
+                    </div>
+                    {/* Fullscreen Overlay Trigger Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLightboxOpen(true);
+                      }}
+                      className="absolute top-2.5 right-2.5 bg-black/60 hover:bg-[#69A481] text-white px-2.5 py-1 rounded-full text-[10px] font-bold backdrop-blur-xs flex items-center gap-1 transition-all shadow-xs cursor-pointer"
+                    >
+                      <Maximize2 size={11} />
+                      <span>{vehicleImages.length > 1 ? `${vehicleImages.length} Photos` : "Fullscreen"}</span>
+                    </button>
                   </div>
-                  <div className="absolute bottom-2.5 right-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full border border-[#DFE8EC] text-[10px] font-bold text-[#063247]">
-                    {vehicle.category}
-                  </div>
+
+                  {/* Multi-Photo Thumbnails */}
+                  {vehicleImages.length > 1 && (
+                    <div className="flex items-center gap-2 overflow-x-auto py-1">
+                      {vehicleImages.map((img, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setActiveImageIdx(idx)}
+                          className={`w-14 h-10 rounded-lg overflow-hidden border-2 transition-all cursor-pointer shrink-0 ${
+                            idx === activeImageIdx
+                              ? "border-[#69A481] scale-102 shadow-xs ring-1 ring-[#69A481]"
+                              : "border-[#CBD8D4] opacity-70 hover:opacity-100"
+                          }`}
+                        >
+                          <img
+                            src={getOptimizedImageUrl(img)}
+                            alt={`Thumbnail ${idx + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Car Title & Subtitle */}
                 <div>
                   <div className="flex items-center justify-between gap-2">
-                    <h2 className="font-display text-xl sm:text-2xl font-extrabold text-[#063247]">
+                    <h2 className="font-display text-xl sm:text-2xl font-extrabold text-[#1B2922]">
                       {vehicle.title}
                     </h2>
-                    <span className="text-xs font-mono font-bold text-[#288DA6] bg-[#E4F2F5] px-2.5 py-1 rounded-full">
+                    <span className="text-xs font-mono font-bold text-[#245339] bg-[#DEEDE4] px-2.5 py-1 rounded-full border border-[#69A481]/30">
                       {formatINR(perDayRate)}{tourSubOption === "hourly" ? "/8h" : ""}
                     </span>
                   </div>
-                  <p className="text-xs text-[#5A7184] mt-1 leading-relaxed">
-                    {vehicle.subtitle || "Sanitized air-conditioned cab with courteous verified chauffeur for local sightseeing & transfers across Goa."}
+                  <p className="text-xs text-[#4D6257] mt-1 leading-relaxed">
+                    {vehicle.subtitle || "Sanitized air-conditioned car with courteous verified chauffeur for local sightseeing & transfers across Goa."}
                   </p>
                 </div>
 
                 {/* Key Car Features Matrix */}
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#DFE8EC]">
-                  <div className="p-2.5 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] flex items-center gap-2">
-                    <Users size={14} className="text-[#288DA6] shrink-0" />
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#CBD8D4]">
+                  <div className="p-2.5 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] flex items-center gap-2">
+                    <Users size={14} className="text-[#69A481] shrink-0" />
                     <div>
-                      <span className="text-[9px] text-[#64748B] uppercase font-bold block">Capacity</span>
-                      <span className="text-xs font-bold text-[#063247]">{vehicle.seating} Passenger Seats</span>
+                      <span className="text-[9px] text-[#4D6257] uppercase font-bold block">Capacity</span>
+                      <span className="text-xs font-bold text-[#1B2922]">{vehicle.seating} Passenger Seats</span>
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] flex items-center gap-2">
+                  <div className="p-2.5 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] flex items-center gap-2">
                     <span className="text-sm shrink-0">❄️</span>
                     <div>
-                      <span className="text-[9px] text-[#64748B] uppercase font-bold block">Air Conditioning</span>
-                      <span className="text-xs font-bold text-[#063247]">Chilled Powerful AC</span>
+                      <span className="text-[9px] text-[#4D6257] uppercase font-bold block">Air Conditioning</span>
+                      <span className="text-xs font-bold text-[#1B2922]">Chilled Powerful AC</span>
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] flex items-center gap-2">
+                  <div className="p-2.5 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] flex items-center gap-2">
                     <span className="text-sm shrink-0">🧳</span>
                     <div>
-                      <span className="text-[9px] text-[#64748B] uppercase font-bold block">Luggage Space</span>
-                      <span className="text-xs font-bold text-[#063247]">2 Large + 2 Bags</span>
+                      <span className="text-[9px] text-[#4D6257] uppercase font-bold block">Luggage Space</span>
+                      <span className="text-xs font-bold text-[#1B2922]">2 Large + 2 Bags</span>
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] flex items-center gap-2">
-                    <ShieldCheck size={14} className="text-emerald-600 shrink-0" />
+                  <div className="p-2.5 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] flex items-center gap-2">
+                    <ShieldCheck size={14} className="text-[#69A481] shrink-0" />
                     <div>
-                      <span className="text-[9px] text-[#64748B] uppercase font-bold block">Chauffeur</span>
-                      <span className="text-xs font-bold text-[#063247]">Verified &amp; Polite</span>
+                      <span className="text-[9px] text-[#4D6257] uppercase font-bold block">Chauffeur</span>
+                      <span className="text-xs font-bold text-[#1B2922]">Verified &amp; Polite</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Inclusions Card */}
-                <div className="p-3 rounded-xl bg-[#E4F2F5]/80 border border-[#288DA6]/30 text-[11px] text-[#063247] space-y-1">
+                <div className="p-3 rounded-xl bg-[#DEEDE4] border border-[#69A481]/30 text-[11px] text-[#1B2922] space-y-1">
                   <div className="font-bold flex items-center gap-1.5">
                     <span>✓ Inclusions:</span>
-                    <span className="font-normal text-[#334155]">Fuel, AC, Driver Allowance included</span>
+                    <span className="font-normal text-[#4D6257]">Fuel, AC, Driver Allowance included</span>
                   </div>
                   <div className="font-bold flex items-center gap-1.5">
                     <span>✓ Payment:</span>
-                    <span className="font-normal text-[#334155]">Zero Advance · Pay to driver upon completion</span>
+                    <span className="font-normal text-[#4D6257]">Zero Advance · Pay to driver upon completion</span>
                   </div>
                 </div>
 
@@ -556,12 +652,12 @@ export default function BookingPage() {
 
             {/* RIGHT SIDE: DATE & SCHEDULE SELECTOR */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-7 shadow-sm space-y-5 text-left">
+              <div className="bg-white border border-[#CBD8D4] rounded-[24px] p-5 sm:p-7 shadow-sm space-y-5 text-left">
                 
                 {/* 1. Service Type Selector */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <Label className="text-xs font-extrabold uppercase tracking-wider text-[#063247]">
+                    <Label className="text-xs font-extrabold uppercase tracking-wider text-[#1B2922]">
                       1. Select Service Type
                     </Label>
                   </div>
@@ -574,8 +670,8 @@ export default function BookingPage() {
                       }}
                       className={`p-3 rounded-2xl border text-center transition-all cursor-pointer font-bold text-xs ${
                         tourSubOption === "hourly"
-                          ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                          : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                          ? "bg-[#7C1F31] text-white border-[#7C1F31] shadow-xs"
+                          : "bg-[#E7EDEB] text-[#1B2922] border-[#CBD8D4] hover:border-[#69A481]"
                       }`}
                     >
                       <div>🚖 8h / 80km Sightseeing</div>
@@ -596,8 +692,8 @@ export default function BookingPage() {
                       }}
                       className={`p-3 rounded-2xl border text-center transition-all cursor-pointer font-bold text-xs ${
                         tourSubOption === "transfer"
-                          ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                          : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                          ? "bg-[#7C1F31] text-white border-[#7C1F31] shadow-xs"
+                          : "bg-[#E7EDEB] text-[#1B2922] border-[#CBD8D4] hover:border-[#69A481]"
                       }`}
                     >
                       <div>✈️ Airport / Station</div>
@@ -608,10 +704,10 @@ export default function BookingPage() {
 
                 {/* 2. Duration / Days Selector (If Hourly) */}
                 {tourSubOption === "hourly" ? (
-                  <div className="space-y-2 pt-2 border-t border-[#DFE8EC]">
+                  <div className="space-y-2 pt-2 border-t border-[#CBD8D4]">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-extrabold uppercase tracking-wider text-[#063247]">2. Select Duration (Days)</span>
-                      <span className="font-mono font-bold text-[#288DA6]">{days * 8}h · {days * 80}km included</span>
+                      <span className="font-extrabold uppercase tracking-wider text-[#1B2922]">2. Select Duration (Days)</span>
+                      <span className="font-mono font-bold text-[#69A481]">{days * 8}h · {days * 80}km included</span>
                     </div>
 
                     <div className="grid grid-cols-4 gap-2">
@@ -625,8 +721,8 @@ export default function BookingPage() {
                           }}
                           className={`py-2.5 px-2 rounded-xl text-center border font-bold text-xs transition-all cursor-pointer ${
                             !isCustomDays && days === d
-                              ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                              : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                              ? "bg-[#7C1F31] text-white border-[#7C1F31] shadow-xs"
+                              : "bg-[#E7EDEB] text-[#1B2922] border-[#CBD8D4] hover:border-[#69A481]"
                           }`}
                         >
                           <div>{d} {d === 1 ? "Day" : "Days"}</div>
@@ -640,8 +736,8 @@ export default function BookingPage() {
                         onClick={handleCustomClick}
                         className={`py-2.5 px-2 rounded-xl text-center border font-bold text-xs transition-all cursor-pointer ${
                           isCustomDays || days > 3
-                            ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                            : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                            ? "bg-[#7C1F31] text-white border-[#7C1F31] shadow-xs"
+                            : "bg-[#E7EDEB] text-[#1B2922] border-[#CBD8D4] hover:border-[#69A481]"
                         }`}
                       >
                         <div>{isCustomDays || days > 3 ? `${days} Days` : "Custom"}</div>
@@ -653,14 +749,14 @@ export default function BookingPage() {
 
                     {/* Custom Days Inline Stepper */}
                     {(isCustomDays || days > 3) && (
-                      <div className="flex items-center justify-between p-3 rounded-xl bg-[#F7F7F7] border border-[#DFE8EC] shadow-xs mt-2 animate-fadeIn">
+                      <div className="flex items-center justify-between p-3 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] shadow-xs mt-2 animate-fadeIn">
                         <div className="flex items-center gap-2.5">
-                          <span className="text-xs font-bold text-[#063247]">Duration:</span>
-                          <div className="flex items-center border border-[#DFE8EC] rounded-lg overflow-hidden bg-white">
+                          <span className="text-xs font-bold text-[#1B2922]">Duration:</span>
+                          <div className="flex items-center border border-[#CBD8D4] rounded-lg overflow-hidden bg-white">
                             <button
                               type="button"
                               onClick={() => handleDaysChange(Math.max(1, days - 1))}
-                              className="w-8 h-8 flex items-center justify-center text-sm font-black text-[#063247] hover:bg-[#DFE8EC] transition-colors cursor-pointer"
+                              className="w-8 h-8 flex items-center justify-center text-sm font-black text-[#1B2922] hover:bg-[#CBD8D4] transition-colors cursor-pointer"
                             >
                               -
                             </button>
@@ -675,29 +771,29 @@ export default function BookingPage() {
                                   handleDaysChange(Math.min(30, val));
                                 }
                               }}
-                              className="w-12 text-center text-xs font-black text-[#063247] bg-transparent outline-none py-1"
+                              className="w-12 text-center text-xs font-black text-[#1B2922] bg-transparent outline-none py-1"
                             />
                             <button
                               type="button"
                               onClick={() => handleDaysChange(Math.min(30, days + 1))}
-                              className="w-8 h-8 flex items-center justify-center text-sm font-black text-[#063247] hover:bg-[#DFE8EC] transition-colors cursor-pointer"
+                              className="w-8 h-8 flex items-center justify-center text-sm font-black text-[#1B2922] hover:bg-[#CBD8D4] transition-colors cursor-pointer"
                             >
                               +
                             </button>
                           </div>
-                          <span className="text-xs font-bold text-[#063247]">{days === 1 ? "Day" : "Days"}</span>
+                          <span className="text-xs font-bold text-[#1B2922]">{days === 1 ? "Day" : "Days"}</span>
                         </div>
 
                         <div className="text-right">
-                          <span className="text-xs font-black text-[#063247] block">{formatINR(vehicle.hourlyRate * days)}</span>
-                          <span className="text-[10px] text-[#4C606E] font-medium">{days * 8}h · {days * 80}km included</span>
+                          <span className="text-xs font-black text-[#1B2922] block">{formatINR(vehicle.hourlyRate * days)}</span>
+                          <span className="text-[10px] text-[#4D6257] font-medium">{days * 8}h · {days * 80}km included</span>
                         </div>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="space-y-2.5 pt-2 border-t border-[#DFE8EC]">
-                    <Label className="text-xs font-extrabold uppercase tracking-wider text-[#063247]">
+                  <div className="space-y-2.5 pt-2 border-t border-[#CBD8D4]">
+                    <Label className="text-xs font-extrabold uppercase tracking-wider text-[#1B2922]">
                       2. Transfer Route Destination
                     </Label>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -709,12 +805,12 @@ export default function BookingPage() {
                         }}
                         className={`p-3 rounded-xl border text-left font-bold text-xs transition-all cursor-pointer flex justify-between items-center sm:flex-col sm:items-start ${
                           transferRoute === "airport"
-                            ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                            : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                            ? "bg-[#7C1F31] text-white border-[#7C1F31] shadow-xs"
+                            : "bg-[#E7EDEB] text-[#1B2922] border-[#CBD8D4] hover:border-[#69A481]"
                         }`}
                       >
                         <div className="flex items-center gap-1.5">
-                          <Plane size={13} className={transferRoute === "airport" ? "text-[#288DA6]" : "text-[#063247]"} />
+                          <Plane size={13} className={transferRoute === "airport" ? "text-white" : "text-[#1B2922]"} />
                           Airport
                         </div>
                         <div className="text-sm font-extrabold sm:mt-1">{formatINR(vehicle.transfers.airport)}</div>
@@ -728,12 +824,12 @@ export default function BookingPage() {
                         }}
                         className={`p-3 rounded-xl border text-left font-bold text-xs transition-all cursor-pointer flex justify-between items-center sm:flex-col sm:items-start ${
                           transferRoute === "margao"
-                            ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                            : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                            ? "bg-[#7C1F31] text-white border-[#7C1F31] shadow-xs"
+                            : "bg-[#E7EDEB] text-[#1B2922] border-[#CBD8D4] hover:border-[#69A481]"
                         }`}
                       >
                         <div className="flex items-center gap-1.5">
-                          <Train size={13} className={transferRoute === "margao" ? "text-[#288DA6]" : "text-[#063247]"} />
+                          <Train size={13} className={transferRoute === "margao" ? "text-white" : "text-[#1B2922]"} />
                           Margao Stn
                         </div>
                         <div className="text-sm font-extrabold sm:mt-1">{formatINR(vehicle.transfers.margao)}</div>
@@ -747,12 +843,12 @@ export default function BookingPage() {
                         }}
                         className={`p-3 rounded-xl border text-left font-bold text-xs transition-all cursor-pointer flex justify-between items-center sm:flex-col sm:items-start ${
                           transferRoute === "thivim"
-                            ? "bg-[#063247] text-white border-[#063247] shadow-xs"
-                            : "bg-[#F7F7F7] text-[#063247] border-[#DFE8EC] hover:border-[#288DA6]"
+                            ? "bg-[#7C1F31] text-white border-[#7C1F31] shadow-xs"
+                            : "bg-[#E7EDEB] text-[#1B2922] border-[#CBD8D4] hover:border-[#69A481]"
                         }`}
                       >
                         <div className="flex items-center gap-1.5">
-                          <Train size={13} className={transferRoute === "thivim" ? "text-[#288DA6]" : "text-[#063247]"} />
+                          <Train size={13} className={transferRoute === "thivim" ? "text-white" : "text-[#1B2922]"} />
                           Thivim Stn
                         </div>
                         <div className="text-sm font-extrabold sm:mt-1">{formatINR(vehicle.transfers.thivim)}</div>
@@ -767,10 +863,10 @@ export default function BookingPage() {
                           setPickupLocation(val);
                         }}
                       >
-                        <SelectTrigger className="w-full bg-[#F7F7F7] border-[#DFE8EC] rounded-xl h-10 text-xs font-bold text-[#063247]">
+                        <SelectTrigger className="w-full bg-[#E7EDEB] border-[#CBD8D4] rounded-xl h-10 text-xs font-bold text-[#1B2922]">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] rounded-xl text-xs">
+                        <SelectContent className="bg-white border-[#CBD8D4] text-[#1B2922] rounded-xl text-xs">
                           <SelectItem value="Mopa Airport (GOX) - Manohar International">Mopa Airport (GOX) - Manohar International</SelectItem>
                           <SelectItem value="Dabolim Airport (GOI) - South Goa">Dabolim Airport (GOI) - South Goa</SelectItem>
                         </SelectContent>
@@ -780,15 +876,15 @@ export default function BookingPage() {
                 )}
 
                 {/* 3. Schedule & Pickup Address */}
-                <div id="schedule-section" className="space-y-3 pt-2 border-t border-[#DFE8EC] scroll-mt-24">
-                  <Label className="text-xs font-extrabold uppercase tracking-wider text-[#063247] block flex items-center gap-1.5">
-                    <CalIcon size={14} className="text-[#288DA6]" /> 3. Schedule &amp; Pickup Location
+                <div id="schedule-section" className="space-y-3 pt-2 border-t border-[#CBD8D4] scroll-mt-24">
+                  <Label className="text-xs font-extrabold uppercase tracking-wider text-[#1B2922] block flex items-center gap-1.5">
+                    <CalIcon size={14} className="text-[#69A481]" /> 3. Schedule &amp; Pickup Location
                   </Label>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-2xl bg-[#F7F7F7] border border-[#DFE8EC]">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-2xl bg-[#E7EDEB] border border-[#CBD8D4]">
                     {/* Pickup Date */}
                     <div>
-                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Pickup Date</label>
+                      <label className="text-[10px] uppercase font-bold text-[#4D6257] block mb-1">Pickup Date</label>
                       <input
                         type="date"
                         value={pickupDate}
@@ -802,18 +898,18 @@ export default function BookingPage() {
                             }
                           } catch {}
                         }}
-                        className="w-full h-10 bg-white border border-[#DFE8EC] rounded-xl px-2.5 text-xs font-bold text-[#063247] outline-none focus:border-[#288DA6] cursor-pointer"
+                        className="w-full h-10 bg-white border border-[#CBD8D4] rounded-xl px-2.5 text-xs font-bold text-[#1B2922] outline-none focus:border-[#69A481] cursor-pointer"
                       />
                     </div>
 
                     {/* Pickup Time */}
                     <div>
-                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Pickup Time</label>
+                      <label className="text-[10px] uppercase font-bold text-[#4D6257] block mb-1">Pickup Time</label>
                       <Select value={pickupTime} onValueChange={setPickupTime}>
-                        <SelectTrigger className="w-full h-10 bg-white border-[#DFE8EC] rounded-xl text-xs font-bold text-[#063247]">
+                        <SelectTrigger className="w-full h-10 bg-white border-[#CBD8D4] rounded-xl text-xs font-bold text-[#1B2922]">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] rounded-xl text-xs">
+                        <SelectContent className="bg-white border-[#CBD8D4] text-[#1B2922] rounded-xl text-xs">
                           {TIME_OPTIONS.map((t) => (
                             <SelectItem key={t} value={t}>{t}</SelectItem>
                           ))}
@@ -823,25 +919,25 @@ export default function BookingPage() {
 
                     {/* Drop Date */}
                     <div>
-                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Drop Date</label>
+                      <label className="text-[10px] uppercase font-bold text-[#4D6257] block mb-1">Drop Date</label>
                       <input
                         ref={dropDateInputRef}
                         type="date"
                         value={dropDate}
                         min={pickupDate || format(new Date(), "yyyy-MM-dd")}
                         onChange={(e) => handleDropDateChange(e.target.value)}
-                        className="w-full h-10 bg-white border border-[#DFE8EC] rounded-xl px-2.5 text-xs font-bold text-[#063247] outline-none focus:border-[#288DA6] cursor-pointer"
+                        className="w-full h-10 bg-white border border-[#CBD8D4] rounded-xl px-2.5 text-xs font-bold text-[#1B2922] outline-none focus:border-[#69A481] cursor-pointer"
                       />
                     </div>
 
                     {/* Drop Time */}
                     <div>
-                      <label className="text-[10px] uppercase font-bold text-[#4C606E] block mb-1">Drop Time</label>
+                      <label className="text-[10px] uppercase font-bold text-[#4D6257] block mb-1">Drop Time</label>
                       <Select value={dropTime} onValueChange={setDropTime}>
-                        <SelectTrigger className="w-full h-10 bg-white border-[#DFE8EC] rounded-xl text-xs font-bold text-[#063247]">
+                        <SelectTrigger className="w-full h-10 bg-white border-[#CBD8D4] rounded-xl text-xs font-bold text-[#1B2922]">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-white border-[#DFE8EC] text-[#063247] rounded-xl text-xs">
+                        <SelectContent className="bg-white border-[#CBD8D4] text-[#1B2922] rounded-xl text-xs">
                           {TIME_OPTIONS.map((t) => (
                             <SelectItem key={t} value={t}>{t}</SelectItem>
                           ))}
@@ -859,7 +955,7 @@ export default function BookingPage() {
                           value={pickupLocation}
                           onChange={(e) => setPickupLocation(e.target.value)}
                           placeholder="e.g. Mopa Airport / Hotel Taj Candolim / Calangute"
-                          className="h-10 pl-9 bg-white border-[#DFE8EC] rounded-xl text-xs text-[#063247] focus:border-[#288DA6]"
+                          className="h-10 pl-9 bg-white border-[#CBD8D4] rounded-xl text-xs text-[#1B2922] focus:border-[#69A481]"
                         />
                       </div>
                     </div>
@@ -867,15 +963,15 @@ export default function BookingPage() {
                 </div>
 
                 {/* Minimalist Live Fare Summary Bar */}
-                <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#E8E0D2] flex items-center justify-between">
+                <div className="p-4 rounded-2xl bg-[#E7EDEB] border border-[#CBD8D4] flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#64748B] block">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#4D6257] block">
                       Total Estimated Tariff
                     </span>
-                    <div className="text-2xl font-black text-[#0F172A] tracking-tight leading-tight mt-0.5">
+                    <div className="text-2xl font-black text-[#1B2922] tracking-tight leading-tight mt-0.5">
                       {formatINR(totalAmount)}
                     </div>
-                    <span className="text-[11px] text-[#475569]">{rateDescription}</span>
+                    <span className="text-[11px] text-[#4D6257]">{rateDescription}</span>
                   </div>
 
                   <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
@@ -887,10 +983,10 @@ export default function BookingPage() {
                 <button
                   type="button"
                   onClick={handleProceedToStep2}
-                  className="w-full h-12 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs sm:text-sm font-black uppercase tracking-wider rounded-2xl shadow-gold transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 border border-[#E5A93C]/40"
+                  className="w-full h-12 bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-105 text-white text-xs sm:text-sm font-black uppercase tracking-wider rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 border border-[#7C1F31]"
                 >
                   <span>Continue to Guest Details</span>
-                  <ArrowRight size={16} className="text-[#090D16]" />
+                  <ArrowRight size={16} className="text-white" />
                 </button>
 
               </div>
@@ -912,53 +1008,53 @@ export default function BookingPage() {
                 setCurrentStep(1);
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#063247] hover:text-[#288DA6] transition-colors cursor-pointer bg-white px-4 py-2 rounded-full border border-[#DFE8EC] shadow-xs"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1B2922] hover:text-[#7C1F31] transition-colors cursor-pointer bg-white px-4 py-2 rounded-full border border-[#CBD8D4] shadow-xs"
             >
               <span>← Back to Car &amp; Date Selection</span>
             </button>
 
             {/* Selected Booking Summary Card */}
-            <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
+            <div className="bg-white border border-[#CBD8D4] rounded-[24px] p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
               <div className="flex items-center gap-3.5">
                 <img
                   src={vehicle.image_url}
                   alt={vehicle.title}
-                  className="w-16 h-12 sm:w-20 sm:h-14 rounded-xl object-cover border border-[#DFE8EC] bg-[#F7F7F7] shrink-0"
+                  className="w-16 h-12 sm:w-20 sm:h-14 rounded-xl object-cover border border-[#CBD8D4] bg-[#E7EDEB] shrink-0"
                 />
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#288DA6] bg-[#E4F2F5] px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#245339] bg-[#DEEDE4] px-2 py-0.5 rounded-full border border-[#69A481]/30">
                     {tourSubOption === "hourly" ? `${days} Day Tour Package` : "Airport Transfer"}
                   </span>
-                  <h3 className="text-base font-extrabold text-[#063247] mt-0.5">
+                  <h3 className="text-base font-extrabold text-[#1B2922] mt-0.5">
                     {vehicle.title}
                   </h3>
-                  <p className="text-xs text-[#5A7184]">
+                  <p className="text-xs text-[#4D6257]">
                     📅 {pickupDate} ({pickupTime}) → {dropDate} ({dropTime}) · 📍 {pickupLocation || airportName}
                   </p>
                 </div>
               </div>
 
-              <div className="text-right border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFE8EC] shrink-0">
-                <span className="text-[10px] font-bold text-[#64748B] block">Total Amount</span>
-                <div className="text-xl font-black text-[#063247]">{formatINR(totalAmount)}</div>
-                <span className="text-[10px] text-emerald-600 font-bold">Pay to Driver</span>
+              <div className="text-right border-t sm:border-t-0 pt-2 sm:pt-0 border-[#CBD8D4] shrink-0">
+                <span className="text-[10px] font-bold text-[#4D6257] block">Total Amount</span>
+                <div className="text-xl font-black text-[#1B2922]">{formatINR(totalAmount)}</div>
+                <span className="text-[10px] text-[#245339] font-bold">Pay to Driver</span>
               </div>
             </div>
 
             {/* Main Form: Guest Info, Aadhaar & Drop Destination */}
-            <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-8 shadow-sm space-y-6 text-left">
+            <div className="bg-white border border-[#CBD8D4] rounded-[24px] p-5 sm:p-8 shadow-sm space-y-6 text-left">
               
               {/* If NOT logged in: Security Notice Banner */}
               {!user && (
-                <div className="p-4 rounded-2xl bg-[#E4F2F5] border border-[#288DA6]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
+                <div className="p-4 rounded-2xl bg-[#DEEDE4] border border-[#69A481]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-[#063247] text-[#288DA6] flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-8 h-8 rounded-xl bg-[#7C1F31] text-white flex items-center justify-center shrink-0 mt-0.5">
                       <Lock size={15} />
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-[#063247]">Authentication &amp; Security Check Required</h4>
-                      <p className="text-[11px] text-[#4C606E] mt-0.5">
-                        To prevent unauthorized bookings, please sign in or register before completing your cab reservation.
+                      <h4 className="text-xs font-bold text-[#1B2922]">Authentication &amp; Security Check Required</h4>
+                      <p className="text-[11px] text-[#4D6257] mt-0.5">
+                        To prevent unauthorized bookings, please sign in or register before completing your car reservation.
                       </p>
                     </div>
                   </div>
@@ -966,9 +1062,9 @@ export default function BookingPage() {
                   <button
                     type="button"
                     onClick={() => nav("/login", { state: { from: `/booking/${vehicle.id}` } })}
-                    className="px-4 py-2 bg-[#063247] hover:bg-[#042433] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all shrink-0 cursor-pointer shadow-xs"
+                    className="px-4 py-2 bg-[#7C1F31] hover:bg-[#631826] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all shrink-0 cursor-pointer shadow-xs border border-[#7C1F31]"
                   >
-                    <LogIn size={13} className="text-[#288DA6]" />
+                    <LogIn size={13} className="text-white" />
                     <span>Sign In / Register</span>
                   </button>
                 </div>
@@ -976,29 +1072,29 @@ export default function BookingPage() {
 
               {/* Guest Details */}
               <div className="space-y-4">
-                <Label className="text-xs font-extrabold uppercase tracking-wider text-[#063247] block flex items-center gap-1.5">
-                  <ShieldCheck size={15} className="text-[#288DA6]" /> Guest Contact &amp; Verification Details
+                <Label className="text-xs font-extrabold uppercase tracking-wider text-[#1B2922] block flex items-center gap-1.5">
+                  <ShieldCheck size={15} className="text-[#69A481]" /> Guest Contact &amp; Verification Details
                 </Label>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-[11px] font-semibold text-[#4C606E] block mb-1">Your Full Name *</label>
+                    <label className="text-[11px] font-semibold text-[#4D6257] block mb-1">Your Full Name *</label>
                     <div className="relative">
-                      <User size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8496A2]" />
+                      <User size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                       <Input
                         id="passenger-name-input"
                         value={passengerName}
                         onChange={(e) => setPassengerName(e.target.value)}
                         placeholder="e.g. Rahul Sharma"
-                        className="h-11 pl-9 bg-[#F7F7F7] border-[#DFE8EC] rounded-xl text-xs text-[#063247] focus:border-[#288DA6]"
+                        className="h-11 pl-9 bg-[#E7EDEB] border-[#CBD8D4] rounded-xl text-xs text-[#1B2922] focus:border-[#69A481]"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-semibold text-[#4C606E] block mb-1">WhatsApp Phone (10 Digits) *</label>
+                    <label className="text-[11px] font-semibold text-[#4D6257] block mb-1">WhatsApp Phone (10 Digits) *</label>
                     <div className="relative">
-                      <Phone size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8496A2]" />
+                      <Phone size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                       <Input
                         id="passenger-phone-input"
                         type="tel"
@@ -1007,32 +1103,32 @@ export default function BookingPage() {
                         value={passengerPhone}
                         onChange={(e) => setPassengerPhone(e.target.value.replace(/\D/g, ""))}
                         placeholder="e.g. 9876543210"
-                        className="h-11 pl-9 bg-[#F7F7F7] border-[#DFE8EC] rounded-xl text-xs font-mono text-[#063247] focus:border-[#288DA6]"
+                        className="h-11 pl-9 bg-[#E7EDEB] border-[#CBD8D4] rounded-xl text-xs font-mono text-[#1B2922] focus:border-[#69A481]"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-semibold text-[#4C606E] block mb-1">Email Address *</label>
+                    <label className="text-[11px] font-semibold text-[#4D6257] block mb-1">Email Address *</label>
                     <div className="relative">
-                      <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8496A2]" />
+                      <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                       <Input
                         id="passenger-email-input"
                         type="email"
                         value={passengerEmail}
                         onChange={(e) => setPassengerEmail(e.target.value)}
                         placeholder="e.g. rahul@example.com"
-                        className="h-11 pl-9 bg-[#F7F7F7] border-[#DFE8EC] rounded-xl text-xs text-[#063247] focus:border-[#288DA6]"
+                        className="h-11 pl-9 bg-[#E7EDEB] border-[#CBD8D4] rounded-xl text-xs text-[#1B2922] focus:border-[#69A481]"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-semibold text-[#4C606E] block mb-1">
+                    <label className="text-[11px] font-semibold text-[#4D6257] block mb-1">
                       Aadhaar Card No. (12 Digits) *
                     </label>
                     <div className="relative">
-                      <CreditCard size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8496A2]" />
+                      <CreditCard size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                       <Input
                         id="aadhaar-input"
                         type="text"
@@ -1045,38 +1141,38 @@ export default function BookingPage() {
                           setAadhaarNumber(formatted);
                         }}
                         placeholder="12-digit Aadhaar Number"
-                        className="h-11 pl-9 bg-[#F7F7F7] border-[#DFE8EC] rounded-xl text-xs font-mono text-[#063247] focus:border-[#288DA6]"
+                        className="h-11 pl-9 bg-[#E7EDEB] border-[#CBD8D4] rounded-xl text-xs font-mono text-[#1B2922] focus:border-[#69A481]"
                       />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-semibold text-[#4C606E] block mb-1">Drop-off Address / Destination *</label>
+                  <label className="text-[11px] font-semibold text-[#4D6257] block mb-1">Drop-off Address / Destination *</label>
                   <div className="relative">
-                    <MapPin size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8496A2]" />
+                    <MapPin size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                     <Input
                       id="drop-location-input"
                       value={dropLocation}
                       onChange={(e) => setDropLocation(e.target.value)}
                       placeholder="e.g. Baga Beach / Dabolim Airport / Candolim Resort"
-                      className="h-11 pl-9 bg-[#F7F7F7] border-[#DFE8EC] rounded-xl text-xs text-[#063247] focus:border-[#288DA6]"
+                      className="h-11 pl-9 bg-[#E7EDEB] border-[#CBD8D4] rounded-xl text-xs text-[#1B2922] focus:border-[#69A481]"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Minimalist Professional Fare & Confirmation Card */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-[#E8E0D2] space-y-4">
+              <div className="p-5 sm:p-6 rounded-2xl bg-[#E7EDEB] border border-[#CBD8D4] space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B] block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#4D6257] block">
                       Total Payable to Driver
                     </span>
-                    <div className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-tight mt-0.5">
+                    <div className="text-2xl sm:text-3xl font-black text-[#1B2922] tracking-tight mt-0.5">
                       {formatINR(totalAmount)}
                     </div>
-                    <span className="text-xs text-[#475569] font-medium block mt-0.5">
+                    <span className="text-xs text-[#4D6257] font-medium block mt-0.5">
                       {rateDescription} · Zero Advance Deposit
                     </span>
                   </div>
@@ -1086,17 +1182,17 @@ export default function BookingPage() {
                       type="button"
                       disabled={busy}
                       onClick={() => handleBookNow(false)}
-                      className="h-12 px-8 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs sm:text-sm font-black uppercase tracking-wider rounded-xl shadow-gold transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 border border-[#E5A93C]/40"
+                      className="h-12 px-8 bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-105 text-white text-xs sm:text-sm font-black uppercase tracking-wider rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 border border-[#7C1F31]"
                     >
-                      {busy ? <Loader2 size={16} className="animate-spin text-[#090D16]" /> : <span>Confirm &amp; Book Cab</span>}
-                      <ArrowRight size={15} className="text-[#090D16]" />
+                      {busy ? <Loader2 size={16} className="animate-spin text-white" /> : <span>Confirm &amp; Book Car</span>}
+                      <ArrowRight size={15} className="text-white" />
                     </Button>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-[#E8E0D2] flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#64748B]">
+                <div className="pt-3 border-t border-[#CBD8D4] flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#4D6257]">
                   <span>✓ Free Cancellation up to 2h before pickup</span>
-                  <span>✓ Sanitized AC Cab &amp; Polite Chauffeur</span>
+                  <span>✓ Sanitized AC Car &amp; Polite Chauffeur</span>
                   <span>✓ Extra Hr: ₹{vehicle.extraHr}/h · Extra Km: ₹{vehicle.extraKm}/km</span>
                 </div>
               </div>
@@ -1108,12 +1204,12 @@ export default function BookingPage() {
       </main>
 
       {/* ── MOBILE STICKY FLOATING BOTTOM BAR ── */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#063247]/95 backdrop-blur-md border-t border-white/10 p-3 px-4 shadow-2xl flex items-center justify-between text-left">
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#24060C]/95 backdrop-blur-md border-t border-white/10 p-3 px-4 shadow-2xl flex items-center justify-between text-left">
         <div>
-          <span className="text-[9.5px] uppercase tracking-wider text-[#C3E7FA] font-bold block">
+          <span className="text-[9.5px] uppercase tracking-wider text-[#8FC4A5] font-bold block">
             {tourSubOption === "hourly" ? `${days} Day(s) Tour` : "Transfer Fare"}
           </span>
-          <div className="text-xl font-black text-[#288DA6] leading-tight">
+          <div className="text-xl font-black text-[#69A481] leading-tight">
             {formatINR(totalAmount)}
           </div>
           <span className="text-[9.5px] text-white/80 font-medium">Pay to Driver</span>
@@ -1124,7 +1220,7 @@ export default function BookingPage() {
             <button
               type="button"
               onClick={handleProceedToStep2}
-              className="h-10 px-5 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] text-[#090D16] rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer"
+              className="h-10 px-5 bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] text-white rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer border border-[#7C1F31]"
             >
               <span>Continue →</span>
             </button>
@@ -1133,14 +1229,21 @@ export default function BookingPage() {
               type="button"
               disabled={busy}
               onClick={() => handleBookNow(false)}
-              className="h-10 px-5 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] text-[#090D16] rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer"
+              className="h-10 px-5 bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] text-white rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer border border-[#7C1F31]"
             >
-              {busy ? <Loader2 size={14} className="animate-spin" /> : <span>Confirm Booking</span>}
+              {busy ? <Loader2 size={14} className="animate-spin text-white" /> : <span>Confirm Booking</span>}
               <ArrowRight size={13} />
             </button>
           )}
         </div>
       </div>
+
+      <LightboxModal
+        isOpen={lightboxOpen}
+        images={vehicleImages}
+        initialIndex={activeImageIdx}
+        onClose={() => setLightboxOpen(false)}
+      />
 
       <Footer />
     </div>

@@ -24,180 +24,206 @@ module.exports = {
         mono: ['"Space Mono"', '"SF Mono"', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       colors: {
-        // Cab Castle Signature Luxury Palette (Midnight Obsidian, Royal Navy, Champagne Gold, Castle Ivory)
+        // Cab Castle Signature Palette: Mint (#69A481), White Smoke (#E7EDEB), Claret (#7C1F31)
+        mint: {
+          DEFAULT: '#69A481',
+          hover: '#528A69',
+          light: '#8FC4A5',
+          pale: '#DEEDE4',
+          dark: '#3B6B50',
+          deep: '#2A533B',
+          glow: 'rgba(105, 164, 129, 0.30)',
+        },
+        smoke: {
+          DEFAULT: '#E7EDEB',
+          canvas: '#E7EDEB',
+          pure: '#FFFFFF',
+          dark: '#DFE7E4',
+          border: '#CBD8D4',
+        },
+        claret: {
+          DEFAULT: '#7C1F31',
+          hover: '#631826',
+          light: '#9B2A41',
+          deep: '#24060C',
+          dark: '#380912',
+          card: '#4D0E1C',
+          surface: '#5D1323',
+        },
+
         castle: {
           gold: {
-            DEFAULT: '#E5A93C',          // Royal Champagne Gold
-            hover: '#D4901F',
-            light: '#F6D285',            // Soft Gold Shimmer
-            pale: '#FDF8EE',            // Subtle Ivory Gold Wash
-            dark: '#C58B24',
-            deep: '#9B6A14',
-            glow: 'rgba(229, 169, 60, 0.28)',
+            DEFAULT: '#69A481',          // Mint Accent
+            hover: '#528A69',
+            light: '#8FC4A5',
+            pale: '#DEEDE4',
+            dark: '#3B6B50',
+            deep: '#2A533B',
+            glow: 'rgba(105, 164, 129, 0.30)',
           },
           navy: {
-            DEFAULT: '#0F172A',          // Royal Dark Navy
-            deep: '#090D16',            // Midnight Obsidian
-            surface: '#162036',          // Dark Card Surface
-            card: '#1E293B',
-            light: '#24324D',
+            DEFAULT: '#7C1F31',          // Claret
+            deep: '#24060C',            // Deep Claret Noir
+            surface: '#380912',          // Dark Card Surface
+            card: '#4D0E1C',
+            light: '#5D1323',
           },
           ivory: {
-            DEFAULT: '#FAF8F5',          // Warm Castle Ivory Canvas
+            DEFAULT: '#E7EDEB',          // White Smoke Canvas
             pure: '#FFFFFF',
-            warm: '#F4EFE6',            // Warm Stone
-            border: '#E8E0D2',          // Subtle Gold-Ivory Border
+            warm: '#DFE7E4',
+            border: '#CBD8D4',
           },
           slate: {
-            DEFAULT: '#475569',
-            light: '#64748B',
-            dark: '#334155',
+            DEFAULT: '#4D6257',
+            light: '#6C8277',
+            dark: '#2C3A33',
           },
         },
 
-        // Reference Palette Tokens (Theme Mapped)
+        // Reference Palette Tokens (Theme Mapped to Mint, White Smoke, Claret)
         prussian: {
-          DEFAULT: '#0F172A',          // Velvet Midnight (Cab Castle)
-          hover: '#090D16',
-          dark: '#05080E',
-          light: '#1E293B',
+          DEFAULT: '#7C1F31',
+          hover: '#631826',
+          dark: '#24060C',
+          light: '#4D0E1C',
         },
         cyan: {
-          DEFAULT: '#E5A93C',          // Mapped to Gold Accent
-          hover: '#D4901F',
-          light: '#FDF8EE',
-          ice: '#F6D285',
+          DEFAULT: '#69A481',
+          hover: '#528A69',
+          light: '#DEEDE4',
+          ice: '#8FC4A5',
         },
         chiffon: {
-          DEFAULT: '#FAF8F5',          // Warm Castle Stone
+          DEFAULT: '#E7EDEB',
           card: '#FFFFFF',
-          warm: '#F4EFE6',
-          border: '#E8E0D2',
+          warm: '#DFE7E4',
+          border: '#CBD8D4',
         },
         slate: {
-          DEFAULT: '#475569',
-          light: '#64748B',
-          dark: '#334155',
+          DEFAULT: '#4D6257',
+          light: '#6C8277',
+          dark: '#2C3A33',
         },
 
         // Backward compatibility mappings
         serenity: {
-          DEFAULT: '#0F172A',
-          light: '#FDF8EE',
-          dark: '#090D16',
-          text: '#0F172A',
+          DEFAULT: '#7C1F31',
+          light: '#DEEDE4',
+          dark: '#24060C',
+          text: '#1B2922',
         },
         custard: {
-          DEFAULT: '#E5A93C',
-          hover: '#D4901F',
-          light: '#FDF8EE',
-          dark: '#0F172A',
+          DEFAULT: '#69A481',
+          hover: '#528A69',
+          light: '#DEEDE4',
+          dark: '#7C1F31',
         },
         purelight: {
-          DEFAULT: '#FAF8F5',
+          DEFAULT: '#E7EDEB',
           card: '#FFFFFF',
-          border: '#E8E0D2',
+          border: '#CBD8D4',
         },
 
         // Theme-mapped Brand Tokens
         brand: {
-          DEFAULT: '#E5A93C',          // Royal Gold Primary Accent
-          orange: '#E5A93C',
-          'orange-hover': '#D4901F',
-          'orange-active': '#C58B24',
-          'orange-light': '#FDF8EE',
-          primary: '#0F172A',          // Midnight Obsidian Primary
-          black: '#090D16',
-          canvas: '#FAF8F5',           // Warm Castle Ivory Canvas
+          DEFAULT: '#69A481',          // Mint Primary Accent
+          orange: '#69A481',
+          'orange-hover': '#528A69',
+          'orange-active': '#3B6B50',
+          'orange-light': '#DEEDE4',
+          primary: '#7C1F31',          // Claret Primary
+          black: '#24060C',
+          canvas: '#E7EDEB',           // White Smoke Canvas
           white: '#FFFFFF',
-          surface: '#FAF8F5',
-          'gray-secondary': '#475569',
-          'gray-tertiary': '#64748B',
-          'gray-light': '#E8E0D2',
-          border: '#E8E0D2',
-          'border-subtle': '#F0EBE0',
-          blue: '#0F172A',
-          'blue-light': '#FDF8EE',
-          'blue-bg': '#FDF8EE',
-          green: '#0D9488',
-          'green-light': '#CCFBF1',
-          yellow: '#E5A93C',
-          'yellow-deep': '#D4901F',
-          red: '#E03131',
+          surface: '#E7EDEB',
+          'gray-secondary': '#4D6257',
+          'gray-tertiary': '#6C8277',
+          'gray-light': '#CBD8D4',
+          border: '#CBD8D4',
+          'border-subtle': '#DFE7E4',
+          blue: '#7C1F31',
+          'blue-light': '#DEEDE4',
+          'blue-bg': '#DEEDE4',
+          green: '#69A481',
+          'green-light': '#DEEDE4',
+          yellow: '#69A481',
+          'yellow-deep': '#528A69',
+          red: '#7C1F31',
         },
 
         // Urbanist / Brex Aliases mapped to Reference Palette
         urbanist: {
-          primary: '#0F172A',
-          'primary-hover': '#090D16',
-          'primary-active': '#05080E',
-          vanilla: '#FDF8EE',
-          'vanilla-deep': '#E5A93C',
-          honeydew: '#FDF8EE',
-          'honeydew-deep': '#E5A93C',
-          alice: '#F6D285',
-          'alice-deep': '#0F172A',
-          canvas: '#FAF8F5',
+          primary: '#7C1F31',
+          'primary-hover': '#631826',
+          'primary-active': '#24060C',
+          vanilla: '#DEEDE4',
+          'vanilla-deep': '#69A481',
+          honeydew: '#DEEDE4',
+          'honeydew-deep': '#69A481',
+          alice: '#8FC4A5',
+          'alice-deep': '#7C1F31',
+          canvas: '#E7EDEB',
           white: '#FFFFFF',
-          'text-primary': '#0F172A',
-          'text-secondary': '#475569',
-          'text-tertiary': '#64748B',
-          border: '#E8E0D2',
-          disabled: '#F1ECE2',
+          'text-primary': '#1B2922',
+          'text-secondary': '#4D6257',
+          'text-tertiary': '#6C8277',
+          border: '#CBD8D4',
+          disabled: '#DFE7E4',
         },
-        brexOrange: '#E5A93C',
-        brexOrangeHover: '#D4901F',
-        brexPrimary: '#0F172A',
-        brexBlack: '#090D16',
-        brexCanvas: '#FAF8F5',
-        brexSurface: '#FAF8F5',
-        brexGray: '#475569',
-        brexBorder: '#E8E0D2',
-        brexBlue: '#0F172A',
+        brexOrange: '#69A481',
+        brexOrangeHover: '#528A69',
+        brexPrimary: '#7C1F31',
+        brexBlack: '#24060C',
+        brexCanvas: '#E7EDEB',
+        brexSurface: '#E7EDEB',
+        brexGray: '#4D6257',
+        brexBorder: '#CBD8D4',
+        brexBlue: '#7C1F31',
 
-        background: '#FAF8F5',
-        foreground: '#0F172A',
+        background: '#E7EDEB',
+        foreground: '#1B2922',
         card: {
           DEFAULT: '#FFFFFF',
-          foreground: '#0F172A'
+          foreground: '#1B2922'
         },
         popover: {
           DEFAULT: '#FFFFFF',
-          foreground: '#0F172A'
+          foreground: '#1B2922'
         },
         primary: {
-          DEFAULT: '#0F172A',
+          DEFAULT: '#7C1F31',
           foreground: '#FFFFFF'
         },
         secondary: {
-          DEFAULT: '#FDF8EE',
-          foreground: '#0F172A'
+          DEFAULT: '#DEEDE4',
+          foreground: '#1B2922'
         },
         muted: {
-          DEFAULT: '#FAF8F5',
-          foreground: '#475569'
+          DEFAULT: '#E7EDEB',
+          foreground: '#4D6257'
         },
         accent: {
-          DEFAULT: '#E5A93C',
-          foreground: '#090D16'
-        },
-        destructive: {
-          DEFAULT: '#E03131',
+          DEFAULT: '#69A481',
           foreground: '#FFFFFF'
         },
-        border: '#E8E0D2',
-        input: '#E8E0D2',
-        ring: '#E5A93C',
+        destructive: {
+          DEFAULT: '#7C1F31',
+          foreground: '#FFFFFF'
+        },
+        border: '#CBD8D4',
+        input: '#CBD8D4',
+        ring: '#69A481',
       },
       boxShadow: {
-        xs: '0px 1px 3px rgba(15, 23, 42, 0.04)',
-        sm: '0px 2px 8px rgba(15, 23, 42, 0.06)',
-        md: '0px 6px 16px rgba(15, 23, 42, 0.08)',
-        lg: '0px 12px 28px rgba(15, 23, 42, 0.12)',
-        xl: '0px 20px 40px rgba(15, 23, 42, 0.16)',
-        gold: '0px 8px 24px rgba(229, 169, 60, 0.25)',
-        goldGlow: '0px 0px 25px rgba(229, 169, 60, 0.35)',
-        focus: '0px 0px 0px 3px rgba(229, 169, 60, 0.35)',
+        xs: '0px 1px 3px rgba(36, 6, 12, 0.05)',
+        sm: '0px 2px 8px rgba(36, 6, 12, 0.08)',
+        md: '0px 6px 16px rgba(36, 6, 12, 0.10)',
+        lg: '0px 12px 28px rgba(36, 6, 12, 0.14)',
+        xl: '0px 20px 40px rgba(36, 6, 12, 0.18)',
+        gold: '0px 8px 24px rgba(105, 164, 129, 0.28)',
+        goldGlow: '0px 0px 25px rgba(105, 164, 129, 0.38)',
+        focus: '0px 0px 0px 3px rgba(105, 164, 129, 0.35)',
       },
       keyframes: {
         'accordion-down': {

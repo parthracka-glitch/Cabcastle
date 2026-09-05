@@ -1,4 +1,4 @@
-/* Cab Castle Goa Design System */
+/* Cab Castle Goa Design System — Mint (#69A481), White Smoke (#E7EDEB), Claret (#7C1F31) */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
 
 @tailwind base;
@@ -6,69 +6,51 @@
 @tailwind utilities;
 
 :root {
-  /* Cab Castle Goa Brand Palette */
-  --castle-primary: #0F172A;           /* Midnight Obsidian / Royal Navy */
-  --castle-primary-hover: #090D16;     /* Deepest Velvet Obsidian */
-  --castle-primary-active: #05080E;
-  --castle-gold: #E5A93C;              /* Royal Champagne Gold */
-  --castle-gold-hover: #D4901F;        /* Deep Lustrous Gold */
-  --castle-gold-light: #F6D285;        /* Soft Shimmer Gold */
-  --castle-gold-pale: #FDF8EE;         /* Warm Ivory Gold Glow */
-  --castle-teal: #E5A93C;              /* Aliased to Gold */
-  --castle-teal-hover: #D4901F;
-  --castle-cyan: #FDF8EE;
-  --castle-slate: #475569;             /* Refined Slate Gray */
-  --castle-pale-blue: #F6D285;
-  --castle-canvas: #FAF8F5;            /* Castle Ivory Canvas */
-  --castle-white: #FFFFFF;             /* Card Surface */
-  --castle-text-primary: #0F172A;      /* Primary Text */
-  --castle-text-secondary: #475569;    /* Secondary Text */
-  --castle-text-tertiary: #64748B;     /* Tertiary / Placeholder */
-  --castle-border: #E8E0D2;            /* Subtle Gold-Ivory Border */
-  --castle-disabled: #F1ECE2;          /* Disabled BG */
-
-  /* Legacy variable aliases for smooth transition */
-  --coastal-primary: #0F172A;
-  --coastal-primary-hover: #090D16;
-  --coastal-primary-active: #05080E;
-  --coastal-teal: #E5A93C;
-  --coastal-teal-hover: #D4901F;
-  --coastal-cyan: #FDF8EE;
-  --coastal-slate: #475569;
-  --coastal-pale-blue: #F6D285;
-  --coastal-canvas: #FAF8F5;
-  --coastal-white: #FFFFFF;
-  --coastal-text-primary: #0F172A;
-  --coastal-text-secondary: #475569;
-  --coastal-text-tertiary: #64748B;
-  --coastal-border: #E8E0D2;
-  --coastal-disabled: #F1ECE2;
+  /* Cab Castle Brand Palette */
+  --castle-primary: #7C1F31;           /* Claret Primary */
+  --castle-primary-hover: #631826;     /* Deep Claret Hover */
+  --castle-primary-active: #24060C;    /* Deepest Claret Noir */
+  --castle-gold: #69A481;              /* Mint Primary Accent */
+  --castle-gold-hover: #528A69;        /* Deep Mint */
+  --castle-gold-light: #8FC4A5;        /* Soft Shimmer Mint */
+  --castle-gold-pale: #DEEDE4;         /* Soft Mint Wash */
+  --castle-teal: #69A481;
+  --castle-teal-hover: #528A69;
+  --castle-cyan: #DEEDE4;
+  --castle-slate: #4D6257;             /* Refined Slate Muted */
+  --castle-pale-blue: #8FC4A5;
+  --castle-canvas: #E7EDEB;            /* White Smoke Canvas */
+  --castle-white: #FFFFFF;             /* Pure Card Surface */
+  --castle-text-primary: #1B2922;      /* Primary Text */
+  --castle-text-secondary: #4D6257;    /* Secondary Text */
+  --castle-text-tertiary: #6C8277;     /* Tertiary / Placeholder */
+  --castle-border: #CBD8D4;            /* Soft White Smoke Border */
+  --castle-disabled: #DFE7E4;          /* Disabled BG */
 
   /* Typography */
   --castle-font: 'Plus Jakarta Sans', 'Outfit', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --coastal-font: 'Plus Jakarta Sans', 'Outfit', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Aliases for Shadcn / Tailwind variables */
-  --background: 40 33% 97%;             /* #FAF8F5 */
-  --foreground: 222 47% 11%;           /* #0F172A */
+  --background: 160 13% 92%;           /* #E7EDEB (White Smoke) */
+  --foreground: 152 20% 13%;           /* #1B2922 */
   --card: 0 0% 100%;                   /* #FFFFFF */
-  --card-foreground: 222 47% 11%;      /* #0F172A */
+  --card-foreground: 152 20% 13%;      /* #1B2922 */
   --popover: 0 0% 100%;                /* #FFFFFF */
-  --popover-foreground: 222 47% 11%;   /* #0F172A */
-  --primary: 222 47% 11%;              /* #0F172A */
+  --popover-foreground: 152 20% 13%;   /* #1B2922 */
+  --primary: 348 60% 31%;              /* #7C1F31 (Claret) */
   --primary-foreground: 0 0% 100%;     /* #FFFFFF */
-  --secondary: 40 70% 96%;             /* #FDF8EE */
-  --secondary-foreground: 222 47% 11%; /* #0F172A */
-  --muted: 40 33% 97%;                 /* #FAF8F5 */
-  --muted-foreground: 215 16% 47%;     /* #475569 */
-  --accent: 38 78% 56%;                /* #E5A93C */
-  --accent-foreground: 222 47% 11%;    /* #0F172A */
-  --destructive: 0 74% 53%;            /* #E03131 */
+  --secondary: 142 27% 90%;            /* #DEEDE4 (Mint Wash) */
+  --secondary-foreground: 348 60% 31%; /* #7C1F31 */
+  --muted: 160 13% 92%;                /* #E7EDEB */
+  --muted-foreground: 152 12% 34%;     /* #4D6257 */
+  --accent: 143 25% 53%;               /* #69A481 (Mint) */
+  --accent-foreground: 0 0% 100%;      /* #FFFFFF */
+  --destructive: 348 60% 31%;          /* #7C1F31 */
   --destructive-foreground: 0 0% 100%;
-  --border: 38 25% 87%;                /* #E8E0D2 */
-  --input: 38 25% 87%;                 /* #E8E0D2 */
-  --ring: 38 78% 56%;                  /* #E5A93C */
-  --radius: 20px;                      /* 20px-24px rounded corners */
+  --border: 163 12% 82%;               /* #CBD8D4 */
+  --input: 163 12% 82%;                /* #CBD8D4 */
+  --ring: 143 25% 53%;                 /* #69A481 */
+  --radius: 20px;
 }
 
 html {
@@ -76,16 +58,16 @@ html {
   overflow-x: hidden;
   overflow-y: scroll !important;
   width: 100%;
-  background-color: #FAF8F5;
+  background-color: #E7EDEB;
 }
 
 body,
 html body,
 body[data-scroll-locked],
 html body[data-scroll-locked] {
-  background: #F7F7F7;
-  color: #063247;
-  font-family: var(--coastal-font);
+  background: #E7EDEB;
+  color: #1B2922;
+  font-family: var(--castle-font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden !important;
@@ -124,14 +106,14 @@ body[style*="overflow-y: hidden"] {
   height: 5px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #F7F7F7;
+  background: #E7EDEB;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #DFE8EC;
+  background: #CBD8D4;
   border-radius: 999px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #4C606E;
+  background: #69A481;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -144,8 +126,8 @@ body[style*="overflow-y: hidden"] {
 
 /* Coastal Header Navigation */
 .glass-nav-header {
-  background: rgba(247, 247, 247, 0.94);
-  border-bottom: 1px solid #DFE8EC;
+  background: rgba(231, 237, 235, 0.95);
+  border-bottom: 1px solid #CBD8D4;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -153,56 +135,12 @@ body[style*="overflow-y: hidden"] {
 /* Focus Ring */
 *:focus-visible {
   outline: none;
-  box-shadow: 0px 0px 0px 3px rgba(42, 143, 168, 0.25) !important;
+  box-shadow: 0px 0px 0px 3px rgba(105, 164, 129, 0.35) !important;
 }
 
 ::selection {
-  background-color: #063247;
+  background-color: #7C1F31;
   color: #FFFFFF;
-}
-
-/* ── HERO LIQUID FLUID BLOB MORPHING ANIMATION ── */
-@keyframes heroLiquidMorph {
-  0% {
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    border-radius: 58% 42% 40% 60% / 60% 35% 65% 40%;
-    transform: rotate(2.5deg) scale(1.02);
-  }
-  50% {
-    border-radius: 35% 65% 62% 38% / 40% 62% 38% 60%;
-    transform: rotate(-2deg) scale(0.98);
-  }
-  75% {
-    border-radius: 65% 35% 42% 58% / 55% 42% 58% 45%;
-    transform: rotate(3deg) scale(1.03);
-  }
-  100% {
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-    transform: rotate(0deg) scale(1);
-  }
-}
-
-.hero-liquid-shape {
-  background: radial-gradient(circle at 35% 30%, #C3E7FA 0%, #2A8FA8 55%, #063247 100%);
-  box-shadow: 
-    0 25px 50px -12px rgba(6, 50, 71, 0.35),
-    0 10px 30px rgba(42, 143, 168, 0.25),
-    inset 0 -10px 20px rgba(6, 50, 71, 0.25),
-    inset 0 10px 20px rgba(255, 255, 255, 0.4);
-  animation: heroLiquidMorph 9s ease-in-out infinite;
-  will-change: border-radius, transform;
-  transform: translateZ(0);
-}
-
-.hero-liquid-glow {
-  background: radial-gradient(circle, rgba(42, 143, 168, 0.35) 0%, rgba(195, 231, 250, 0.2) 50%, rgba(6, 50, 71, 0) 75%);
-  filter: blur(28px);
-  animation: heroLiquidMorph 12s ease-in-out infinite reverse;
-  will-change: border-radius, transform;
-  transform: translateZ(0);
 }
 
 /* ── HERO CAR SWIPE TRANSITION ── */
@@ -274,33 +212,41 @@ img, video {
   perspective: 1000px;
 }
 
-/* ── CAB CASTLE LUXURY STYLING UTILITIES ── */
+/* ── SIGNATURE COLOR UTILITIES ── */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #FDE68A 0%, #E5A93C 50%, #D97706 100%);
+  background: linear-gradient(135deg, #DEEDE4 0%, #69A481 50%, #467E5D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-claret-gradient {
+  background: linear-gradient(135deg, #9B2A41 0%, #7C1F31 50%, #50121E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gold-shimmer {
-  background: linear-gradient(90deg, #F5D77F 0%, #FFFFFF 50%, #E5A93C 100%);
+  background: linear-gradient(90deg, #8FC4A5 0%, #FFFFFF 50%, #69A481 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .bg-gold-gradient {
-  background: linear-gradient(135deg, #F5D061 0%, #E5A93C 50%, #C58B24 100%);
+  background: linear-gradient(135deg, #7C1F31 0%, #9B2A41 50%, #7C1F31 100%);
 }
 
 .bg-gold-gradient:hover {
-  background: linear-gradient(135deg, #F7D875 0%, #E8B045 50%, #D4901F 100%);
+  background: linear-gradient(135deg, #631826 0%, #7C1F31 50%, #631826 100%);
+}
+
+.bg-mint-gradient {
+  background: linear-gradient(135deg, #69A481 0%, #528A69 100%);
 }
 
 .border-gold-subtle {
-  border: 1px solid rgba(229, 169, 60, 0.28);
+  border: 1px solid rgba(105, 164, 129, 0.35);
 }
 
 .castle-gold-glow {
-  box-shadow: 0 0 28px rgba(229, 169, 60, 0.22);
+  box-shadow: 0 0 28px rgba(105, 164, 129, 0.28);
 }
-
-

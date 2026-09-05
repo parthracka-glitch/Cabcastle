@@ -113,7 +113,7 @@ async function runVerification() {
         'Idempotency-Key': `test-key-${Date.now()}`,
       },
       body: JSON.stringify({
-        vehicle_id: testVehicle?.id || 'v-thar-4x4',
+        vehicle_id: testVehicle?.id || 'v-swift',
         start_date: testStartDate,
         end_date: testEndDate,
         pickup_location: 'Candolim (Main Hub)',

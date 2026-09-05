@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import crypto, { randomUUID } from 'node:crypto';
-import { GOOGLE_CLIENT_ID } from '../config/index.js';
+import { GOOGLE_CLIENT_ID, ADMIN_EMAIL, ADMIN_PASSWORD } from '../config/index.js';
 import { UserModel } from '../models/user.model.js';
 import { SettingModel } from '../models/setting.model.js';
 import {
@@ -98,22 +98,19 @@ export async function login(req: Request, res: Response) {
       // Ignore DB lookup error
     }
 
-    // Master login fallback for Admin & Demo Customer
-    const isAdminEmail = email === 'dasgiradur@gmail.com' ||
-                         email === 'admin@cabcastlegoa.com' ||
-                         email === 'admin@coastalcabsgoa.com' ||
-                         email === 'admin@coastalcabzgoa.in' ||
-                         email.startsWith('admin@');
+    // Explicit Admin & Demo Customer credentials check
+    const configuredAdminEmail = (ADMIN_EMAIL || 'dasgiradur@gmail.com').toLowerCase();
+    const isAdminEmail = email === configuredAdminEmail ||
+                         email === 'dasgiradur@gmail.com' ||
+                         email === 'admin@cabcastlegoa.com';
 
-    const isAdminPassword = cleanPassword === 'Admin@1234' ||
+    const isAdminPassword = cleanPassword === ADMIN_PASSWORD ||
                             cleanPassword === 'Admin@123' ||
-                            cleanPassword === 'admin' ||
-                            pwdLower === 'admin@1234' ||
-                            pwdLower === 'admin@123';
+                            cleanPassword === 'Admin@1234';
 
     const isAdmin = isAdminEmail && isAdminPassword;
-    const isDemo = (email === 'demo@cabcastlegoa.com' || email === 'demo@coastalcabsgoa.com' || email === 'demo@coastalcabzgoa.in') && 
-                   (cleanPassword === 'Demo@1234' || pwdLower === 'demo@1234' || pwdLower === 'demo');
+    const isDemo = (email === 'demo@cabcastlegoa.com' || email === 'demo@coastalcabsgoa.com') && 
+                   (cleanPassword === 'Demo@1234');
 
     if (isAdmin) {
       if (!user) {
@@ -130,7 +127,7 @@ export async function login(req: Request, res: Response) {
       if (!user) {
         user = {
           id: 'demo-master-id',
-          email: 'demo@coastalcabsgoa.com',
+          email: 'demo@cabcastlegoa.com',
           name: 'Demo Customer',
           role: 'customer',
         };

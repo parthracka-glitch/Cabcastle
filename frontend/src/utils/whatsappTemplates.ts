@@ -292,7 +292,7 @@ export function extractBookingDetails(raw: BookingDataInput | null | undefined):
     raw.vehicleId?.name ||
     raw.vehicle_snapshot?.title ||
     raw.vehicleName ||
-    (isFleet ? 'Mahindra Thar 4x4 / Swift Dzire' : 'Coastal Cabz Tour Coach');
+    (isFleet ? 'Swift Dzire / Ertiga' : 'Coastal Cabz Tour Coach');
 
   const tourPackageName =
     raw.packageId?.title ||

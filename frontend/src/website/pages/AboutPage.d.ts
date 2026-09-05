@@ -1,3 +1,8 @@
-import React from "react";
-declare const AboutPage: React.FC;
+import React from 'react';
+
+export interface AboutPageProps {
+  defaultSection?: string;
+}
+
+declare const AboutPage: React.FC<AboutPageProps>;
 export default AboutPage;

@@ -57,17 +57,17 @@ export default function CookiePreferencesModal({ open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-xl w-[94vw] sm:w-full bg-white rounded-3xl border border-[#DFE8EC] p-6 sm:p-7 shadow-2xl overflow-y-auto max-h-[90vh]">
-        <DialogHeader className="text-left border-b border-[#DFE8EC] pb-4">
+      <DialogContent className="max-w-xl w-[94vw] sm:w-full bg-[#E7EDEB] rounded-3xl border border-[#CBD8D4] p-6 sm:p-7 shadow-2xl overflow-y-auto max-h-[90vh]">
+        <DialogHeader className="text-left border-b border-[#CBD8D4] pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#E4F2F5] text-[#2A8FA8] flex items-center justify-center shrink-0 border border-[#C3E7FA]">
+            <div className="w-10 h-10 rounded-2xl bg-[#DEEDE4] text-[#69A481] flex items-center justify-center shrink-0 border border-[#69A481]/30">
               <Cookie size={20} />
             </div>
             <div>
-              <DialogTitle className="font-display text-xl font-bold text-[#063247]">
+              <DialogTitle className="font-display text-xl font-bold text-[#1B2922]">
                 Cookie &amp; Privacy Preferences
               </DialogTitle>
-              <DialogDescription className="text-xs text-[#8496A2] mt-0.5 font-normal">
+              <DialogDescription className="text-xs text-[#6C8277] mt-0.5 font-normal">
                 Customize how Cab Castle Goa stores data in your browser for booking and security.
               </DialogDescription>
             </div>
@@ -76,26 +76,26 @@ export default function CookiePreferencesModal({ open, onOpenChange }) {
 
         <div className="space-y-4 py-3 text-left">
           {/* Strictly Necessary */}
-          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE8EC] flex items-start justify-between gap-4">
+          <div className="p-4 rounded-2xl bg-white border border-[#CBD8D4] flex items-start justify-between gap-4">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-xs text-[#063247]">Strictly Necessary Cookies</span>
-                <span className="text-[9.5px] bg-[#E4F2F5] text-[#2A8FA8] font-bold px-2 py-0.5 rounded-full border border-[#C3E7FA]">
+                <span className="font-bold text-xs text-[#1B2922]">Strictly Necessary Cookies</span>
+                <span className="text-[9.5px] bg-[#DEEDE4] text-[#245339] font-bold px-2 py-0.5 rounded-full border border-[#69A481]/30">
                   Always Active
                 </span>
               </div>
-              <p className="text-[11px] text-[#4C606E] leading-relaxed">
-                Essential for core website security, authentication tokens, CSRF protection, and keeping your cab booking session active.
+              <p className="text-[11px] text-[#4D6257] leading-relaxed">
+                Essential for core website security, authentication tokens, CSRF protection, and keeping your car booking session active.
               </p>
             </div>
             <Switch checked={true} disabled className="mt-1" />
           </div>
 
           {/* Functional & Preferences */}
-          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE8EC] flex items-start justify-between gap-4">
+          <div className="p-4 rounded-2xl bg-white border border-[#CBD8D4] flex items-start justify-between gap-4">
             <div className="space-y-1">
-              <span className="font-bold text-xs text-[#063247]">Functional &amp; Preference Cookies</span>
-              <p className="text-[11px] text-[#4C606E] leading-relaxed">
+              <span className="font-bold text-xs text-[#1B2922]">Functional &amp; Preference Cookies</span>
+              <p className="text-[11px] text-[#4D6257] leading-relaxed">
                 Remembers your selected pickup locations (e.g. Candolim, Mopa Airport), currency, and customer dashboard layout.
               </p>
             </div>
@@ -107,10 +107,10 @@ export default function CookiePreferencesModal({ open, onOpenChange }) {
           </div>
 
           {/* Performance & Analytics */}
-          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE8EC] flex items-start justify-between gap-4">
+          <div className="p-4 rounded-2xl bg-white border border-[#CBD8D4] flex items-start justify-between gap-4">
             <div className="space-y-1">
-              <span className="font-bold text-xs text-[#063247]">Performance &amp; Analytics Cookies</span>
-              <p className="text-[11px] text-[#4C606E] leading-relaxed">
+              <span className="font-bold text-xs text-[#1B2922]">Performance &amp; Analytics Cookies</span>
+              <p className="text-[11px] text-[#4D6257] leading-relaxed">
                 Helps us measure page load speeds, fix broken links, and analyze traffic volume without tracking personal identities.
               </p>
             </div>
@@ -122,10 +122,10 @@ export default function CookiePreferencesModal({ open, onOpenChange }) {
           </div>
 
           {/* Marketing */}
-          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#DFE8EC] flex items-start justify-between gap-4">
+          <div className="p-4 rounded-2xl bg-white border border-[#CBD8D4] flex items-start justify-between gap-4">
             <div className="space-y-1">
-              <span className="font-bold text-xs text-[#063247]">Marketing &amp; Promotional Cookies</span>
-              <p className="text-[11px] text-[#4C606E] leading-relaxed">
+              <span className="font-bold text-xs text-[#1B2922]">Marketing &amp; Promotional Cookies</span>
+              <p className="text-[11px] text-[#4D6257] leading-relaxed">
                 Allows relevant travel offers and festival discounts to be displayed on Google and social channels.
               </p>
             </div>
@@ -137,13 +137,13 @@ export default function CookiePreferencesModal({ open, onOpenChange }) {
           </div>
         </div>
 
-        <DialogFooter className="border-t border-[#DFE8EC] pt-4 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+        <DialogFooter className="border-t border-[#CBD8D4] pt-4 flex flex-col sm:flex-row items-center justify-between gap-2.5">
           <div className="flex items-center gap-2 w-full sm:w-auto">
             <Button
               type="button"
               variant="outline"
               onClick={handleRejectOptional}
-              className="h-9 px-3.5 rounded-xl text-xs font-semibold text-[#4C606E] border-[#DFE8EC] flex-1 sm:flex-initial cursor-pointer"
+              className="h-9 px-3.5 rounded-xl text-xs font-semibold text-[#4D6257] border-[#CBD8D4] hover:bg-[#DEEDE4] flex-1 sm:flex-initial cursor-pointer"
             >
               Reject Optional
             </Button>
@@ -151,7 +151,7 @@ export default function CookiePreferencesModal({ open, onOpenChange }) {
               type="button"
               variant="outline"
               onClick={handleAcceptAll}
-              className="h-9 px-3.5 rounded-xl text-xs font-semibold text-[#063247] border-[#063247] flex-1 sm:flex-initial cursor-pointer"
+              className="h-9 px-3.5 rounded-xl text-xs font-semibold text-[#1B2922] border-[#CBD8D4] hover:bg-[#DEEDE4] flex-1 sm:flex-initial cursor-pointer"
             >
               Accept All
             </Button>
@@ -160,7 +160,7 @@ export default function CookiePreferencesModal({ open, onOpenChange }) {
           <Button
             type="button"
             onClick={() => savePreferences()}
-            className="h-9 px-5 rounded-xl text-xs font-bold bg-[#063247] hover:bg-[#063247]/90 text-white w-full sm:w-auto cursor-pointer"
+            className="h-9 px-5 rounded-xl text-xs font-bold bg-[#7C1F31] hover:bg-[#631826] text-white w-full sm:w-auto cursor-pointer border border-[#7C1F31]"
           >
             Save Preferences
           </Button>

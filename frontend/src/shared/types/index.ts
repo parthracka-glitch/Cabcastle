@@ -19,7 +19,7 @@ export interface IVehicle {
   id: string;
   title: string;
   reg_no: string;
-  category: 'Sedan' | 'SUV' | 'Hatchback' | 'Convertible' | 'Thar 4x4';
+  category: 'Sedan' | 'SUV' | 'Hatchback' | 'Luxury' | 'Convertible';
   fuel_type: 'Petrol' | 'Diesel' | 'EV';
   transmission: 'Manual' | 'Automatic' | 'Manual & Automatic';
   seating: number;

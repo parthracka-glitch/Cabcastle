@@ -152,9 +152,9 @@ export default function BookingSuccess() {
             gap: 12px;
           }
           .print-btn {
-            background: linear-gradient(135deg, #070A11, #1E293B);
+            background: linear-gradient(135deg, #24060C, #7C1F31);
             color: #FFFFFF;
-            border: 1px solid #E5A93C;
+            border: 1px solid #69A481;
             padding: 10px 24px;
             border-radius: 9999px;
             font-size: 12px;
@@ -167,17 +167,17 @@ export default function BookingSuccess() {
             box-shadow: 0 4px 14px rgba(0,0,0,0.15);
             transition: all 0.2s ease;
           }
-          .print-btn:hover { background: #E5A93C; color: #070A11; transform: translateY(-1px); }
+          .print-btn:hover { background: #69A481; color: #24060C; transform: translateY(-1px); }
 
           /* Top Royal Brand Header */
           .header-banner {
-            background: linear-gradient(135deg, #070A11 0%, #0F172A 100%);
+            background: linear-gradient(135deg, #24060C 0%, #7C1F31 100%);
             color: #FFFFFF;
             padding: 32px 36px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #E5A93C;
+            border-bottom: 2px solid #69A481;
           }
           .brand-left {
             display: flex;
@@ -188,13 +188,13 @@ export default function BookingSuccess() {
             width: 58px;
             height: 58px;
             border-radius: 14px;
-            border: 1.5px solid #E5A93C;
-            background: #0B1120;
+            border: 1.5px solid #69A481;
+            background: #24060C;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 28px;
-            box-shadow: 0 0 16px rgba(229,169,60,0.25);
+            box-shadow: 0 0 16px rgba(105,164,129,0.25);
           }
           .brand-title {
             font-size: 22px;
@@ -207,7 +207,7 @@ export default function BookingSuccess() {
             font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #E5A93C;
+            color: #69A481;
             margin-top: 2px;
           }
           .brand-meta {
@@ -410,7 +410,7 @@ export default function BookingSuccess() {
             padding: 16px 20px;
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
-            border-left: 4px solid #E5A93C;
+            border-left: 4px solid #69A481;
             border-radius: 10px;
             font-size: 11.5px;
             color: #334155;
@@ -597,10 +597,10 @@ export default function BookingSuccess() {
   const whatsappUrl = `https://wa.me/917026648960?text=${whatsappMsg}`;
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] text-[#063247] font-body no-scroll-x antialiased">
+    <div className="min-h-screen bg-[#E7EDEB] text-[#1B2922] font-body no-scroll-x antialiased">
       <SEO
         title={`Booking Confirmed #${bookingNo} | Cab Castle Goa`}
-        description="Your cab and tour reservation in Goa has been confirmed with zero advance payment."
+        description="Your car and tour reservation in Goa has been confirmed with zero advance payment."
         noindex={true}
       />
       <Navbar />
@@ -609,77 +609,77 @@ export default function BookingSuccess() {
         
         {/* Top Celebration Card */}
         <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#E4F2F5] text-[#288DA6] mb-4 shadow-sm border border-[#288DA6]/30">
-            <CheckCircle2 size={36} className="text-[#288DA6]" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#DEEDE4] text-[#69A481] mb-4 shadow-sm border border-[#69A481]/30">
+            <CheckCircle2 size={36} className="text-[#69A481]" />
           </div>
-          <div className="text-xs uppercase tracking-widest text-[#4C606E] font-bold mb-2">
+          <div className="text-xs uppercase tracking-widest text-[#4D6257] font-bold mb-2">
             Reservation Confirmed
           </div>
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl text-[#063247] font-black mb-3 tracking-tight">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl text-[#1B2922] font-black mb-3 tracking-tight">
             You're all set!
           </h1>
-          <p className="text-xs sm:text-sm text-[#4C606E] max-w-md mx-auto leading-relaxed font-normal">
-            Booking <span className="font-bold font-mono text-[#063247]" data-testid="booking-no">#{bookingNo}</span> is confirmed. Our local dispatch team is preparing your cab.
+          <p className="text-xs sm:text-sm text-[#4D6257] max-w-md mx-auto leading-relaxed font-normal">
+            Booking <span className="font-bold font-mono text-[#1B2922]" data-testid="booking-no">#{bookingNo}</span> is confirmed. Our local dispatch team is preparing your car.
           </p>
         </div>
 
         {/* Full Details Box */}
-        <div className="bg-white rounded-[24px] border border-[#DFE8EC] overflow-hidden shadow-sm">
+        <div className="bg-white rounded-[24px] border border-[#CBD8D4] overflow-hidden shadow-sm">
           
           {/* Top Details Grid */}
-          <div className="p-6 md:p-8 grid grid-cols-1 sm:grid-cols-2 gap-6 border-b border-[#DFE8EC]">
+          <div className="p-6 md:p-8 grid grid-cols-1 sm:grid-cols-2 gap-6 border-b border-[#CBD8D4]">
             
             {/* Customer Details */}
             <div className="space-y-1">
-              <div className="text-[10px] uppercase font-bold tracking-wider text-[#8496A2] flex items-center gap-1">
-                <User size={12} className="text-[#288DA6]" /> Customer Details
+              <div className="text-[10px] uppercase font-bold tracking-wider text-[#6C8277] flex items-center gap-1">
+                <User size={12} className="text-[#69A481]" /> Customer Details
               </div>
-              <div className="font-display text-base font-bold text-[#063247]">
+              <div className="font-display text-base font-bold text-[#1B2922]">
                 {customerName}
               </div>
-              <div className="text-xs text-[#4C606E] flex items-center gap-1.5">
-                <Phone size={12} className="text-[#8496A2]" /> {customerPhone}
+              <div className="text-xs text-[#4D6257] flex items-center gap-1.5">
+                <Phone size={12} className="text-[#6C8277]" /> {customerPhone}
               </div>
               {customerEmail && (
-                <div className="text-xs text-[#4C606E] flex items-center gap-1.5">
-                  <Mail size={12} className="text-[#8496A2]" /> {customerEmail}
+                <div className="text-xs text-[#4D6257] flex items-center gap-1.5">
+                  <Mail size={12} className="text-[#6C8277]" /> {customerEmail}
                 </div>
               )}
             </div>
 
             {/* Total Fare */}
             <div className="space-y-1 sm:text-right">
-              <div className="text-[10px] uppercase font-bold tracking-wider text-[#8496A2]">Total Amount</div>
-              <div className="font-display text-2xl font-black text-[#063247]" data-testid="success-amount">
+              <div className="text-[10px] uppercase font-bold tracking-wider text-[#6C8277]">Total Amount</div>
+              <div className="font-display text-2xl font-black text-[#1B2922]" data-testid="success-amount">
                 {formatINR(totalFare)}
               </div>
-              <div className="text-xs font-bold text-[#288DA6] uppercase tracking-wider">
+              <div className="text-xs font-bold text-[#245339] uppercase tracking-wider bg-[#DEEDE4] px-2.5 py-0.5 rounded-full inline-block mt-1">
                 {b.payment_status || "Pay to Driver (Zero Advance)"}
               </div>
             </div>
 
             {/* Vehicle Details */}
             <div className="space-y-1">
-              <div className="text-[10px] uppercase font-bold tracking-wider text-[#8496A2] flex items-center gap-1">
-                <Car size={12} className="text-[#288DA6]" /> Vehicle Reserved
+              <div className="text-[10px] uppercase font-bold tracking-wider text-[#6C8277] flex items-center gap-1">
+                <Car size={12} className="text-[#69A481]" /> Vehicle Reserved
               </div>
-              <div className="font-display text-base font-bold text-[#063247] flex items-center gap-1.5">
+              <div className="font-display text-base font-bold text-[#1B2922] flex items-center gap-1.5">
                 <span>{vehicleTitle}</span>
               </div>
-              <div className="text-xs text-[#4C606E]">
+              <div className="text-xs text-[#4D6257]">
                 {vehicleCategory} · {days} Day(s) Tour · Sanitized AC
               </div>
             </div>
 
             {/* Service Option */}
             <div className="space-y-1 sm:text-right">
-              <div className="text-[10px] uppercase font-bold tracking-wider text-[#8496A2] flex items-center sm:justify-end gap-1">
-                <Compass size={12} className="text-[#288DA6]" /> Service Type
+              <div className="text-[10px] uppercase font-bold tracking-wider text-[#6C8277] flex items-center sm:justify-end gap-1">
+                <Compass size={12} className="text-[#69A481]" /> Service Type
               </div>
-              <div className="text-xs font-bold text-[#063247]">
-                Tour Cab (With Professional Driver)
+              <div className="text-xs font-bold text-[#1B2922]">
+                Tour Car (With Professional Chauffeur)
               </div>
-              <div className="text-xs text-[#4C606E]">
+              <div className="text-xs text-[#4D6257]">
                 Zero Advance Deposit
               </div>
             </div>
@@ -687,57 +687,57 @@ export default function BookingSuccess() {
           </div>
 
           {/* Schedule & Handover Details */}
-          <div className="p-6 md:p-8 grid grid-cols-1 sm:grid-cols-2 gap-6 border-b border-[#DFE8EC] bg-[#F7F7F7]">
+          <div className="p-6 md:p-8 grid grid-cols-1 sm:grid-cols-2 gap-6 border-b border-[#CBD8D4] bg-[#E7EDEB]">
             {/* Pickup */}
             <div className="space-y-1.5">
-              <div className="text-[10px] uppercase font-bold tracking-wider text-[#063247] flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#288DA6]" /> Pick-up Schedule &amp; Address
+              <div className="text-[10px] uppercase font-bold tracking-wider text-[#1B2922] flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#69A481]" /> Pick-up Schedule &amp; Address
               </div>
-              <div className="text-xs font-bold text-[#063247] flex items-center gap-1.5">
-                <Calendar size={13} className="text-[#8496A2] shrink-0" />
+              <div className="text-xs font-bold text-[#1B2922] flex items-center gap-1.5">
+                <Calendar size={13} className="text-[#6C8277] shrink-0" />
                 <span>{pickupDate} at {pickupTime}</span>
               </div>
-              <div className="text-xs text-[#4C606E] flex items-center gap-1.5">
-                <MapPin size={13} className="text-[#288DA6] shrink-0" />
+              <div className="text-xs text-[#4D6257] flex items-center gap-1.5">
+                <MapPin size={13} className="text-[#69A481] shrink-0" />
                 <span>{pickupLoc}</span>
               </div>
             </div>
 
             {/* Dropoff */}
             <div className="space-y-1.5 sm:text-right">
-              <div className="text-[10px] uppercase font-bold tracking-wider text-[#063247] flex items-center sm:justify-end gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#288DA6]" /> Drop-off Schedule
+              <div className="text-[10px] uppercase font-bold tracking-wider text-[#1B2922] flex items-center sm:justify-end gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#69A481]" /> Drop-off Schedule
               </div>
-              <div className="text-xs font-bold text-[#063247] flex items-center sm:justify-end gap-1.5">
-                <Calendar size={13} className="text-[#8496A2] shrink-0" />
+              <div className="text-xs font-bold text-[#1B2922] flex items-center sm:justify-end gap-1.5">
+                <Calendar size={13} className="text-[#6C8277] shrink-0" />
                 <span>{dropDate} at {dropTime}</span>
               </div>
-              <div className="text-xs text-[#4C606E] flex items-center sm:justify-end gap-1.5">
-                <MapPin size={13} className="text-[#063247] shrink-0" />
+              <div className="text-xs text-[#4D6257] flex items-center sm:justify-end gap-1.5">
+                <MapPin size={13} className="text-[#1B2922] shrink-0" />
                 <span>{dropLoc}</span>
               </div>
             </div>
           </div>
 
           {/* Policy Highlights */}
-          <div className="p-4 sm:p-6 bg-white border-b border-[#DFE8EC] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#4C606E]">
+          <div className="p-4 sm:p-6 bg-white border-b border-[#CBD8D4] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#4D6257]">
             <div className="flex items-center gap-2">
-              <ShieldCheck size={16} className="text-[#288DA6]" />
+              <ShieldCheck size={16} className="text-[#69A481]" />
               <span>Zero Advance Payment · Pay to Driver</span>
             </div>
             <div>
-              <span>Clean AC Cab Guarantee</span>
+              <span>Clean AC Car Guarantee</span>
             </div>
           </div>
 
           {/* Quick Actions */}
-          <div className="p-6 md:p-8 flex flex-col sm:flex-row flex-wrap gap-3 bg-[#F7F7F7]">
+          <div className="p-6 md:p-8 flex flex-col sm:flex-row flex-wrap gap-3 bg-[#E7EDEB]">
             
             {/* Download Invoice Button */}
             <Button
               type="button"
               onClick={handleDownloadInvoice}
-              className="flex-1 min-w-[190px] h-12 bg-[#288DA6] hover:bg-[#22768C] text-white font-black text-xs uppercase tracking-wider rounded-full shadow-md border-t border-white/30 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              className="flex-1 min-w-[190px] h-12 bg-[#69A481] hover:bg-[#528A69] text-white font-black text-xs uppercase tracking-wider rounded-full shadow-md border-t border-white/30 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
               <Download size={16} className="text-white" />
               <span>Download Invoice (PDF)</span>
@@ -745,8 +745,8 @@ export default function BookingSuccess() {
 
             {/* My Bookings Button */}
             <Link to="/my-bookings" className="flex-1 min-w-[160px]">
-              <Button className="w-full h-12 bg-[#063247] hover:bg-[#042433] text-white font-bold text-xs uppercase tracking-wider rounded-full shadow-sm transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-95">
-                <FileText size={15} className="text-[#288DA6]" />
+              <Button className="w-full h-12 bg-[#7C1F31] hover:bg-[#631826] text-white font-bold text-xs uppercase tracking-wider rounded-full shadow-sm transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-95 border border-[#7C1F31]">
+                <FileText size={15} className="text-white" />
                 <span>My Bookings</span>
               </Button>
             </Link>
@@ -769,7 +769,7 @@ export default function BookingSuccess() {
               href="tel:+917026648960"
               className="flex-1 min-w-[140px]"
             >
-              <Button variant="outline" className="w-full h-12 border-[#DFE8EC] bg-white hover:bg-[#E4F2F5] text-[#063247] font-bold text-xs uppercase tracking-wider rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 shadow-2xs">
+              <Button variant="outline" className="w-full h-12 border-[#CBD8D4] bg-white hover:bg-[#DEEDE4] text-[#1B2922] font-bold text-xs uppercase tracking-wider rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 shadow-2xs">
                 <Phone size={15} />
                 <span>Support</span>
               </Button>
@@ -777,7 +777,7 @@ export default function BookingSuccess() {
 
             {/* Back to Fleet */}
             <Link to="/fleet" className="flex-1 min-w-[140px]">
-              <Button variant="outline" className="w-full h-12 border-[#DFE8EC] bg-white hover:bg-[#063247] hover:text-white text-[#063247] font-bold text-xs uppercase tracking-wider rounded-full transition-all cursor-pointer">
+              <Button variant="outline" className="w-full h-12 border-[#CBD8D4] bg-white hover:bg-[#7C1F31] hover:text-white text-[#1B2922] font-bold text-xs uppercase tracking-wider rounded-full transition-all cursor-pointer">
                 <span>Fleet</span>
                 <ArrowRight size={14} className="ml-1" />
               </Button>

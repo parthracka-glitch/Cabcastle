@@ -621,42 +621,8 @@ export async function downloadInvoice(req: Request, res: Response) {
       ],
     }).lean();
 
-    // 2. If still not found, check the most recent booking in the database
     if (!b) {
-      b = await BookingModel.findOne().sort({ created_at: -1 }).lean();
-    }
-
-    // 3. If database is empty, create a clean default voucher object
-    if (!b) {
-      b = {
-        id: bookingId || 'CCG-PREVIEW',
-        booking_no: bookingId.startsWith('DHG') || bookingId.startsWith('CCG') ? bookingId : `CCG-${bookingId.slice(0, 6).toUpperCase() || 'DEMO-01'}`,
-        service_type: 'tour',
-        start_date: new Date().toISOString(),
-        end_date: new Date(Date.now() + 86400000 * 2).toISOString(),
-        pickup_time: '09:00 AM',
-        drop_time: '06:00 PM',
-        pickup_location: 'Mopa Airport (GOX) / Hotel Taj Candolim',
-        drop_location: 'Candolim Beach Resort, North Goa',
-        days: 2,
-        base_amount: 4800,
-        total_amount: 4800,
-        per_day_rate: 2400,
-        status: 'Confirmed',
-        payment_status: 'Pending',
-        customer: {
-          name: 'Valued Guest',
-          phone: '+91 98603 33616',
-          email: 'guest@cabcastlegoa.com',
-        },
-        vehicle_snapshot: {
-          title: 'Baleno',
-          reg_no: 'GA-03-Z-8821',
-          category: 'Hatchback',
-          daily_rate: 2400,
-        },
-        created_at: new Date().toISOString(),
-      };
+      return res.status(404).json({ detail: 'Booking invoice not found' });
     }
 
     const vs = b.vehicle_snapshot || {};

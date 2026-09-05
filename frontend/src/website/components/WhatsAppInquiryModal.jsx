@@ -51,21 +51,21 @@ export default function WhatsAppInquiryModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-3 sm:p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-[#DFE8EC] my-auto text-left font-body">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-[#CBD8D4] my-auto text-left font-body">
         {/* Header */}
-        <div className="bg-[#063247] px-5 py-4 text-white flex items-center justify-between">
+        <div className="bg-[#24060C] px-5 py-4 text-white flex items-center justify-between border-b border-[#7C1F31]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#288DA6]/20 border border-[#288DA6]/30 text-[#288DA6] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-[#69A481]/20 border border-[#69A481]/30 text-[#69A481] flex items-center justify-center">
               <MessageSquare className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base font-display">Cab Castle WhatsApp Inquiry</h3>
-              <p className="text-xs text-[#C3E7FA]">Instant quote &amp; cab booking directly on WhatsApp</p>
+              <p className="text-xs text-[#8FC4A5]">Instant quote &amp; car booking directly on WhatsApp</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-white rounded-full transition-colors cursor-pointer"
+            className="p-2 text-white/60 hover:text-white rounded-full transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -81,7 +81,7 @@ export default function WhatsAppInquiryModal({
               type="text"
               value={service}
               onChange={(e) => setService(e.target.value)}
-              placeholder="e.g. Thar 4x4, Swift Dzire, South Goa Tour..."
+              placeholder="e.g. Swift Dzire, Innova Crysta, Ertiga, South Goa Tour..."
               className="w-full px-3 py-2 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-indigo-500"
               required
             />

@@ -1,160 +1,142 @@
-# DriveHub Goa — Step-by-Step Production Deployment Guide
+# Cab Castle Goa — Production Deployment Guide
 
-This guide provides complete, step-by-step instructions for deploying **Drivehub Goa** for **100% free production hosting** using:
-- **MongoDB Atlas** (Database)
-- **Render** (Python FastAPI Backend)
-- **Vercel** (React Frontend)
-- **Cron-Job.org / UptimeRobot** (24/7 Backend Keep-Alive)
+Complete step-by-step deployment guide for hosting the **Frontend on Vercel** and the **Backend on Render**, connected to **MongoDB Atlas** and **Cloudinary**.
 
 ---
 
-## Deployment Architecture Overview
+## 📋 Pre-Flight Checklist: What You Need Before Deploying
 
-```mermaid
-flowchart TD
-    User([Customer / Admin]) -->|HTTPS| Vercel[Vercel Edge CDN - Frontend]
-    Vercel -->|API Requests| Render[Render Web Service - FastAPI Backend]
-    Cron[Cron-Job.org / UptimeRobot] -->|Ping every 10 mins| Render
-    Render -->|Async Driver| Atlas[(MongoDB Atlas M0 Free Cluster)]
-    Render -->|Image Storage| Cloudinary[Cloudinary CDN]
+Before deploying to live production, ensure you have these 5 items ready:
+
+| # | Item | Status / Where to get | Required In |
+|---|:---|:---|:---|
+| 1 | **MongoDB Atlas Connection String** | Create a free/dedicated cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) -> Database -> Connect -> Drivers -> copy connection URI (e.g. `mongodb+srv://admin:<password>@cluster0.xxx.mongodb.net/?retryWrites=true&w=majority`) | Render Backend (`MONGO_URL`, `DB_NAME`) |
+| 2 | **JWT Secret Key** | Generate a strong 64-character random string (e.g. `openssl rand -base64 32`) | Render Backend (`JWT_SECRET`) |
+| 3 | **Cloudinary Credentials** | Get your credentials from [Cloudinary Console](https://console.cloudinary.com) | Render Backend (`CLOUDINARY_*`) & Vercel (`REACT_APP_CLOUDINARY_CLOUD_NAME`) |
+| 4 | **Google OAuth 2.0 Credentials** | Get Client ID and Secret from [Google Cloud Console](https://console.cloud.google.com/apis/credentials) and add production domains to **Authorized JavaScript Origins** | Vercel (`REACT_APP_GOOGLE_CLIENT_ID`) & Render Backend |
+| 5 | **Admin Master Credentials** | Set your production admin email and strong password | Render Backend (`ADMIN_EMAIL`, `ADMIN_PASSWORD`) |
+
+---
+
+## 🚀 Part 1: Deploy Backend on Render (Node.js Web Service)
+
+### Step 1: Create a Web Service on Render
+1. Go to [Render Dashboard](https://dashboard.render.com).
+2. Click **New +** -> **Web Service**.
+3. Connect your GitHub repository.
+
+### Step 2: Configure Service Settings
+- **Name:** `cab-castle-backend` (or your chosen name)
+- **Region:** `Singapore (Southeast Asia)` or `Frankfurt` (closest to India for low latency)
+- **Root Directory:** `backend` *(Important: specify `backend` if deploying from a monorepo/subfolder)*
+- **Runtime:** `Node`
+- **Build Command:** `npm install && npm run build`
+- **Start Command:** `npm start`
+- **Instance Type:** `Free` or `Starter` ($7/mo recommended for 24/7 uptime without cold starts)
+
+### Step 3: Set Environment Variables on Render
+Under the **Environment** tab, add the following key-value pairs:
+
+```env
+NODE_ENV=production
+PORT=8000
+MONGO_URL=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/?retryWrites=true&w=majority
+DB_NAME=cab_castle_goa
+JWT_SECRET=YOUR_SUPER_SECURE_PRODUCTION_JWT_SECRET_KEY_MIN_32_CHARS
+ADMIN_EMAIL=your_admin_email@example.com
+ADMIN_PASSWORD=YourStrongAdminPasswordHere
+
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+CLOUDINARY_URL=cloudinary://your_api_key:your_api_secret@your_cloud_name
 ```
 
----
+### Step 4: Health Check Path
+- Under **Advanced Settings**, set **Health Check Path** to: `/api/health`
 
-## Step 1: MongoDB Atlas Setup (Database)
-
-1. Sign up / Log into [MongoDB Atlas](https://cloud.mongodb.com).
-2. **Create a Free Cluster**:
-   - Select **M0 Free Tier** (512 MB).
-   - Region: AWS / Singapore or Mumbai (`ap-south-1`).
-   - Cluster Name: `Cluster0` or `drivehub-cluster`.
-3. **Database User Setup**:
-   - Go to **Security** $\rightarrow$ **Database Access**.
-   - Click **Add New Database User**.
-   - Authentication Method: **Password**.
-   - Username: `drivehubgoa_db_user`
-   - Password: Generate a strong password (e.g. `Saieshdesai`).
-   - User Privileges: **Read and write to any database**.
-   - Click **Add User**.
-4. **Network Access Setup (Crucial)**:
-   - Go to **Security** $\rightarrow$ **Network Access**.
-   - Click **Add IP Address**.
-   - Click **ALLOW ACCESS FROM ANYWHERE** (`0.0.0.0/0`).
-   - Click **Confirm** *(This allows Render cloud servers to connect dynamically)*.
-5. **Get Connection String**:
-   - Go to **Database** $\rightarrow$ Click **Connect**.
-   - Select **Drivers** (Python).
-   - Copy connection string:
-     ```text
-     mongodb+srv://drivehubgoa_db_user:<password>@cluster0.sujtj5v.mongodb.net/?appName=Cluster0
-     ```
-   - Replace `<password>` with your actual database user password.
+### Step 5: Deploy
+Click **Create Web Service**. Once deployed, Render will provide your live URL (e.g. `https://cab-castle-backend.onrender.com`).
+Copy this URL — you will need it for the frontend!
 
 ---
 
-## Step 2: Render Backend Deployment (FastAPI)
+## 🌐 Part 2: Deploy Frontend on Vercel
 
-1. Push your complete code repository to **GitHub**.
-2. Sign up / Log into [Render.com](https://render.com).
-3. Click **New +** $\rightarrow$ Select **Web Service**.
-4. Connect your GitHub repository.
-5. **Configure Web Service**:
-   - **Name**: `drivehub-goa-backend`
-   - **Region**: Singapore or Frankfurt
-   - **Branch**: `main`
-   - **Root Directory**: `backend`
-   - **Runtime**: `Python 3`
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn server:app --host 0.0.0.0 --port $PORT`
-   - **Instance Type**: Select **Free** (512 MB RAM / 0.1 CPU).
+### Step 1: Import Project on Vercel
+1. Go to [Vercel Dashboard](https://vercel.com/dashboard).
+2. Click **Add New...** -> **Project**.
+3. Import your Git repository.
 
-6. **Configure Environment Variables in Render**:
-   Scroll down to **Environment Variables** and add the following keys:
+### Step 2: Configure Project Settings
+- **Framework Preset:** `Create React App`
+- **Root Directory:** Click **Edit** and choose `frontend` *(Important: set to `frontend` folder)*
+- **Build Command:** `npm run build` (or default `craco build`)
+- **Output Directory:** `build`
+- **Install Command:** `npm install`
 
-| Key | Example Value | Description |
-| :--- | :--- | :--- |
-| `MONGO_URL` | `mongodb+srv://drivehubgoa_db_user:password@cluster0.sujtj5v.mongodb.net/?appName=Cluster0` | MongoDB Atlas Connection URL |
-| `DB_NAME` | `drivehub_goa` | MongoDB Database Name |
-| `JWT_SECRET` | `dh_jwt_sec_9f7a8b3c2d1e0f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a` | Secret key for signing user JWTs |
-| `ADMIN_EMAIL` | `admin@drivehubgoa.com` | Production Admin Email |
-| `ADMIN_PASSWORD` | `Admin@123` | Production Admin Password |
-| `CLOUDINARY_CLOUD_NAME` | `z2zrt5md` | Cloudinary Cloud Name |
-| `CLOUDINARY_API_KEY` | `111781868266235` | Cloudinary API Key |
-| `CLOUDINARY_API_SECRET` | `vpw9fiB1hj2O654fzOpDqptDMZE` | Cloudinary API Secret |
-| `CORS_ORIGINS` | `*` *(Update after Vercel deployment)* | Allowed origins |
+### Step 3: Set Environment Variables on Vercel
+Under **Environment Variables**, add:
 
-7. Click **Create Web Service**.
-8. Wait 2–3 minutes for build completion.
-9. Copy your backend service URL: e.g. `https://drivehub-goa-backend.onrender.com`.
+```env
+REACT_APP_BACKEND_URL=https://cab-castle-backend.onrender.com
+REACT_APP_GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+REACT_APP_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CI=false
+GENERATE_SOURCEMAP=false
+DISABLE_ESLINT_PLUGIN=true
+```
+*(Replace `https://cab-castle-backend.onrender.com` with your actual Render backend URL)*
 
----
+### Step 4: Verify Single-Page-App (SPA) Routing (`vercel.json`)
+The `frontend/vercel.json` file is already included in your repository:
+```json
+{
+  "outputDirectory": "build",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+This ensures direct URLs (like `/legal/privacy-policy`, `/booking/v-sedan-dzire`, `/admin`) reload without 404 errors.
 
-## Step 3: Vercel Frontend Deployment (React)
-
-1. Sign up / Log into [Vercel.com](https://vercel.com).
-2. Click **Add New...** $\rightarrow$ **Project**.
-3. Import your GitHub repository.
-4. **Configure Project**:
-   - **Framework Preset**: `Create React App`
-   - **Root Directory**: Click **Edit** $\rightarrow$ Select `frontend`.
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `build`
-
-5. **Environment Variables in Vercel**:
-   Add the following environment variable:
-
-| Key | Value | Description |
-| :--- | :--- | :--- |
-| `REACT_APP_BACKEND_URL` | `https://drivehub-goa-backend.onrender.com` | Render Backend Service URL |
-
-6. Click **Deploy**.
-7. Vercel will build and assign your live website URL: e.g. `https://drivehub-goa.vercel.app` (or your custom domain `https://drivehubgoa.com`).
+### Step 5: Deploy
+Click **Deploy**. Vercel will build and assign your production domain (e.g. `https://cabcastlegoa.vercel.app` or your custom domain `https://cabcastlegoa.com`).
 
 ---
 
-## Step 4: Lock Down CORS on Render Backend
+## 🔑 Part 3: Post-Deployment Steps (Crucial!)
 
-Once Vercel gives you your live domain (e.g. `https://drivehub-goa.vercel.app`):
+### 1. Update Google Cloud Console Authorized Origins
+1. Open [Google Cloud Console Credentials](https://console.cloud.google.com/apis/credentials).
+2. Click your OAuth 2.0 Client ID.
+3. Under **Authorized JavaScript origins**, add:
+   - `https://your-frontend-domain.vercel.app`
+   - `https://cabcastlegoa.com` (if using custom domain)
+4. Under **Authorized redirect URIs**, add:
+   - `https://your-frontend-domain.vercel.app`
+   - `https://your-frontend-domain.vercel.app/login`
+5. Click **Save** (takes ~5 minutes to propagate across Google servers).
 
-1. Go back to **Render Dashboard** $\rightarrow$ Select `drivehub-goa-backend` $\rightarrow$ **Environment**.
-2. Update `CORS_ORIGINS`:
-   ```text
-   https://drivehub-goa.vercel.app,https://drivehubgoa.com
-   ```
-3. Click **Save Changes** (Render will automatically redeploy backend).
-
----
-
-## Step 5: Setup Free 24/7 Keep-Alive Cron-Job
-
-Render free tier web services go to sleep after 15 minutes of inactivity. Setting up a free 10-minute HTTP cron-job keeps your server awake so users never experience a 30-second cold start delay.
-
-### Using Cron-Job.org (Recommended)
-1. Sign up for a free account at [Cron-Job.org](https://cron-job.org).
-2. Go to **Cronjobs** $\rightarrow$ Click **Create Cronjob**.
-3. **Title**: `DriveHub Goa Backend KeepAlive`
-4. **URL**: `https://drivehub-goa-backend.onrender.com/api/healthz`
-5. **Execution Schedule**: Select **Every 10 minutes** (`*/10 * * * *`).
-6. **Request Method**: `GET`
-7. Click **Create**.
-
-### Alternative: Using UptimeRobot
-1. Sign up for a free account at [UptimeRobot.com](https://uptimerobot.com).
-2. Click **Add New Monitor**.
-3. Monitor Type: **HTTP(s)**
-4. Friendly Name: `DriveHub Backend`
-5. URL: `https://drivehub-goa-backend.onrender.com/api/healthz`
-6. Monitoring Interval: **5 or 10 minutes**.
-7. Click **Create Monitor**.
+### 2. Configure CORS in Backend (if using custom domain)
+The backend already supports dynamic origin reflections and localhost. When using a custom domain (e.g. `https://cabcastlegoa.com`), it automatically allows requests with cookies and authorization headers.
 
 ---
 
-## Step 6: Final Verification Checklist
+## 🧪 Verification Matrix After Deployment
 
-After deployment, perform these 5 quick checks:
-
-- [ ] **Health Endpoint**: Open `https://drivehub-goa-backend.onrender.com/api/healthz` in browser. Expect `{"status": "healthy", "database": "connected"}`.
-- [ ] **Admin Login**: Go to `https://drivehub-goa.vercel.app/admin/login` and log in with `admin@drivehubgoa.com` / `Admin@123`.
-- [ ] **Fleet Verification**: Verify 21 cars display on `https://drivehub-goa.vercel.app/fleet`.
-- [ ] **Quote Calculation**: Select dates on booking page and verify total fare calculation.
-- [ ] **Robots & Sitemap**: Check `https://drivehub-goa.vercel.app/robots.txt`, `sitemap.xml`, and `llms.txt`.
+| Action | Expected Result |
+|---|---|
+| Open Frontend URL (`/`) | Fast load with responsive fleet cards and clean design |
+| Open `/legal/privacy-policy` | Sidebar navigation works and all 14 policies load |
+| Click a Car -> `/booking/v-sedan-dzire` | Vehicle specs load, Lightbox opens on clicking photos |
+| Submit Booking | Instant confirmation + prefilled WhatsApp dispatch link |
+| Open `/admin/login` | Clean login screen without autofill links |
+| Login with Admin Email & Password | Redirects to `/admin` dashboard with full management capabilities |
+| Backend `/api/health` | Returns `{ ok: true, status: "healthy", database: "connected" }` |

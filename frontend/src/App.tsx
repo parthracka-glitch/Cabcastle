@@ -10,7 +10,6 @@ import CustomerSkeleton from "./website/components/CustomerSkeleton";
 import CookieConsentBanner from "./website/components/CookieConsentBanner";
 
 // Lazy-loaded routes for 100% code-splitting and minimal initial bundle
-const Landing = lazy(() => import("./website/pages/Landing"));
 const FleetPage = lazy(() => import("./website/pages/FleetPage"));
 const CustomerAuth = lazy(() => import("./website/pages/CustomerAuth"));
 const AboutPage = lazy(() => import("./website/pages/AboutPage"));

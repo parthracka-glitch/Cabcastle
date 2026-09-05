@@ -22,22 +22,22 @@ export default function WhatsAppFloatingWidget() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Expanded Chat Bubble Card */}
       {open && (
-        <div className="mb-3 w-[320px] sm:w-[350px] bg-white border border-[#DFE8EC] rounded-3xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200 text-left">
+        <div className="mb-3 w-[320px] sm:w-[350px] bg-white border border-[#CBD8D4] rounded-3xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200 text-left">
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#063247] to-[#0E7490] text-white p-4 flex items-center justify-between">
+          <div className="bg-[#24060C] text-white p-4 flex items-center justify-between border-b border-[#7C1F31]">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-xl">
                   👑
                 </div>
-                <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#25D366] border-2 border-[#063247] rounded-full" />
+                <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#25D366] border-2 border-[#24060C] rounded-full" />
               </div>
               <div>
                 <h4 className="font-display font-extrabold text-sm leading-tight text-white flex items-center gap-1.5">
                   Cab Castle Goa
                   <span className="text-[10px] bg-[#25D366]/20 text-[#25D366] px-1.5 py-0.2 rounded-full font-bold">Online</span>
                 </h4>
-                <p className="text-[11px] text-white/80 mt-0.5">24/7 WhatsApp Dispatch &amp; Support</p>
+                <p className="text-[11px] text-[#8FC4A5] mt-0.5">24/7 WhatsApp Dispatch &amp; Support</p>
               </div>
             </div>
 
@@ -50,35 +50,35 @@ export default function WhatsAppFloatingWidget() {
           </div>
 
           {/* Body / Quick Prompts */}
-          <div className="p-4 bg-[#F8FAFC] space-y-3">
-            <div className="bg-white p-3 rounded-2xl border border-[#DFE8EC] text-xs text-[#063247] shadow-2xs leading-relaxed">
-              👋 <strong>Hi there!</strong> Need quick booking assistance or pricing for Goa cabs? Choose a prompt below or type your message:
+          <div className="p-4 bg-[#E7EDEB] space-y-3">
+            <div className="bg-white p-3 rounded-2xl border border-[#CBD8D4] text-xs text-[#1B2922] shadow-2xs leading-relaxed">
+              👋 <strong>Hi there!</strong> Need quick booking assistance or pricing for Goa cars? Choose a prompt below or type your message:
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B] block">Quick Inquiries</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#4D6257] block">Quick Inquiries</span>
               {quickPrompts.map((q, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSend(q.text)}
-                  className="w-full p-2.5 bg-white hover:bg-[#E4F2F5] border border-[#DFE8EC] hover:border-[#288DA6]/40 rounded-xl text-left text-xs font-semibold text-[#063247] transition-all flex items-center justify-between group cursor-pointer"
+                  className="w-full p-2.5 bg-white hover:bg-[#DEEDE4] border border-[#CBD8D4] hover:border-[#69A481]/40 rounded-xl text-left text-xs font-semibold text-[#1B2922] transition-all flex items-center justify-between group cursor-pointer"
                 >
                   <span>{q.title}</span>
-                  <Send size={12} className="text-[#288DA6] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Send size={12} className="text-[#69A481] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </button>
               ))}
             </div>
 
             {/* Custom Input */}
             <div className="pt-2">
-              <div className="flex items-center gap-1.5 bg-white border border-[#DFE8EC] rounded-xl p-1.5 focus-within:border-[#288DA6]">
+              <div className="flex items-center gap-1.5 bg-white border border-[#CBD8D4] rounded-xl p-1.5 focus-within:border-[#69A481]">
                 <input
                   type="text"
                   value={customMsg}
                   onChange={(e) => setCustomMsg(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend(customMsg)}
                   placeholder="Type your question..."
-                  className="flex-1 px-2 py-1 text-xs text-[#063247] outline-none bg-transparent"
+                  className="flex-1 px-2 py-1 text-xs text-[#1B2922] outline-none bg-transparent"
                 />
                 <button
                   onClick={() => handleSend(customMsg)}
@@ -91,7 +91,7 @@ export default function WhatsAppFloatingWidget() {
           </div>
 
           {/* Footer Note */}
-          <div className="px-4 py-2 bg-white border-t border-[#DFE8EC] text-[10px] text-[#64748B] flex items-center justify-between font-medium">
+          <div className="px-4 py-2 bg-white border-t border-[#CBD8D4] text-[10px] text-[#4D6257] flex items-center justify-between font-medium">
             <span className="flex items-center gap-1"><ShieldCheck size={11} className="text-[#25D366]" /> Official Verified Line</span>
             <span>+91 70266 48960</span>
           </div>

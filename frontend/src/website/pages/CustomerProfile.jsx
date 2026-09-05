@@ -292,29 +292,29 @@ export default function CustomerProfile() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#F7F7F7] text-[#063247] font-body flex flex-col justify-between antialiased">
+      <div className="min-h-screen bg-[#E7EDEB] text-[#1B2922] font-body flex flex-col justify-between antialiased">
         <SEO
           title="Sign In Required — Cab Castle Goa"
-          description="Sign in to view your Goa cab reservations and invoices."
+          description="Sign in to view your Goa car reservations and invoices."
         />
         <Navbar />
 
         <main className="max-w-md mx-auto px-4 pt-32 pb-20 w-full flex-grow flex items-center justify-center">
-          <div className="w-full bg-white border border-[#DFE8EC] rounded-3xl p-7 text-center shadow-xl space-y-4">
-            <div className="w-14 h-14 rounded-2xl bg-[#063247] text-[#288DA6] flex items-center justify-center mx-auto shadow-md">
+          <div className="w-full bg-white border border-[#CBD8D4] rounded-3xl p-7 text-center shadow-xl space-y-4">
+            <div className="w-14 h-14 rounded-2xl bg-[#7C1F31] text-[#69A481] flex items-center justify-center mx-auto shadow-md">
               <Shield size={26} />
             </div>
 
             <div className="space-y-1.5">
-              <h1 className="font-display text-2xl font-black text-[#063247]">Authentication Required</h1>
-              <p className="text-xs text-[#4C606E]">
+              <h1 className="font-display text-2xl font-black text-[#1B2922]">Authentication Required</h1>
+              <p className="text-xs text-[#4D6257]">
                 You are currently signed out. Please sign in or register to view your active bookings and invoices.
               </p>
             </div>
 
             <Button
               onClick={() => nav("/login", { state: { from: "/my-bookings" } })}
-              className="w-full bg-[#288DA6] hover:bg-[#288DA6]/90 text-white font-bold rounded-xl h-11 transition-all text-xs tracking-wider uppercase cursor-pointer shadow-md"
+              className="w-full bg-[#7C1F31] hover:bg-[#631826] text-white font-bold rounded-xl h-11 transition-all text-xs tracking-wider uppercase cursor-pointer shadow-md border border-[#7C1F31]"
             >
               Sign In to View Bookings
             </Button>
@@ -327,60 +327,60 @@ export default function CustomerProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] text-[#063247] font-body flex flex-col justify-between antialiased">
+    <div className="min-h-screen bg-[#E7EDEB] text-[#1B2922] font-body flex flex-col justify-between antialiased">
       <SEO
         title="My Account & Bookings — Cab Castle Goa"
-        description="Manage your Goa cab tour reservations, download invoices, and view trip details."
+        description="Manage your Goa car tour reservations, download invoices, and view trip details."
       />
       <Navbar />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-16 w-full flex-grow">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-[#4C606E] mb-4 sm:mb-6 text-left">
-          <Link to="/" className="hover:text-[#063247] transition-colors">Home</Link>
-          <ChevronRight size={13} className="text-[#8496A2]" />
-          <span className="text-[#063247] font-bold">My Account</span>
+        <div className="flex items-center gap-2 text-xs text-[#4D6257] mb-4 sm:mb-6 text-left">
+          <Link to="/" className="hover:text-[#7C1F31] transition-colors">Home</Link>
+          <ChevronRight size={13} className="text-[#6C8277]" />
+          <span className="text-[#1B2922] font-bold">My Account</span>
         </div>
 
         {/* ── 1. TOP PROFILE HERO BANNER ── */}
-        <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 sm:p-8 mb-6 sm:mb-8 shadow-sm">
+        <div className="bg-white border border-[#CBD8D4] rounded-[24px] p-5 sm:p-8 mb-6 sm:mb-8 shadow-sm">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             {/* Left: Avatar & Identity */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left w-full lg:w-auto">
               <div className="relative">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#063247] text-white flex items-center justify-center font-display text-2xl sm:text-3xl font-bold border-2 border-[#DFE8EC] shrink-0 shadow-xs">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#7C1F31] text-white flex items-center justify-center font-display text-2xl sm:text-3xl font-bold border-2 border-[#CBD8D4] shrink-0 shadow-xs">
                   {user?.name ? user.name.charAt(0).toUpperCase() : <User size={28} />}
                 </div>
-                <div className="absolute -bottom-1 -right-1 bg-[#E4F2F5] text-[#288DA6] p-1 rounded-full border border-white" title="Verified Customer">
+                <div className="absolute -bottom-1 -right-1 bg-[#DEEDE4] text-[#69A481] p-1 rounded-full border border-white" title="Verified Customer">
                   <ShieldCheck size={14} />
                 </div>
               </div>
 
               <div className="space-y-1.5">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                  <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063247] tracking-tight">
+                  <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#1B2922] tracking-tight">
                     {user?.name || "Cab Castle Traveler"}
                   </h1>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#288DA6] bg-[#E4F2F5] px-3 py-0.5 rounded-full uppercase tracking-wider">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#245339] bg-[#DEEDE4] px-3 py-0.5 rounded-full uppercase tracking-wider border border-[#69A481]/30">
                     <ShieldCheck size={12} /> Verified Account
                   </span>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#063247] bg-[#C3E7FA] px-3 py-0.5 rounded-full uppercase tracking-wider">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#1B2922] bg-[#DEEDE4] px-3 py-0.5 rounded-full uppercase tracking-wider border border-[#69A481]/30">
                     <Award size={12} /> Member
                   </span>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs text-[#4C606E]">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs text-[#4D6257]">
                   <span className="flex items-center gap-1.5 font-normal">
-                    <Mail size={13} className="text-[#4C606E]" /> {user?.email || "customer@cabcastlegoa.com"}
+                    <Mail size={13} className="text-[#4D6257]" /> {user?.email || "customer@cabcastlegoa.com"}
                   </span>
                   {user?.phone && (
                     <span className="flex items-center gap-1.5 font-normal">
-                      <Phone size={13} className="text-[#2A354F]" /> {user.phone}
+                      <Phone size={13} className="text-[#69A481]" /> {user.phone}
                     </span>
                   )}
                   {user?.driving_license && (
-                    <span className="flex items-center gap-1.5 font-mono text-[11px] text-[#2A354F] bg-[#FCF5D5] px-2.5 py-0.5 rounded-full border border-[#F2D965]/40">
-                      <FileText size={11} className="text-[#2A354F]" /> DL: {user.driving_license}
+                    <span className="flex items-center gap-1.5 font-mono text-[11px] text-[#1B2922] bg-[#DEEDE4] px-2.5 py-0.5 rounded-full border border-[#69A481]/30">
+                      <FileText size={11} className="text-[#69A481]" /> DL: {user.driving_license}
                     </span>
                   )}
                 </div>
@@ -388,13 +388,13 @@ export default function CustomerProfile() {
             </div>
 
             {/* Right: Quick Action Buttons */}
-            <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full lg:w-auto pt-3 lg:pt-0 border-t lg:border-t-0 border-[#E8ECF2]">
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full lg:w-auto pt-3 lg:pt-0 border-t lg:border-t-0 border-[#CBD8D4]">
               <Button
                 asChild
-                className="bg-gradient-to-r from-[#F2D965] via-[#ECD055] to-[#E5C94B] hover:from-[#F7E17E] hover:to-[#ECD055] text-[#1A202C] font-black rounded-full h-11 px-6 text-xs uppercase tracking-wider shadow-[0_4px_16px_rgba(242,217,101,0.45)] flex-1 sm:flex-none cursor-pointer border-t border-white/60"
+                className="bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-110 text-white font-black rounded-full h-11 px-6 text-xs uppercase tracking-wider shadow-sm flex-1 sm:flex-none cursor-pointer border border-[#7C1F31]"
               >
                 <Link to="/fleet">
-                  <Car size={14} className="mr-1.5 text-[#1A202C]" /> Book A Car
+                  <Car size={14} className="mr-1.5 text-white" /> Book A Car
                 </Link>
               </Button>
               <Button
@@ -403,7 +403,7 @@ export default function CustomerProfile() {
                   await logout();
                   nav("/");
                 }}
-                className="border-[#E8ECF2] bg-transparent text-[#2A354F] hover:bg-[#FEFEF2] hover:border-[#2A354F] text-xs font-bold uppercase tracking-wider rounded-full h-11 px-5 transition-all flex-1 sm:flex-none cursor-pointer"
+                className="border-[#CBD8D4] bg-white text-[#1B2922] hover:bg-[#DEEDE4] hover:border-[#CBD8D4] text-xs font-bold uppercase tracking-wider rounded-full h-11 px-5 transition-all flex-1 sm:flex-none cursor-pointer"
               >
                 <LogOut size={13} className="mr-1.5" /> Sign Out
               </Button>
@@ -412,13 +412,13 @@ export default function CustomerProfile() {
         </div>
 
         {/* ── 2. TABBED NAVIGATION ── */}
-        <div className="flex items-center gap-2 border-b border-[#E8ECF2] mb-6 sm:mb-8 overflow-x-auto custom-scrollbar pb-1">
+        <div className="flex items-center gap-2 border-b border-[#CBD8D4] mb-6 sm:mb-8 overflow-x-auto custom-scrollbar pb-1">
           <button
             onClick={() => setActiveTab("bookings")}
             className={`flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
               activeTab === "bookings"
-                ? "border-[#2A354F] text-[#2A354F]"
-                : "border-transparent text-[#6B7C9E] hover:text-[#2A354F]"
+                ? "border-[#7C1F31] text-[#7C1F31]"
+                : "border-transparent text-[#4D6257] hover:text-[#1B2922]"
             }`}
           >
             <Ticket size={15} /> My Bookings &amp; Trips ({bookings.length})
@@ -428,8 +428,8 @@ export default function CustomerProfile() {
             onClick={() => setActiveTab("profile")}
             className={`flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
               activeTab === "profile"
-                ? "border-[#2A354F] text-[#2A354F]"
-                : "border-transparent text-[#6B7C9E] hover:text-[#2A354F]"
+                ? "border-[#7C1F31] text-[#7C1F31]"
+                : "border-transparent text-[#4D6257] hover:text-[#1B2922]"
             }`}
           >
             <User size={15} /> Edit Profile &amp; Driver KYC
@@ -439,8 +439,8 @@ export default function CustomerProfile() {
             onClick={() => setActiveTab("security")}
             className={`flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
               activeTab === "security"
-                ? "border-[#2A354F] text-[#2A354F]"
-                : "border-transparent text-[#6B7C9E] hover:text-[#2A354F]"
+                ? "border-[#7C1F31] text-[#7C1F31]"
+                : "border-transparent text-[#4D6257] hover:text-[#1B2922]"
             }`}
           >
             <KeyRound size={15} /> Security &amp; Password
@@ -450,8 +450,8 @@ export default function CustomerProfile() {
             onClick={() => setActiveTab("help")}
             className={`flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
               activeTab === "help"
-                ? "border-[#2A354F] text-[#2A354F]"
-                : "border-transparent text-[#6B7C9E] hover:text-[#2A354F]"
+                ? "border-[#7C1F31] text-[#7C1F31]"
+                : "border-transparent text-[#4D6257] hover:text-[#1B2922]"
             }`}
           >
             <HelpCircle size={15} /> 24/7 Roadside &amp; Support
@@ -464,7 +464,7 @@ export default function CustomerProfile() {
         {activeTab === "bookings" && (
           <div className="space-y-6 text-left">
             {/* Filters and Search */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white border border-[#E8ECF2] p-3.5 rounded-[24px] shadow-xs">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white border border-[#CBD8D4] p-3.5 rounded-[24px] shadow-xs">
               {/* Status Pill Filters */}
               <div className="flex flex-wrap items-center gap-1.5">
                 {[
@@ -478,8 +478,8 @@ export default function CustomerProfile() {
                     onClick={() => setBookingFilter(f.id)}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
                       bookingFilter === f.id
-                        ? "bg-[#2A354F] text-white shadow-xs"
-                        : "bg-[#FEFEF2] text-[#6B7C9E] hover:text-[#2A354F] border border-[#E8ECF2]"
+                        ? "bg-[#7C1F31] text-white shadow-xs"
+                        : "bg-[#E7EDEB] text-[#4D6257] hover:text-[#1B2922] border border-[#CBD8D4]"
                     }`}
                   >
                     {f.label}
@@ -489,13 +489,13 @@ export default function CustomerProfile() {
 
               {/* Search Bar */}
               <div className="relative min-w-[240px]">
-                <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8FA0BF]" />
+                <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6C8277]" />
                 <input
                   type="text"
                   placeholder="Search by ID, car, location..."
                   value={bookingSearch}
                   onChange={(e) => setBookingSearch(e.target.value)}
-                  className="w-full bg-[#FEFEF2] border border-[#E8ECF2] rounded-full pl-9 pr-4 py-2 text-xs text-[#2A354F] outline-none focus:border-[#929FC1] transition-colors"
+                  className="w-full bg-[#E7EDEB] border border-[#CBD8D4] rounded-full pl-9 pr-4 py-2 text-xs text-[#1B2922] outline-none focus:border-[#69A481] transition-colors"
                 />
               </div>
             </div>
@@ -654,10 +654,10 @@ export default function CustomerProfile() {
                           )}`}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center justify-center h-8 px-3.5 rounded-full bg-[#E4F2F5] hover:bg-[#C3E7FA] text-[#288DA6] text-[11px] font-bold transition-colors"
+                          className="inline-flex items-center justify-center h-8 px-3.5 rounded-full bg-[#DEEDE4] hover:bg-[#DEEDE4]/80 text-[#245339] border border-[#69A481]/30 text-[11px] font-bold transition-colors"
                           title="Contact Dispatch on WhatsApp"
                         >
-                          <MessageSquare size={12} className="mr-1" /> WhatsApp
+                          <MessageSquare size={12} className="mr-1 text-[#69A481]" /> WhatsApp
                         </a>
                       </div>
                     </div>
@@ -1066,15 +1066,15 @@ export default function CustomerProfile() {
                 <h3 className="font-display text-xl font-bold text-[#212121]">
                   Immediate On-Ground Support Across Goa
                 </h3>
-                <p className="text-xs text-[#6F6E73] leading-relaxed">
+                <p className="text-xs text-[#4D6257] leading-relaxed">
                   Flat tire, battery jump-start, or roadside breakdown? Our verified local mechanics and emergency towing team reach any North or South Goa location in under 45 minutes.
                 </p>
                 <div className="pt-3 flex flex-col sm:flex-row gap-3">
                   <a
                     href="tel:+917026648960"
-                    className="inline-flex items-center justify-center gap-2 bg-[#063247] hover:bg-[#063247]/90 text-white font-medium rounded-full h-11 px-6 text-xs tracking-wider uppercase whitespace-nowrap transition-colors shadow-sm cursor-pointer flex-1"
+                    className="inline-flex items-center justify-center gap-2 bg-[#7C1F31] hover:bg-[#631826] text-white font-medium rounded-full h-11 px-6 text-xs tracking-wider uppercase whitespace-nowrap transition-colors shadow-sm cursor-pointer flex-1 border border-[#7C1F31]"
                   >
-                    <Phone size={14} className="text-[#288DA6]" />
+                    <Phone size={14} className="text-[#69A481]" />
                     <span>Call +91 70266 48960</span>
                   </a>
                   <a
@@ -1090,16 +1090,16 @@ export default function CustomerProfile() {
               </div>
 
               {/* Main Operations Hub */}
-              <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-6 shadow-sm space-y-4 flex flex-col justify-between">
+              <div className="bg-white border border-[#CBD8D4] rounded-[24px] p-6 shadow-sm space-y-4 flex flex-col justify-between">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F7F7F7] text-[#063247] text-xs font-bold uppercase tracking-wider border border-[#DFE8EC]">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E7EDEB] text-[#1B2922] text-xs font-bold uppercase tracking-wider border border-[#CBD8D4]">
                     📍 Assagao Main Hub
                   </div>
-                  <h3 className="font-display text-xl font-bold text-[#063247] mt-3">
+                  <h3 className="font-display text-xl font-bold text-[#1B2922] mt-3">
                     Cab Castle Goa Operations Hub
                   </h3>
-                  <p className="text-xs text-[#6F6E73] leading-relaxed mt-2">
-                    Assagao, Bardez, Goa 403507. Open 24 Hours with prompt cab dispatch, airport transfer coordinators, and customer support.
+                  <p className="text-xs text-[#4D6257] leading-relaxed mt-2">
+                    Assagao, Bardez, Goa 403507. Open 24 Hours with prompt car dispatch, airport transfer coordinators, and customer support.
                   </p>
                 </div>
                 <div className="pt-3">
@@ -1107,7 +1107,7 @@ export default function CustomerProfile() {
                     href="https://maps.google.com/?q=Assagao+Goa"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 bg-[#F6F5FA] hover:bg-[#DFDCE8]/40 border border-[#DFDCE8] text-[#212121] font-bold rounded-full h-11 px-6 text-xs tracking-wider uppercase whitespace-nowrap transition-colors w-full sm:w-auto"
+                    className="inline-flex items-center justify-center gap-1.5 bg-[#E7EDEB] hover:bg-[#DEEDE4] border border-[#CBD8D4] text-[#1B2922] font-bold rounded-full h-11 px-6 text-xs tracking-wider uppercase whitespace-nowrap transition-colors w-full sm:w-auto"
                   >
                     <ExternalLink size={13} />
                     <span>View Location on Maps</span>
@@ -1117,21 +1117,21 @@ export default function CustomerProfile() {
             </div>
 
             {/* Essential Goa Tour Travel Guidelines */}
-            <div className="bg-white border border-[#DFDCE8] rounded-[24px] p-6 sm:p-8 shadow-sm text-left">
-              <h3 className="font-display text-lg font-bold text-[#063247] mb-4 flex items-center gap-2">
-                <Shield size={18} className="text-[#288DA6]" /> Essential Cab Travel &amp; Sightseeing Guidelines
+            <div className="bg-white border border-[#CBD8D4] rounded-[24px] p-6 sm:p-8 shadow-sm text-left">
+              <h3 className="font-display text-lg font-bold text-[#1B2922] mb-4 flex items-center gap-2">
+                <Shield size={18} className="text-[#69A481]" /> Essential Car Travel &amp; Sightseeing Guidelines
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-[#6F6E73]">
-                <div className="bg-[#F6F5FA] p-4 rounded-[16px] border border-[#DFDCE8]">
-                  <div className="font-bold text-[#063247] mb-1">Standard 8h / 80km Tour</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-[#4D6257]">
+                <div className="bg-[#E7EDEB] p-4 rounded-[16px] border border-[#CBD8D4]">
+                  <div className="font-bold text-[#1B2922] mb-1">Standard 8h / 80km Tour</div>
                   <p>Covers continuous 8 hours and 80km sightseeing. Extra running is transparently billed at ₹250/hr and ₹25/km.</p>
                 </div>
-                <div className="bg-[#F6F5FA] p-4 rounded-[16px] border border-[#DFDCE8]">
-                  <div className="font-bold text-[#063247] mb-1">Professional Drivers</div>
+                <div className="bg-[#E7EDEB] p-4 rounded-[16px] border border-[#CBD8D4]">
+                  <div className="font-bold text-[#1B2922] mb-1">Professional Drivers</div>
                   <p>All rides feature licensed, background-verified local drivers who know Goa roads, attractions, and scenic spots.</p>
                 </div>
-                <div className="bg-[#F6F5FA] p-4 rounded-[16px] border border-[#DFDCE8]">
-                  <div className="font-bold text-[#063247] mb-1">Zero Hidden Surcharges</div>
+                <div className="bg-[#E7EDEB] p-4 rounded-[16px] border border-[#CBD8D4]">
+                  <div className="font-bold text-[#1B2922] mb-1">Zero Hidden Surcharges</div>
                   <p>All prices include fuel and GST. Tolls and parking are settled directly at actual municipal booths.</p>
                 </div>
               </div>
@@ -1147,19 +1147,19 @@ export default function CustomerProfile() {
           onClick={() => setSelectedBooking(null)}
         >
           <div
-            className="bg-white rounded-[24px] border border-[#DFDCE8] max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-5 text-left relative max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-[24px] border border-[#CBD8D4] max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-5 text-left relative max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-[#DFE8EC] pb-3">
+            <div className="flex items-center justify-between border-b border-[#CBD8D4] pb-3">
               <div>
-                <span className="font-mono text-xs font-bold text-[#063247]">
+                <span className="font-mono text-xs font-bold text-[#1B2922]">
                   {selectedBooking.booking_no || "CCG-BOOKING"}
                 </span>
-                <h3 className="font-display text-lg font-bold text-[#063247]">Reservation Summary</h3>
+                <h3 className="font-display text-lg font-bold text-[#1B2922]">Reservation Summary</h3>
               </div>
               <button
                 onClick={() => setSelectedBooking(null)}
-                className="w-8 h-8 rounded-full bg-[#F6F5FA] text-[#212121] hover:bg-[#DFDCE8] flex items-center justify-center cursor-pointer transition-colors"
+                className="w-8 h-8 rounded-full bg-[#E7EDEB] text-[#1B2922] hover:bg-[#DEEDE4] flex items-center justify-center cursor-pointer transition-colors"
               >
                 <X size={16} />
               </button>

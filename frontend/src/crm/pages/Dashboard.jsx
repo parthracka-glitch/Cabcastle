@@ -215,32 +215,34 @@ export default function Dashboard() {
 
   // Fleet Category Donut Data
   const fleetPieData = [
-    { name: "Sedans (Dzire, Aura)", value: 5, color: "#063247" },
-    { name: "SUVs & 7-Seaters (Ertiga, Innova)", value: 4, color: "#E5A93C" },
-    { name: "Hatchbacks (Swift, Baleno)", value: 3, color: "#288DA6" },
+    { name: "Sedans (Dzire, Aura)", value: 5, color: "#7C1F31" },
+    { name: "SUVs & 7-Seaters (Ertiga, Innova)", value: 4, color: "#69A481" },
+    { name: "Hatchbacks (Swift, Baleno)", value: 3, color: "#4D6257" },
   ];
 
-  // Weekly Revenue & Dispatch Trend Data
-  const weeklyTrendData = [
-    { day: "Mon", bookings: 4, revenue: 10400 },
-    { day: "Tue", bookings: 7, revenue: 18200 },
-    { day: "Wed", bookings: 5, revenue: 13500 },
-    { day: "Thu", bookings: 9, revenue: 23400 },
-    { day: "Fri", bookings: 12, revenue: 31200 },
-    { day: "Sat", bookings: 16, revenue: 42000 },
-    { day: "Sun", bookings: 14, revenue: 36800 },
-  ];
+  // Weekly Revenue & Dispatch Trend Data (Dynamic from live bookings)
+  const weeklyTrendData = React.useMemo(() => {
+    if (Array.isArray(data?.weekly_fleet_bookings) && data.weekly_fleet_bookings.length > 0) {
+      return data.weekly_fleet_bookings.map((item) => ({
+        day: item.day,
+        bookings: item.vehicles || 0,
+        revenue: (item.vehicles || 0) * 2500,
+      }));
+    }
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    return days.map((day) => ({ day, bookings: 0, revenue: 0 }));
+  }, [data?.weekly_fleet_bookings]);
 
   return (
     <div className="space-y-6 font-body max-w-[1400px] mx-auto pb-8 text-left">
       
       {/* ── 1. EXECUTIVE WELCOME & GREETING CARD ── */}
-      <div className="bg-gradient-to-r from-[#063247] via-[#09405A] to-[#063247] rounded-[24px] p-5 sm:p-7 text-white shadow-md border border-[#288DA6]/20 flex flex-col md:flex-row md:items-center justify-between gap-5 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#24060C] via-[#7C1F31] to-[#24060C] rounded-[24px] p-5 sm:p-7 text-white shadow-md border border-[#69A481]/20 flex flex-col md:flex-row md:items-center justify-between gap-5 relative overflow-hidden">
         {/* Background Ambient Glow */}
-        <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-[#288DA6]/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-[#69A481]/20 rounded-full blur-3xl pointer-events-none" />
         
         <div className="space-y-1.5 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-bold text-[#F6D285]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-bold text-[#8FC4A5]">
             <span>{greeting.icon}</span>
             <span>{new Date().toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "short", year: "numeric" })}</span>
             <span className="w-1 h-1 rounded-full bg-white/40" />
@@ -253,7 +255,7 @@ export default function Dashboard() {
           <h1 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight">
             {greeting.text}, Dasgir!
           </h1>
-          <p className="text-xs sm:text-sm text-[#E4F2F5]/85 max-w-xl font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#DEEDE4]/85 max-w-xl font-normal leading-relaxed">
             Welcome to the Cab Castle Executive Console. All 12 fleet vehicles are active &amp; ready for Goa dispatch.
           </p>
         </div>
@@ -262,15 +264,15 @@ export default function Dashboard() {
           <Button
             onClick={() => setEnquiryModalOpen(true)}
             variant="outline"
-            className="h-10 px-4 rounded-xl text-xs font-bold text-[#063247] bg-white border-white hover:bg-[#F8FAFC] flex items-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-95"
+            className="h-10 px-4 rounded-xl text-xs font-bold text-[#1B2922] bg-white border-white hover:bg-[#DEEDE4] flex items-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-95"
           >
-            <MessageSquarePlus size={14} className="text-[#288DA6]" />
+            <MessageSquarePlus size={14} className="text-[#69A481]" />
             <span>New Lead</span>
           </Button>
 
           <Button
             onClick={() => setOfflineModalOpen(true)}
-            className="h-10 px-4 rounded-xl text-xs font-black text-[#090D16] bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 flex items-center gap-1.5 cursor-pointer shadow-gold transition-all active:scale-95 border border-[#E5A93C]/40"
+            className="h-10 px-4 rounded-xl text-xs font-black text-white bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-105 flex items-center gap-1.5 cursor-pointer shadow-sm transition-all active:scale-95 border border-[#7C1F31]"
           >
             <Plus size={15} />
             <span>New Booking</span>
@@ -388,16 +390,16 @@ export default function Dashboard() {
           <div className="flex items-center justify-between pb-3 border-b border-[#DFE8EC]">
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="font-display text-base font-bold text-[#063247]">
+                <h2 className="font-display text-base font-bold text-[#1B2922]">
                   Booking &amp; Revenue Trends
                 </h2>
-                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                  +18.4% this week
+                <span className="text-[10px] font-bold text-[#245339] bg-[#DEEDE4] px-2.5 py-0.5 rounded-full border border-[#69A481]/30">
+                  Live Dispatch
                 </span>
               </div>
-              <p className="text-xs text-[#8496A2] mt-0.5">Weekly dispatch volume and confirmed earnings</p>
+              <p className="text-xs text-[#6C8277] mt-0.5">Real-time weekly dispatch volume and confirmed earnings</p>
             </div>
-            <span className="text-xs font-mono font-bold text-[#063247] bg-[#F7F7F7] px-2.5 py-1 rounded-xl border border-[#DFE8EC]">
+            <span className="text-xs font-mono font-bold text-[#1B2922] bg-[#E7EDEB] px-2.5 py-1 rounded-xl border border-[#CBD8D4]">
               Past 7 Days
             </span>
           </div>
@@ -407,29 +409,29 @@ export default function Dashboard() {
               <AreaChart data={weeklyTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#288DA6" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#288DA6" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#7C1F31" stopOpacity={0.35} />
+                    <stop offset="95%" stopColor="#7C1F31" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
-                <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "#64748B" }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "#64748B" }} tickFormatter={(v) => `₹${v/1000}k`} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E7EDEB" />
+                <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "#6C8277" }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "#6C8277" }} tickFormatter={(v) => `₹${v/1000}k`} />
                 <RechartsTooltip
                   formatter={(value, name) => [
                     name === "revenue" ? formatINR(value) : value,
                     name === "revenue" ? "Revenue" : "Trips",
                   ]}
                   contentStyle={{
-                    backgroundColor: "#063247",
+                    backgroundColor: "#1B2922",
                     borderRadius: "12px",
                     border: "none",
                     color: "#fff",
                     fontSize: "12px",
                     fontWeight: 700,
                   }}
-                  itemStyle={{ color: "#F6D285" }}
+                  itemStyle={{ color: "#8FC4A5" }}
                 />
-                <Area type="monotone" dataKey="revenue" stroke="#288DA6" strokeWidth={2.5} fillOpacity={1} fill="url(#colorRevenue)" />
+                <Area type="monotone" dataKey="revenue" stroke="#7C1F31" strokeWidth={2.5} fillOpacity={1} fill="url(#colorRevenue)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>

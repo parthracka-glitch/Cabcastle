@@ -7,7 +7,7 @@ import Tilt3DCard from "./Tilt3DCard";
 
 const CATEGORIES = [
   { id: "all", label: "All Vehicles" },
-  { id: "suv", label: "SUV & 4x4 Thars" },
+  { id: "suv", label: "SUV & MPVs" },
   { id: "hatchback", label: "Hatchback & City" },
   { id: "sedan", label: "Premium Sedans" },
   { id: "luxury", label: "Luxury Collection" },
@@ -21,14 +21,16 @@ export default function CarRollingShowcase({ vehicles = [] }) {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const filteredVehicles = vehicles.filter((v) => {
-    if (activeCategory === "all") return true;
-    if (activeCategory === "suv") return v.category?.toLowerCase().includes("suv") || v.title?.toLowerCase().includes("thar");
-    if (activeCategory === "hatchback") return v.category?.toLowerCase().includes("hatchback");
-    if (activeCategory === "sedan") return v.category?.toLowerCase().includes("sedan");
-    if (activeCategory === "luxury") return v.category?.toLowerCase().includes("luxury") || v.daily_rate > 3500;
-    return true;
-  });
+  const filteredVehicles = vehicles
+    .filter((v) => v.id !== "v-thar" && v.id !== "v-thar-roxx" && !v.title?.toLowerCase().includes("thar"))
+    .filter((v) => {
+      if (activeCategory === "all") return true;
+      if (activeCategory === "suv") return v.category?.toLowerCase().includes("suv");
+      if (activeCategory === "hatchback") return v.category?.toLowerCase().includes("hatchback");
+      if (activeCategory === "sedan") return v.category?.toLowerCase().includes("sedan");
+      if (activeCategory === "luxury") return v.category?.toLowerCase().includes("luxury") || v.daily_rate > 3500;
+      return true;
+    });
 
   const isMouseDownRef = useRef(false);
   const startXRef = useRef(0);

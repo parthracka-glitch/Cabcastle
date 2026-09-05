@@ -140,7 +140,7 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
           visible ? "translate-y-0" : "-translate-y-full"
-        } ${scrolled ? "bg-white/95 backdrop-blur-md border-b border-[#E8E0D2] shadow-xs py-2" : "bg-[#FAF8F5]/95 backdrop-blur-sm py-3 border-b border-[#E8E0D2]/60"}`}
+        } ${scrolled ? "bg-white/95 backdrop-blur-md border-b border-[#CBD8D4] shadow-xs py-2" : "bg-[#E7EDEB]/95 backdrop-blur-sm py-3 border-b border-[#CBD8D4]/60"}`}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6" aria-label="Main navigation">
           <div className="flex items-center justify-between h-12 sm:h-13">
@@ -152,7 +152,7 @@ export default function Navbar() {
               aria-label="Cab Castle Goa Home"
               data-testid="nav-logo"
             >
-              <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-[#E5A93C]/40 bg-white flex items-center justify-center p-0.5 group-hover:scale-105 transition-transform shadow-xs">
+              <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-[#69A481]/40 bg-white flex items-center justify-center p-0.5 group-hover:scale-105 transition-transform shadow-xs">
                 <img
                   src="/logo.png"
                   alt="Cab Castle Goa"
@@ -161,15 +161,15 @@ export default function Navbar() {
               </div>
               <div className="flex flex-col text-left">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-display font-black text-lg tracking-tight text-[#0F172A] leading-none">
-                    Cab<span className="text-[#E5A93C]">Castle</span>
+                  <span className="font-display font-black text-lg tracking-tight text-[#1B2922] leading-none">
+                    Cab<span className="text-[#7C1F31]">Castle</span>
                   </span>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#FAF2DE] text-[#B87A18] font-black border border-[#E5A93C]/35 tracking-wider uppercase">
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#DEEDE4] text-[#245339] font-black border border-[#69A481]/35 tracking-wider uppercase">
                     GOA
                   </span>
                 </div>
-                <span className="text-[9px] font-bold tracking-widest uppercase text-[#64748B] leading-none mt-1">
-                  Premium Cabs &amp; Tours
+                <span className="text-[9px] font-bold tracking-widest uppercase text-[#4D6257] leading-none mt-1">
+                  Car Rentals &amp; Tours
                 </span>
               </div>
             </Link>
@@ -186,8 +186,8 @@ export default function Navbar() {
                     onClick={(e) => handleNavClick(e, item.href)}
                     className={`flex items-center gap-1.5 py-2 px-3.5 rounded-xl text-xs font-semibold tracking-wide transition-all whitespace-nowrap cursor-pointer ${
                       active
-                        ? "text-[#0F172A] bg-[#FAF2DE] font-bold border border-[#E5A93C]/35 shadow-xs"
-                        : "text-[#475569] hover:text-[#0F172A] hover:bg-[#FAF2DE]/50"
+                        ? "text-[#7C1F31] bg-[#DEEDE4] font-bold border border-[#69A481]/35 shadow-xs"
+                        : "text-[#4D6257] hover:text-[#7C1F31] hover:bg-[#DEEDE4]/50"
                     }`}
                     data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                   >
@@ -195,8 +195,8 @@ export default function Navbar() {
                       size={14}
                       className={
                         active
-                          ? "text-[#E5A93C]"
-                          : "text-[#64748B]"
+                          ? "text-[#69A481]"
+                          : "text-[#6C8277]"
                       }
                     />
                     <span>{item.label}</span>
@@ -210,7 +210,7 @@ export default function Navbar() {
               {user ? (
                 <button
                   onClick={() => logout()}
-                  className="text-xs font-bold text-[#475569] hover:text-[#E03131] px-3 py-2 transition-colors flex items-center gap-1.5 cursor-pointer rounded-xl hover:bg-[#FEE2E2]"
+                  className="text-xs font-bold text-[#4D6257] hover:text-[#7C1F31] px-3 py-2 transition-colors flex items-center gap-1.5 cursor-pointer rounded-xl hover:bg-[#FEE2E2]"
                   data-testid="nav-logout-btn"
                   title="Sign out of account"
                 >
@@ -220,27 +220,27 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={() => nav("/login")}
-                  className="text-xs font-bold text-[#0F172A] hover:text-[#E5A93C] px-3.5 py-2 transition-colors flex items-center gap-1.5 cursor-pointer rounded-xl hover:bg-[#FAF2DE] border border-[#E8E0D2]"
+                  className="text-xs font-bold text-[#1B2922] hover:text-[#7C1F31] px-3.5 py-2 transition-colors flex items-center gap-1.5 cursor-pointer rounded-xl hover:bg-[#DEEDE4] border border-[#CBD8D4]"
                   data-testid="nav-sign-in-btn"
                 >
-                  <User size={13} className="text-[#E5A93C]" />
+                  <User size={13} className="text-[#69A481]" />
                   <span>Sign In</span>
                 </button>
               )}
 
               <button
                 onClick={() => nav("/fleet")}
-                className="bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] font-black text-xs uppercase tracking-wider px-5 py-2.5 h-10 rounded-xl flex items-center gap-2 shadow-gold transition-all duration-200 cursor-pointer active:scale-98 whitespace-nowrap border border-[#E5A93C]/40"
+                className="bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-105 text-white font-black text-xs uppercase tracking-wider px-5 py-2.5 h-10 rounded-xl flex items-center gap-2 shadow-sm transition-all duration-200 cursor-pointer active:scale-98 whitespace-nowrap border border-[#7C1F31]"
                 data-testid="nav-book-cta"
               >
-                <span>Reserve Cab</span>
-                <ArrowRight size={13} className="text-[#090D16]" />
+                <span>Reserve Car</span>
+                <ArrowRight size={13} className="text-white" />
               </button>
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden w-10 h-10 rounded-full flex items-center justify-center text-[#0F172A] bg-[#FAF2DE] border border-[#E8E0D2] hover:bg-[#F6D285]/40 active:scale-95 transition-all focus:outline-none cursor-pointer"
+              className="lg:hidden w-10 h-10 rounded-full flex items-center justify-center text-[#1B2922] bg-[#DEEDE4] border border-[#CBD8D4] hover:bg-[#DEEDE4]/80 active:scale-95 transition-all focus:outline-none cursor-pointer"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Navigation Menu"
               data-testid="nav-menu-toggle"
@@ -258,18 +258,18 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               aria-hidden="true"
             />
-            <div className="lg:hidden fixed top-[56px] left-0 right-0 z-50 px-4 pb-6 pt-3 flex flex-col gap-3 bg-[#FAF8F5] border-b border-[#E8E0D2] rounded-b-3xl shadow-xl animate-slideDown max-h-[calc(100vh-56px)] overflow-y-auto">
+            <div className="lg:hidden fixed top-[56px] left-0 right-0 z-50 px-4 pb-6 pt-3 flex flex-col gap-3 bg-[#E7EDEB] border-b border-[#CBD8D4] rounded-b-3xl shadow-xl animate-slideDown max-h-[calc(100vh-56px)] overflow-y-auto">
               
               {/* User Bar in Mobile Menu */}
               {user ? (
-                <div className="p-3 bg-white border border-[#E8E0D2] rounded-2xl flex items-center justify-between">
+                <div className="p-3 bg-white border border-[#CBD8D4] rounded-2xl flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-[#0F172A] text-[#E5A93C] flex items-center justify-center text-xs font-black">
+                    <div className="w-8 h-8 rounded-xl bg-[#7C1F31] text-[#E7EDEB] flex items-center justify-center text-xs font-black">
                       {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                     </div>
                     <div className="flex flex-col text-left">
-                      <span className="text-xs font-bold text-[#0F172A]">{user.name || "Customer"}</span>
-                      <span className="text-[10px] text-[#475569]">{user.email}</span>
+                      <span className="text-xs font-bold text-[#1B2922]">{user.name || "Customer"}</span>
+                      <span className="text-[10px] text-[#4D6257]">{user.email}</span>
                     </div>
                   </div>
                   <button
@@ -277,7 +277,7 @@ export default function Navbar() {
                       logout();
                       setMobileMenuOpen(false);
                     }}
-                    className="p-2 rounded-xl text-[#475569] hover:text-[#E03131] hover:bg-[#FEE2E2] transition-colors"
+                    className="p-2 rounded-xl text-[#4D6257] hover:text-[#7C1F31] hover:bg-[#FEE2E2] transition-colors"
                     title="Logout"
                   >
                     <LogOut size={14} />
@@ -289,13 +289,13 @@ export default function Navbar() {
                     setMobileMenuOpen(false);
                     nav("/login");
                   }}
-                  className="w-full py-2.5 px-4 rounded-2xl bg-white border border-[#E8E0D2] hover:bg-[#FAF2DE] text-[#0F172A] font-bold text-xs flex items-center justify-between shadow-2xs"
+                  className="w-full py-2.5 px-4 rounded-2xl bg-white border border-[#CBD8D4] hover:bg-[#DEEDE4] text-[#1B2922] font-bold text-xs flex items-center justify-between shadow-2xs"
                 >
                   <div className="flex items-center gap-2">
-                    <User size={14} className="text-[#E5A93C]" />
+                    <User size={14} className="text-[#69A481]" />
                     <span>Customer Sign In / Register</span>
                   </div>
-                  <ChevronRight size={14} className="text-[#475569]" />
+                  <ChevronRight size={14} className="text-[#4D6257]" />
                 </button>
               )}
 
@@ -310,36 +310,36 @@ export default function Navbar() {
                       onClick={(e) => handleNavClick(e, item.href)}
                       className={`py-2.5 px-4 text-xs font-bold rounded-2xl transition-all flex items-center justify-between border ${
                         active
-                          ? "bg-[#0F172A] text-white border-[#0F172A] shadow-xs"
-                          : "bg-white text-[#0F172A] border-[#E8E0D2] hover:bg-[#FAF2DE]"
+                          ? "bg-[#7C1F31] text-white border-[#7C1F31] shadow-xs"
+                          : "bg-white text-[#1B2922] border-[#CBD8D4] hover:bg-[#DEEDE4]"
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
                         <div
                           className={`w-7 h-7 rounded-xl flex items-center justify-center ${
-                            active ? "bg-white/20 text-[#E5A93C]" : "bg-[#FAF2DE] text-[#E5A93C]"
+                            active ? "bg-white/20 text-[#DEEDE4]" : "bg-[#DEEDE4] text-[#69A481]"
                           }`}
                         >
                           <IconComponent size={14} />
                         </div>
                         <span>{item.label}</span>
                       </div>
-                      <ChevronRight size={14} className={active ? "text-white/80" : "text-[#475569]"} />
+                      <ChevronRight size={14} className={active ? "text-white/80" : "text-[#4D6257]"} />
                     </a>
                   );
                 })}
               </div>
 
               {/* Mobile CTA */}
-              <div className="pt-2 border-t border-[#E8E0D2] flex flex-col gap-2">
+              <div className="pt-2 border-t border-[#CBD8D4] flex flex-col gap-2">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     nav("/fleet");
                   }}
-                  className="w-full bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] text-[#090D16] font-black text-xs uppercase tracking-wider py-3.5 rounded-2xl flex items-center justify-center gap-2 shadow-gold border border-[#E5A93C]/40 cursor-pointer"
+                  className="w-full bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] text-white font-black text-xs uppercase tracking-wider py-3.5 rounded-2xl flex items-center justify-center gap-2 shadow-sm border border-[#7C1F31] cursor-pointer"
                 >
-                  <span>Explore Fleet &amp; Book Cab</span>
+                  <span>Explore Car Rentals</span>
                   <ArrowRight size={14} />
                 </button>
               </div>

@@ -332,11 +332,11 @@ export default function CalendarView() {
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#F0F0F0]">
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
-                <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063247] tracking-tight">
+                <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#1B2922] tracking-tight">
                   Fleet Calendar
                 </h1>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FAF8F5] text-[#063247] border border-[#E8E0D2]">
-                  <CalendarDays size={13} className="text-[#288DA6]" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#E7EDEB] text-[#1B2922] border border-[#CBD8D4]">
+                  <CalendarDays size={13} className="text-[#69A481]" />
                   {format(currentMonth, "MMMM yyyy")}
                 </span>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -356,8 +356,8 @@ export default function CalendarView() {
                   onClick={() => setViewMode("DAILY")}
                   className={`px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                     viewMode === "DAILY"
-                      ? "bg-white text-[#063247] shadow-xs"
-                      : "text-[#64748B] hover:text-[#063247]"
+                      ? "bg-white text-[#1B2922] shadow-xs"
+                      : "text-[#64748B] hover:text-[#1B2922]"
                   }`}
                   data-testid="view-daily-btn"
                 >
@@ -368,8 +368,8 @@ export default function CalendarView() {
                   onClick={() => setViewMode("MONTH")}
                   className={`px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                     viewMode === "MONTH"
-                      ? "bg-white text-[#063247] shadow-xs"
-                      : "text-[#64748B] hover:text-[#063247]"
+                      ? "bg-white text-[#1B2922] shadow-xs"
+                      : "text-[#64748B] hover:text-[#1B2922]"
                   }`}
                 >
                   <CalendarRange size={13} />
@@ -383,7 +383,7 @@ export default function CalendarView() {
                   setQuickBookingData(null);
                   setOfflineModalOpen(true);
                 }}
-                className="h-10 px-4 rounded-xl text-xs font-black text-[#090D16] bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 flex items-center gap-1.5 cursor-pointer shadow-gold transition-all active:scale-95 border border-[#E5A93C]/40 shrink-0"
+                className="h-10 px-4 rounded-xl text-xs font-black text-white bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-105 flex items-center gap-1.5 cursor-pointer shadow-sm transition-all active:scale-95 border border-[#7C1F31] shrink-0"
               >
                 <Plus size={15} />
                 <span>Add Booking</span>
@@ -393,9 +393,9 @@ export default function CalendarView() {
 
           {/* Minimalist Linear Runway KPI Badges */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
-            <div className="bg-[#FAF8F5] p-3 rounded-2xl border border-[#E8E0D2] flex flex-col justify-between">
+            <div className="bg-[#E7EDEB] p-3 rounded-2xl border border-[#CBD8D4] flex flex-col justify-between">
               <span className="text-[10px] text-[#64748B] font-bold uppercase tracking-wider">Total Fleet</span>
-              <div className="text-xl font-extrabold text-[#0F172A] mt-1 flex items-baseline gap-1">
+              <div className="text-xl font-extrabold text-[#1B2922] mt-1 flex items-baseline gap-1">
                 {todayMetrics.totalFleet} <span className="text-[11px] font-normal text-[#64748B]">Cars</span>
               </div>
             </div>
@@ -411,19 +411,19 @@ export default function CalendarView() {
 
             <div className="bg-sky-50/70 p-3 rounded-2xl border border-sky-200/70 flex flex-col justify-between">
               <span className="text-[10px] text-sky-800 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <Car size={12} className="text-sky-700" /> On Road
+                <ArrowUpRight size={12} className="text-sky-700" /> Dispatches Today
               </span>
-              <div className="text-xl font-extrabold text-sky-900 mt-1 flex items-baseline gap-1">
-                {todayMetrics.activeRented} <span className="text-[11px] font-bold text-sky-700">Active</span>
+              <div className="text-xl font-extrabold text-sky-900 mt-1">
+                {todayMetrics.pickupsToday}
               </div>
             </div>
 
             <div className="bg-amber-50/70 p-3 rounded-2xl border border-amber-200/70 flex flex-col justify-between">
               <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <ArrowUpRight size={12} className="text-amber-700" /> Pickups Today
+                <Clock size={12} className="text-amber-700" /> On Tour / Trip
               </span>
               <div className="text-xl font-extrabold text-amber-900 mt-1">
-                {todayMetrics.pickupsToday}
+                {todayMetrics.activeRented}
               </div>
             </div>
 
@@ -436,9 +436,9 @@ export default function CalendarView() {
               </div>
             </div>
 
-            <div className="bg-[#FAF8F5] p-3 rounded-2xl border border-[#E8E0D2] flex flex-col justify-between">
+            <div className="bg-[#E7EDEB] p-3 rounded-2xl border border-[#CBD8D4] flex flex-col justify-between">
               <span className="text-[10px] text-[#64748B] font-bold uppercase tracking-wider">Occupancy</span>
-              <div className="text-xl font-extrabold text-[#0F172A] mt-1 flex items-baseline gap-1">
+              <div className="text-xl font-extrabold text-[#1B2922] mt-1 flex items-baseline gap-1">
                 {todayMetrics.occupancyRate}% <span className="text-[11px] font-normal text-[#64748B]">Fleet</span>
               </div>
             </div>

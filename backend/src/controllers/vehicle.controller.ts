@@ -31,6 +31,7 @@ export async function listVehicles(req: Request, res: Response) {
     if (mongoose.connection.readyState === 1) {
       const docs = await VehicleModel.find(query).sort({ created_at: 1, _id: 1 }).limit(500).lean();
       const sanitized = docs.map((d) => sanitizeDoc(d));
+      res.setHeader('Cache-Control', 'public, max-age=60');
       return res.json(sanitized);
     }
     throw new Error('Database not ready');
@@ -68,6 +69,7 @@ export async function getVehicleById(req: Request, res: Response) {
       }
       const doc = await VehicleModel.findOne(query).lean();
       if (doc) {
+        res.setHeader('Cache-Control', 'public, max-age=60');
         return res.json(sanitizeDoc(doc));
       }
     }

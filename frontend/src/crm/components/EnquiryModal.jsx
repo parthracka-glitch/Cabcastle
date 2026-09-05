@@ -15,7 +15,7 @@ const POPULAR_CITIES = [
 ];
 
 const CAR_MODELS = [
-  "Mahindra Thar 4x4", "Toyota Fortuner", "MINI Cooper Convertible",
+  "Toyota Innova Crysta", "Toyota Fortuner", "MINI Cooper Convertible",
   "Honda City", "Maruti Swift", "Tata Nexon EV", "General SUV", "General Convertible", "General"
 ];
 
@@ -28,7 +28,7 @@ const EMPTY = {
   email: "",
   city: "Mumbai",
   custom_city: "",
-  car_model_interested: "Mahindra Thar 4x4",
+  car_model_interested: "Toyota Innova Crysta",
   source: "Phone Call",
   status: "New",
   notes: "",

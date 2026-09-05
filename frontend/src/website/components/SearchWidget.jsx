@@ -180,22 +180,22 @@ export default function SearchWidget({ variant = "hero" }) {
       >
         <form onSubmit={handleSearch} className="space-y-4 sm:space-y-5">
           {/* Quick Presets Strip */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#E8E0D2]">
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#CBD8D4]">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-[#475569] font-medium">
+              <span className="text-xs text-[#4D6257] font-medium">
                 Quick Select:
               </span>
               <button
                 type="button"
                 onClick={handleOneDayExpress}
-                className="text-xs font-bold px-3 py-1 rounded-full bg-[#FAF2DE] text-[#B87A18] hover:bg-[#F6D285]/40 border border-[#E5A93C]/35 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+                className="text-xs font-bold px-3 py-1 rounded-full bg-[#DEEDE4] text-[#245339] hover:bg-[#DEEDE4]/80 border border-[#69A481]/35 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
               >
-                <Zap size={12} className="text-[#E5A93C]" /> 1-Day Express (8h / 80km)
+                <Zap size={12} className="text-[#69A481]" /> 1-Day Express (8h / 80km)
               </button>
             </div>
-            <div className="hidden sm:flex items-center gap-1 text-xs text-[#475569]">
+            <div className="hidden sm:flex items-center gap-1 text-xs text-[#4D6257]">
               <span>Duration:</span>
-              <span className="font-bold text-[#0F172A]">{durationDays} {durationDays === 1 ? "Day" : "Days"}</span>
+              <span className="font-bold text-[#1B2922]">{durationDays} {durationDays === 1 ? "Day" : "Days"}</span>
             </div>
           </div>
 
@@ -209,15 +209,15 @@ export default function SearchWidget({ variant = "hero" }) {
                     type="button"
                     data-testid="search-pickup-date"
                     onClick={() => setCalendarOpen(true)}
-                    className="flex items-center justify-between w-full h-11 border border-[#E8E0D2] rounded-full px-4 bg-[#FAF8F5] hover:bg-white hover:border-[#E5A93C] transition-all text-left cursor-pointer shadow-none group"
+                    className="flex items-center justify-between w-full h-11 border border-[#CBD8D4] rounded-full px-4 bg-[#E7EDEB] hover:bg-white hover:border-[#69A481] transition-all text-left cursor-pointer shadow-none group"
                   >
                     <div className="flex items-center gap-2.5 truncate">
-                      <CalendarIcon size={15} className="text-[#E5A93C] shrink-0" />
+                      <CalendarIcon size={15} className="text-[#69A481] shrink-0" />
                       <div className="truncate">
-                        <span className="font-bold text-xs sm:text-sm text-[#0F172A] block leading-tight">
+                        <span className="font-bold text-xs sm:text-sm text-[#1B2922] block leading-tight">
                           {format(pickup, "dd MMM yyyy")}
                         </span>
-                        <span className="text-[#475569] font-mono text-[11px] block leading-tight">
+                        <span className="text-[#4D6257] font-mono text-[11px] block leading-tight">
                           {formatTime12(format(pickup, "HH:mm"))}
                         </span>
                       </div>
@@ -229,39 +229,39 @@ export default function SearchWidget({ variant = "hero" }) {
                   align="start"
                   side="bottom"
                   sideOffset={8}
-                  className="w-[calc(100vw-32px)] sm:w-[350px] max-w-[350px] p-0 bg-white border border-[#E8E0D2] shadow-xl rounded-2xl overflow-hidden z-50"
+                  className="w-[calc(100vw-32px)] sm:w-[350px] max-w-[350px] p-0 bg-white border border-[#CBD8D4] shadow-xl rounded-2xl overflow-hidden z-50"
                 >
-                  <div className="p-4 bg-[#0F172A] text-white flex flex-col gap-2">
+                  <div className="p-4 bg-[#24060C] text-white flex flex-col gap-2">
                     <div className="flex items-center justify-between">
-                      <div className="text-[11px] uppercase tracking-wider text-[#F6D285] font-bold">
+                      <div className="text-[11px] uppercase tracking-wider text-[#8FC4A5] font-bold">
                         {draftRange?.from && !draftRange?.to ? "Select Drop-off Date" : "Rental Duration"}
                       </div>
-                      <span className="text-xs font-mono bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] text-[#090D16] px-2.5 py-0.5 rounded-full font-black">
+                      <span className="text-xs font-mono bg-[#69A481] text-white px-2.5 py-0.5 rounded-full font-black">
                         {durationDays} {durationDays === 1 ? "Day" : "Days"}
                       </span>
                     </div>
                     <div className="text-xs font-mono font-medium text-white flex items-center justify-between bg-white/10 px-3 py-2 rounded-xl border border-white/10">
                       <div className="text-center">
-                        <div className="text-[9px] text-[#F6D285] uppercase">Pickup</div>
+                        <div className="text-[9px] text-[#8FC4A5] uppercase">Pickup</div>
                         <div>{format(pickup, "dd MMM yyyy")}</div>
                       </div>
-                      <span className="text-[#E5A93C] font-bold text-sm">→</span>
+                      <span className="text-[#69A481] font-bold text-sm">→</span>
                       <div className="text-center">
-                        <div className="text-[9px] text-[#F6D285] uppercase">Drop-off</div>
+                        <div className="text-[9px] text-[#8FC4A5] uppercase">Drop-off</div>
                         <div>{format(drop, "dd MMM yyyy")}</div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="px-3.5 py-2 flex items-center justify-between gap-2 border-b border-[#E8E0D2] bg-[#FAF8F5]">
-                    <span className="text-[10px] uppercase text-[#475569] font-bold">Presets:</span>
+                  <div className="px-3.5 py-2 flex items-center justify-between gap-2 border-b border-[#CBD8D4] bg-[#E7EDEB]">
+                    <span className="text-[10px] uppercase text-[#4D6257] font-bold">Presets:</span>
                     <div className="flex items-center gap-1.5">
                       {[1, 3, 5, 7].map((days) => (
                         <button
                           key={days}
                           type="button"
                           onClick={() => applyPresetDays(days)}
-                          className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-white text-[#0F172A] border border-[#E8E0D2] hover:border-[#E5A93C] hover:text-[#B87A18] transition-all cursor-pointer"
+                          className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-white text-[#1B2922] border border-[#CBD8D4] hover:border-[#69A481] hover:text-[#245339] transition-all cursor-pointer"
                         >
                           +{days}d
                         </button>
@@ -279,18 +279,18 @@ export default function SearchWidget({ variant = "hero" }) {
                     />
                   </div>
 
-                  <div className="p-3 border-t border-[#E8E0D2] bg-[#FAF8F5] flex flex-col gap-2.5">
+                  <div className="p-3 border-t border-[#CBD8D4] bg-[#E7EDEB] flex flex-col gap-2.5">
                     <div className="grid grid-cols-2 gap-2 text-xs">
                       <div>
-                        <label className="block text-[10px] font-bold text-[#475569] mb-1 uppercase">Pickup Time</label>
+                        <label className="block text-[10px] font-bold text-[#4D6257] mb-1 uppercase">Pickup Time</label>
                         <Select
                           value={format(pickup, "HH:mm")}
                           onValueChange={(val) => setPickup(setTimeOnDate(pickup, val))}
                         >
-                          <SelectTrigger className="w-full border border-[#E8E0D2] rounded-full px-3 py-1.5 font-medium text-[#0F172A] bg-white h-9 text-xs">
+                          <SelectTrigger className="w-full border border-[#CBD8D4] rounded-full px-3 py-1.5 font-medium text-[#1B2922] bg-white h-9 text-xs">
                             <SelectValue />
                           </SelectTrigger>
-                          <SelectContent className="max-h-56 bg-white border border-[#E8E0D2] text-[#0F172A] rounded-xl">
+                          <SelectContent className="max-h-56 bg-white border border-[#CBD8D4] text-[#1B2922] rounded-xl">
                             {TIME_OPTIONS.map((t) => (
                               <SelectItem key={t} value={t}>{formatTime12(t)}</SelectItem>
                             ))}
@@ -298,15 +298,15 @@ export default function SearchWidget({ variant = "hero" }) {
                         </Select>
                       </div>
                       <div>
-                        <label className="block text-[10px] font-bold text-[#475569] mb-1 uppercase">Drop Time</label>
+                        <label className="block text-[10px] font-bold text-[#4D6257] mb-1 uppercase">Drop-off Time</label>
                         <Select
                           value={format(drop, "HH:mm")}
                           onValueChange={(val) => setDrop(setTimeOnDate(drop, val))}
                         >
-                          <SelectTrigger className="w-full border border-[#E8E0D2] rounded-full px-3 py-1.5 font-medium text-[#0F172A] bg-white h-9 text-xs">
+                          <SelectTrigger className="w-full border border-[#CBD8D4] rounded-full px-3 py-1.5 font-medium text-[#1B2922] bg-white h-9 text-xs">
                             <SelectValue />
                           </SelectTrigger>
-                          <SelectContent className="max-h-56 bg-white border border-[#E8E0D2] text-[#0F172A] rounded-xl">
+                          <SelectContent className="max-h-56 bg-white border border-[#CBD8D4] text-[#1B2922] rounded-xl">
                             {TIME_OPTIONS.map((t) => (
                               <SelectItem key={t} value={t}>{formatTime12(t)}</SelectItem>
                             ))}
@@ -318,7 +318,7 @@ export default function SearchWidget({ variant = "hero" }) {
                     <button
                       type="button"
                       onClick={confirmDates}
-                      className="w-full bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] font-black uppercase tracking-wider text-xs h-9 rounded-full shadow-gold transition-all cursor-pointer active:scale-96 flex items-center justify-center border border-[#E5A93C]/40"
+                      className="w-full bg-[#69A481] hover:bg-[#528A69] text-white font-black uppercase tracking-wider text-xs h-9 rounded-full shadow-sm transition-all cursor-pointer active:scale-96 flex items-center justify-center border border-[#69A481]/40"
                     >
                       Apply Dates
                     </button>
@@ -334,15 +334,15 @@ export default function SearchWidget({ variant = "hero" }) {
                 type="button"
                 data-testid="search-drop-date"
                 onClick={() => setCalendarOpen(true)}
-                className="flex items-center justify-between w-full h-11 border border-[#E8E0D2] rounded-full px-4 bg-[#FAF8F5] hover:bg-white hover:border-[#E5A93C] transition-all text-left cursor-pointer shadow-none group"
+                className="flex items-center justify-between w-full h-11 border border-[#CBD8D4] rounded-full px-4 bg-[#E7EDEB] hover:bg-white hover:border-[#69A481] transition-all text-left cursor-pointer shadow-none group"
               >
                 <div className="flex items-center gap-2.5 truncate">
-                  <CalendarIcon size={15} className="text-[#E5A93C] shrink-0" />
+                  <CalendarIcon size={15} className="text-[#69A481] shrink-0" />
                   <div className="truncate">
-                    <span className="font-bold text-xs sm:text-sm text-[#0F172A] block leading-tight">
+                    <span className="font-bold text-xs sm:text-sm text-[#1B2922] block leading-tight">
                       {format(drop, "dd MMM yyyy")}
                     </span>
-                    <span className="text-[#475569] font-mono text-[11px] block leading-tight">
+                    <span className="text-[#4D6257] font-mono text-[11px] block leading-tight">
                       {formatTime12(format(drop, "HH:mm"))}
                     </span>
                   </div>
@@ -355,15 +355,15 @@ export default function SearchWidget({ variant = "hero" }) {
               <FieldLabel>Pickup Location</FieldLabel>
               <Select value={location} onValueChange={setLocation}>
                 <SelectTrigger
-                  className="bg-[#FAF8F5] border-[#E8E0D2] rounded-full text-xs sm:text-sm font-medium text-[#0F172A] h-11 hover:bg-white hover:border-[#E5A93C] transition-all px-4"
+                  className="bg-[#E7EDEB] border-[#CBD8D4] rounded-full text-xs sm:text-sm font-medium text-[#1B2922] h-11 hover:bg-white hover:border-[#69A481] transition-all px-4"
                   data-testid="search-location"
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <MapPin size={15} className="text-[#E5A93C] shrink-0" />
+                    <MapPin size={15} className="text-[#69A481] shrink-0" />
                     <SelectValue />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-white border-[#E8E0D2] text-[#0F172A] rounded-xl">
+                <SelectContent className="bg-white border-[#CBD8D4] text-[#1B2922] rounded-xl">
                   {LOCATIONS.map((l) => (
                     <SelectItem key={l} value={l}>{l}</SelectItem>
                   ))}
@@ -376,15 +376,15 @@ export default function SearchWidget({ variant = "hero" }) {
               <FieldLabel>Vehicle Type</FieldLabel>
               <Select value={category} onValueChange={setCategory}>
                 <SelectTrigger
-                  className="bg-[#FAF8F5] border-[#E8E0D2] rounded-full text-xs sm:text-sm font-medium text-[#0F172A] h-11 hover:bg-white hover:border-[#E5A93C] transition-all px-4"
+                  className="bg-[#E7EDEB] border-[#CBD8D4] rounded-full text-xs sm:text-sm font-medium text-[#1B2922] h-11 hover:bg-white hover:border-[#69A481] transition-all px-4"
                   data-testid="search-category"
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <Car size={15} className="text-[#E5A93C] shrink-0" />
+                    <Car size={15} className="text-[#69A481] shrink-0" />
                     <SelectValue placeholder="All Vehicle Types" />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-white border-[#E8E0D2] text-[#0F172A] rounded-xl">
+                <SelectContent className="bg-white border-[#CBD8D4] text-[#1B2922] rounded-xl">
                   <SelectItem value="All">All Vehicle Types</SelectItem>
                   {CATEGORIES.map((c) => (
                     <SelectItem key={c} value={c}>{c}</SelectItem>
@@ -402,14 +402,14 @@ export default function SearchWidget({ variant = "hero" }) {
                 checked={airport || isAirportLoc}
                 disabled={isAirportLoc}
                 onCheckedChange={(v) => setAirport(!!v)}
-                className="data-[state=checked]:bg-[#E5A93C] data-[state=checked]:border-[#E5A93C] border-[#E8E0D2] rounded-md"
+                className="data-[state=checked]:bg-[#69A481] data-[state=checked]:border-[#69A481] border-[#CBD8D4] rounded-md"
                 data-testid="airport-pickup-toggle"
               />
               <label
                 htmlFor="airport-chk"
-                className="text-xs font-medium text-[#475569] flex items-center gap-1 cursor-pointer"
+                className="text-xs font-medium text-[#4D6257] flex items-center gap-1 cursor-pointer"
               >
-                <Plane size={14} className="text-[#E5A93C]" />
+                <Plane size={14} className="text-[#69A481]" />
                 Airport Delivery / Pickup Required
               </label>
             </div>
@@ -417,7 +417,7 @@ export default function SearchWidget({ variant = "hero" }) {
             <Button
               type="submit"
               data-testid="search-submit"
-              className="bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 active:brightness-95 text-[#090D16] font-black h-11 px-8 rounded-full uppercase tracking-wider text-xs shadow-gold active:scale-98 transition-all duration-150 cursor-pointer border border-[#E5A93C]/40"
+              className="bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-105 active:brightness-95 text-white font-black h-11 px-8 rounded-full uppercase tracking-wider text-xs shadow-sm active:scale-98 transition-all duration-150 cursor-pointer border border-[#7C1F31]"
             >
               Search Available Fleet →
             </Button>

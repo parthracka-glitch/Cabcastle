@@ -1,3 +1,4 @@
+/* Cab Castle Goa Design System - About & FAQs (Mint #69A481, White Smoke #E7EDEB, Claret #7C1F31) */
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
@@ -36,7 +37,7 @@ import {
 
 const STATS = [
   { value: "2019", label: "Serving Goa Since" },
-  { value: "30+", label: "Verified Cabs" },
+  { value: "30+", label: "Verified Cars" },
   { value: "20k+", label: "Completed Trips" },
   { value: "4.9★", label: "Customer Rating", highlight: true },
   { value: "100%", label: "Punctual Dispatch" },
@@ -99,7 +100,7 @@ const FAQ_DATA = [
     category: "rules",
     question: "What documents are required to confirm a booking?",
     answer:
-      "A Government-issued ID (Aadhaar Card, Passport, or Voter ID) and a contact phone number are required during booking to verify the reservation for cab dispatch.",
+      "A Government-issued ID (Aadhaar Card, Passport, or Voter ID) and a contact phone number are required during booking to verify the reservation for car dispatch.",
   },
   {
     id: "faq-5",
@@ -139,9 +140,9 @@ export default function AboutPage({ defaultSection } = {}) {
       : FAQ_DATA.filter((item) => item.category === activeFaqCategory);
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] text-[#063247] font-body flex flex-col justify-between selection:bg-[#063247] selection:text-white">
+    <div className="min-h-screen bg-[#E7EDEB] text-[#1B2922] font-body flex flex-col justify-between selection:bg-[#7C1F31] selection:text-white">
       <SEO
-        title="About Cab Castle Goa — Tour Cabs, Airport Transfers & FAQs"
+        title="About Cab Castle Goa — Car Rentals, Airport Transfers & FAQs"
         description="Learn about Cab Castle Goa. Explore our hourly sightseeing packages, airport transfers, Sedan, Ertiga & Innova fleet standards, and complete FAQs."
         canonical="/about"
       />
@@ -159,34 +160,34 @@ export default function AboutPage({ defaultSection } = {}) {
         {/* ── 1. HERO HEADER ── */}
         <section className="max-w-7xl mx-auto px-5 sm:px-8 pt-8 sm:pt-12 pb-10">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs text-[#4C606E] mb-6">
-            <Link to="/" className="hover:text-[#063247] transition-colors">Home</Link>
-            <ChevronRight size={13} className="text-[#8496A2]" />
-            <span className="text-[#063247] font-bold">About Us &amp; FAQs</span>
+          <div className="flex items-center gap-2 text-xs text-[#4D6257] mb-6">
+            <Link to="/" className="hover:text-[#7C1F31] transition-colors">Home</Link>
+            <ChevronRight size={13} className="text-[#6C8277]" />
+            <span className="text-[#1B2922] font-bold">About Us &amp; FAQs</span>
           </div>
 
-          <div className="relative bg-white border border-[#DFE8EC] rounded-[24px] p-6 sm:p-10 lg:p-12 shadow-sm overflow-hidden">
+          <div className="relative bg-white border border-[#CBD8D4] rounded-[24px] p-6 sm:p-10 lg:p-12 shadow-sm overflow-hidden">
             <div className="max-w-3xl space-y-4">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#063247] tracking-tight leading-tight font-display">
-                Reliable Cabs, Honest Pricing, and Scenic Goa Journeys
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1B2922] tracking-tight leading-tight font-display">
+                Reliable Car Rentals, Honest Pricing, and Scenic Goa Journeys
               </h1>
 
-              <p className="text-sm sm:text-base text-[#4C606E] leading-relaxed font-normal">
+              <p className="text-sm sm:text-base text-[#4D6257] leading-relaxed font-normal">
                 Cab Castle Goa was built to provide tourists and locals with predictable hourly tour packages, punctual airport transfers, and well-maintained Sedans, Ertigas &amp; Innovas backed by 24/7 on-ground dispatch.
               </p>
             </div>
 
             {/* Quick Stats Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 mt-8 pt-8 border-t border-[#DFE8EC]">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 mt-8 pt-8 border-t border-[#CBD8D4]">
               {STATS.map((stat, idx) => (
                 <div
                   key={idx}
-                  className="bg-[#F7F7F7] p-4 sm:p-5 rounded-[16px] text-center border border-[#DFE8EC]"
+                  className="bg-[#E7EDEB] p-4 sm:p-5 rounded-[16px] text-center border border-[#CBD8D4]"
                 >
-                  <div className={`text-2xl sm:text-3xl font-black ${stat.highlight ? "text-[#288DA6]" : "text-[#063247]"}`}>
+                  <div className={`text-2xl sm:text-3xl font-black ${stat.highlight ? "text-[#69A481]" : "text-[#1B2922]"}`}>
                     {stat.value}
                   </div>
-                  <div className="text-[11px] uppercase tracking-wider text-[#4C606E] font-bold mt-1">
+                  <div className="text-[11px] uppercase tracking-wider text-[#4D6257] font-bold mt-1">
                     {stat.label}
                   </div>
                 </div>
@@ -199,57 +200,57 @@ export default function AboutPage({ defaultSection } = {}) {
         <section className="max-w-7xl mx-auto px-5 sm:px-8 py-6">
           <div className="grid lg:grid-cols-12 gap-8 items-stretch">
             {/* Story Card */}
-            <div className="lg:col-span-7 bg-white border border-[#DFE8EC] rounded-[24px] p-6 sm:p-8 flex flex-col justify-between shadow-sm">
+            <div className="lg:col-span-7 bg-white border border-[#CBD8D4] rounded-[24px] p-6 sm:p-8 flex flex-col justify-between shadow-sm">
               <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 text-xs font-bold text-[#288DA6] uppercase tracking-wider">
-                  <Award size={16} /> The Cab Castle Story
+                <div className="inline-flex items-center gap-2 text-xs font-bold text-[#245339] bg-[#DEEDE4] px-3 py-1 rounded-full border border-[#69A481]/30 uppercase tracking-wider">
+                  <Award size={16} className="text-[#69A481]" /> The Cab Castle Story
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#063247] tracking-tight font-display">
-                  Elevating Cab &amp; Travel Standards Across Goa
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1B2922] tracking-tight font-display">
+                  Elevating Car Rental &amp; Travel Standards Across Goa
                 </h2>
-                <p className="text-xs sm:text-sm text-[#4C606E] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#4D6257] leading-relaxed">
                   Headquartered in Assagao, Bardez, Cab Castle Goa was founded under the leadership of Dasgir Adur to deliver upfront, predictable transportation. We eliminate the frustration of fluctuating tourist rates, surge charges, and unprofessional services.
                 </p>
-                <p className="text-xs sm:text-sm text-[#4C606E] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#4D6257] leading-relaxed">
                   Whether you require an 8-hour sightseeing tour across North Goa beaches, Old Goa churches, and Dudhsagar waterfalls or an on-time airport transfer at 3 AM, our verified fleet of comfortable Sedans, 7-seater Ertigas, and premium Innova Crystas are ready to serve you.
                 </p>
               </div>
 
-              <div className="mt-6 pt-5 border-t border-[#DFE8EC] flex flex-wrap items-center justify-between gap-4">
-                <div className="flex items-center gap-2 text-xs text-[#288DA6] font-bold bg-[#E4F2F5] px-3 py-1.5 rounded-full border border-[#288DA6]/30">
-                  <CheckCircle2 size={16} />
-                  <span>Licensed &amp; Verified Goa Cab Services</span>
+              <div className="mt-6 pt-5 border-t border-[#CBD8D4] flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-2 text-xs text-[#245339] font-bold bg-[#DEEDE4] px-3 py-1.5 rounded-full border border-[#69A481]/30">
+                  <CheckCircle2 size={16} className="text-[#69A481]" />
+                  <span>Licensed &amp; Verified Goa Car Services</span>
                 </div>
-                <div className="text-xs text-[#4C606E]">
-                  Owner &amp; Founder: <span className="font-bold text-[#063247]">Dasgir Adur</span>
+                <div className="text-xs text-[#4D6257]">
+                  Owner &amp; Founder: <span className="font-bold text-[#1B2922]">Dasgir Adur</span>
                 </div>
               </div>
             </div>
 
             {/* Quick Action Hub Info Card */}
-            <div className="lg:col-span-5 bg-[#063247] text-white rounded-[24px] p-6 sm:p-8 flex flex-col justify-between shadow-sm">
+            <div className="lg:col-span-5 bg-[#24060C] text-white rounded-[24px] p-6 sm:p-8 flex flex-col justify-between shadow-sm border border-[#7C1F31]">
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-[#C3E7FA] mb-2 flex items-center gap-2">
+                <div className="text-xs font-bold uppercase tracking-wider text-[#8FC4A5] mb-2 flex items-center gap-2">
                   <Compass size={16} /> Main Operations Hub
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 font-display">
                   Assagao &amp; Goa Airport Express
                 </h3>
-                <div className="space-y-3 text-xs sm:text-sm text-[#C3E7FA]/80">
+                <div className="space-y-3 text-xs sm:text-sm text-white/85">
                   <div className="flex items-start gap-2.5">
-                    <MapPin size={16} className="text-[#288DA6] shrink-0 mt-0.5" />
+                    <MapPin size={16} className="text-[#69A481] shrink-0 mt-0.5" />
                     <span>Main Dispatch: Assagao, Bardez, North Goa 403507</span>
                   </div>
                   <div className="flex items-start gap-2.5">
-                    <Clock size={16} className="text-[#288DA6] shrink-0 mt-0.5" />
+                    <Clock size={16} className="text-[#69A481] shrink-0 mt-0.5" />
                     <span>Dispatch Service: 24 Hours / 7 Days a Week</span>
                   </div>
                   <div className="flex items-start gap-2.5">
-                    <Phone size={16} className="text-[#288DA6] shrink-0 mt-0.5" />
+                    <Phone size={16} className="text-[#69A481] shrink-0 mt-0.5" />
                     <span>Direct Hotline: +91 70266 48960</span>
                   </div>
                   <div className="flex items-start gap-2.5">
-                    <Mail size={16} className="text-[#288DA6] shrink-0 mt-0.5" />
+                    <Mail size={16} className="text-[#69A481] shrink-0 mt-0.5" />
                     <span>Email: dasgiradur@gmail.com</span>
                   </div>
                 </div>
@@ -258,12 +259,12 @@ export default function AboutPage({ defaultSection } = {}) {
               <div className="mt-6 pt-5 border-t border-white/10 flex flex-col sm:flex-row gap-3">
                 <Button
                   onClick={() => navigate("/fleet")}
-                  className="bg-[#288DA6] hover:bg-[#22768C] text-white font-bold text-xs uppercase tracking-wider rounded-full h-10 flex-1 shadow-sm transition-all cursor-pointer"
+                  className="bg-[#69A481] hover:bg-[#528A69] text-white font-bold text-xs uppercase tracking-wider rounded-full h-10 flex-1 shadow-sm transition-all cursor-pointer border border-[#69A481]"
                 >
-                  <Car size={14} className="mr-1.5" /> Browse Cabs
+                  <Car size={14} className="mr-1.5" /> Browse Cars
                 </Button>
                 <a
-                  href="https://wa.me/917026648960?text=Hi%20Cab%20Castle%20Goa,%20I%20have%20an%20inquiry%20regarding%20cab%20packages"
+                  href="https://wa.me/917026648960?text=Hi%20Cab%20Castle%20Goa,%20I%20have%20an%20inquiry%20regarding%20car%20packages"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider rounded-full h-10 px-5 flex items-center justify-center gap-1.5 transition-all cursor-pointer"
@@ -278,10 +279,10 @@ export default function AboutPage({ defaultSection } = {}) {
         {/* ── 3. FOUR PILLARS OF SERVICE ── */}
         <section className="max-w-7xl mx-auto px-5 sm:px-8 py-8">
           <div className="mb-6">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#063247] tracking-tight font-display">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1B2922] tracking-tight font-display">
               Why Travellers Choose Cab Castle Goa
             </h2>
-            <p className="text-xs sm:text-sm text-[#4C606E] mt-1">
+            <p className="text-xs sm:text-sm text-[#4D6257] mt-1">
               Engineered for seamless travel across North &amp; South Goa.
             </p>
           </div>
@@ -292,16 +293,16 @@ export default function AboutPage({ defaultSection } = {}) {
               return (
                 <div
                   key={idx}
-                  className="bg-white border border-[#DFE8EC] rounded-[24px] p-5 shadow-sm space-y-3 flex flex-col justify-between hover:border-[#288DA6] transition-colors"
+                  className="bg-white border border-[#CBD8D4] rounded-[24px] p-5 shadow-sm space-y-3 flex flex-col justify-between hover:border-[#69A481] transition-colors"
                 >
                   <div>
-                    <div className="w-10 h-10 rounded-full bg-[#E4F2F5] text-[#288DA6] flex items-center justify-center mb-3">
+                    <div className="w-10 h-10 rounded-full bg-[#DEEDE4] text-[#69A481] flex items-center justify-center mb-3">
                       <Icon size={20} />
                     </div>
-                    <h3 className="font-bold text-sm text-[#063247] mb-1.5 leading-snug">
+                    <h3 className="font-bold text-sm text-[#1B2922] mb-1.5 leading-snug">
                       {pillar.title}
                     </h3>
-                    <p className="text-xs text-[#4C606E] leading-relaxed font-normal">
+                    <p className="text-xs text-[#4D6257] leading-relaxed font-normal">
                       {pillar.desc}
                     </p>
                   </div>
@@ -313,16 +314,16 @@ export default function AboutPage({ defaultSection } = {}) {
 
         {/* ── 4. COMPREHENSIVE FAQS ── */}
         <section className="max-w-7xl mx-auto px-5 sm:px-8 py-10" id="faqs">
-          <div className="bg-white border border-[#DFE8EC] rounded-[24px] p-6 sm:p-10 shadow-sm">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-[#DFE8EC]">
+          <div className="bg-white border border-[#CBD8D4] rounded-[24px] p-6 sm:p-10 shadow-sm">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-[#CBD8D4]">
               <div>
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#288DA6] uppercase tracking-wider mb-2">
-                  <HelpCircle size={15} /> Frequently Asked Questions
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#245339] bg-[#DEEDE4] px-3 py-1 rounded-full border border-[#69A481]/30 uppercase tracking-wider mb-2">
+                  <HelpCircle size={15} className="text-[#69A481]" /> Frequently Asked Questions
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#063247] tracking-tight font-display">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1B2922] tracking-tight font-display">
                   Everything You Need to Know
                 </h2>
-                <p className="text-xs sm:text-sm text-[#4C606E] mt-1">
+                <p className="text-xs sm:text-sm text-[#4D6257] mt-1">
                   Clear answers regarding hourly packages, airport transfers, and booking rules.
                 </p>
               </div>
@@ -335,8 +336,8 @@ export default function AboutPage({ defaultSection } = {}) {
                     onClick={() => setActiveFaqCategory(cat.id)}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                       activeFaqCategory === cat.id
-                        ? "bg-[#063247] text-white shadow-xs"
-                        : "bg-[#F7F7F7] text-[#063247] hover:bg-[#E4F2F5] border border-[#DFE8EC]"
+                        ? "bg-[#7C1F31] text-white shadow-xs border border-[#7C1F31]"
+                        : "bg-[#E7EDEB] text-[#1B2922] hover:bg-[#DEEDE4] border border-[#CBD8D4]"
                     }`}
                   >
                     {cat.label}
@@ -351,12 +352,12 @@ export default function AboutPage({ defaultSection } = {}) {
                 <AccordionItem
                   key={faq.id}
                   value={faq.id}
-                  className="border border-[#DFE8EC] rounded-[16px] px-5 py-1 bg-[#F7F7F7] data-[state=open]:bg-white data-[state=open]:border-[#288DA6] transition-colors"
+                  className="border border-[#CBD8D4] rounded-[16px] px-5 py-1 bg-[#E7EDEB] data-[state=open]:bg-white data-[state=open]:border-[#69A481] transition-colors"
                 >
-                  <AccordionTrigger className="text-left text-xs sm:text-sm font-bold text-[#063247] hover:no-underline py-3">
+                  <AccordionTrigger className="text-left text-xs sm:text-sm font-bold text-[#1B2922] hover:no-underline py-3">
                     <span className="pr-4">{faq.question}</span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-xs sm:text-sm text-[#4C606E] leading-relaxed pt-1 pb-3 font-normal">
+                  <AccordionContent className="text-xs sm:text-sm text-[#4D6257] leading-relaxed pt-1 pb-3 font-normal">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -367,27 +368,27 @@ export default function AboutPage({ defaultSection } = {}) {
 
         {/* ── 5. BOTTOM CALL TO ACTION ── */}
         <section className="max-w-7xl mx-auto px-5 sm:px-8 py-6">
-          <div className="bg-[#063247] text-white rounded-[24px] p-8 sm:p-12 text-center relative overflow-hidden shadow-md">
+          <div className="bg-[#24060C] text-white rounded-[24px] p-8 sm:p-12 text-center relative overflow-hidden shadow-md border border-[#7C1F31]">
             <div className="relative z-10 max-w-2xl mx-auto space-y-4">
               <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight font-display">
                 Ready to Book Your Ride in Goa?
               </h2>
-              <p className="text-xs sm:text-sm text-[#C3E7FA]/80 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#8FC4A5] leading-relaxed">
                 Choose from our verified fleet of Sedans, Ertiga 7-seaters, and Innova Crystas with instant confirmation.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
                 <Button
                   onClick={() => navigate("/fleet")}
-                  className="bg-[#288DA6] hover:bg-[#22768C] text-white font-bold text-xs uppercase tracking-wider rounded-full h-11 px-7 shadow-sm transition-all cursor-pointer"
+                  className="bg-[#69A481] hover:bg-[#528A69] text-white font-bold text-xs uppercase tracking-wider rounded-full h-11 px-7 shadow-sm transition-all cursor-pointer border border-[#69A481]"
                 >
-                  <span>Explore Available Cabs</span>
+                  <span>Explore Available Cars</span>
                   <ArrowRight size={14} className="ml-1.5" />
                 </Button>
                 <a
                   href="tel:+917026648960"
                   className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider rounded-full h-11 px-6 flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
-                  <Phone size={14} className="text-[#288DA6]" />
+                  <Phone size={14} className="text-[#69A481]" />
                   <span>Call +91 70266 48960</span>
                 </a>
               </div>

@@ -3,7 +3,7 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 import { Star, Award, MessageSquareQuote } from "lucide-react";
 import api from "@/lib/api";
-import { GoogleIcon } from "../pages/Landing";
+import { GoogleIcon } from "./GoogleIcon";
 
 export default function ReviewsMarquee() {
   const [reviews, setReviews] = React.useState([]);

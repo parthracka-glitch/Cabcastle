@@ -1,11 +1,11 @@
-/* Cab Castle Goa Design System - VehicleCard */
+/* Cab Castle Goa Design System - VehicleCard (Mint #69A481, White Smoke #E7EDEB, Claret #7C1F31) */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight, ChevronLeft, ChevronRight, MessageCircle, Users, Snowflake } from "lucide-react";
 import { formatINR, getOptimizedImageUrl } from "@/lib/api";
 import Tilt3DCard from "./Tilt3DCard";
 
-export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryParams = "" }) {
+function VehicleCard({ v, index = 0, serviceMode = "tour", queryParams = "" }) {
   const navigate = useNavigate();
 
   // Image list
@@ -59,7 +59,7 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
   return (
     <Tilt3DCard maxTilt={3} scale={1.012} className="rounded-[24px] h-full font-body">
       <div
-        className="group bg-white rounded-[24px] overflow-hidden border border-[#E8E0D2] shadow-xs hover:shadow-gold hover:border-[#E5A93C] transition-all duration-200 h-full flex flex-col justify-between"
+        className="group bg-white rounded-[24px] overflow-hidden border border-[#CBD8D4] shadow-xs hover:shadow-md hover:border-[#69A481] transition-all duration-200 h-full flex flex-col justify-between"
         data-testid={`vehicle-card-${index}`}
         style={{ animationDelay: `${index * 35}ms` }}
         onMouseEnter={() => setIsHovered(true)}
@@ -69,7 +69,7 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
         <div onClick={() => navigate(bookingUrl)} className="cursor-pointer p-4 sm:p-5 text-left space-y-3.5">
           
           {/* Top Vehicle Image Banner */}
-          <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#FAF8F5] select-none border border-[#E8E0D2]">
+          <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#E7EDEB] select-none border border-[#CBD8D4]">
             <img
               key={`${v.id}-${activeIdx}`}
               src={getOptimizedImageUrl(currentImage)}
@@ -82,7 +82,7 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
             />
 
             {/* Castle Class Top Badge */}
-            <div className="absolute top-2.5 left-2.5 bg-[#090D16]/90 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-[#E5A93C]/40 text-[10px] font-black text-[#F6D285] flex items-center gap-1 z-10 shadow-xs">
+            <div className="absolute top-2.5 left-2.5 bg-[#7C1F31]/95 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-[#69A481]/40 text-[10px] font-black text-[#E7EDEB] flex items-center gap-1 z-10 shadow-xs">
               <span>👑 Castle Class</span>
             </div>
 
@@ -92,7 +92,7 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-[#E5A93C] hover:text-[#090D16] text-white flex items-center justify-center backdrop-blur-xs transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-[#69A481] hover:text-white text-white flex items-center justify-center backdrop-blur-xs transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
                   aria-label="Previous image"
                 >
                   <ChevronLeft size={16} />
@@ -101,7 +101,7 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-[#E5A93C] hover:text-[#090D16] text-white flex items-center justify-center backdrop-blur-xs transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-[#69A481] hover:text-white text-white flex items-center justify-center backdrop-blur-xs transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10"
                   aria-label="Next image"
                 >
                   <ChevronRight size={16} />
@@ -116,7 +116,7 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
                       onClick={(e) => handleDotClick(e, dotIdx)}
                       className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
                         dotIdx === activeIdx
-                          ? "w-4 bg-[#E5A93C]"
+                          ? "w-4 bg-[#69A481]"
                           : "w-1.5 bg-white/70 hover:bg-white"
                       }`}
                     />
@@ -129,47 +129,47 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
           {/* Title & Subtitle */}
           <div className="space-y-1">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="text-lg sm:text-xl font-black text-[#0F172A] tracking-tight group-hover:text-[#E5A93C] transition-colors">
+              <h3 className="text-lg sm:text-xl font-black text-[#1B2922] tracking-tight group-hover:text-[#7C1F31] transition-colors">
                 {v.title}
               </h3>
-              <div className="w-7 h-7 rounded-full bg-[#FAF8F5] group-hover:bg-[#FAF2DE] border border-[#E8E0D2] flex items-center justify-center text-[#0F172A] group-hover:text-[#B87A18] transition-colors shrink-0">
+              <div className="w-7 h-7 rounded-full bg-[#E7EDEB] group-hover:bg-[#DEEDE4] border border-[#CBD8D4] flex items-center justify-center text-[#1B2922] group-hover:text-[#245339] transition-colors shrink-0">
                 <ArrowUpRight size={15} />
               </div>
             </div>
-            <p className="text-xs text-[#475569] font-normal leading-relaxed line-clamp-2">
-              {v.subtitle || v.description || "Comfortable AC cab with polite driver for sightseeing across Goa."}
+            <p className="text-xs text-[#4D6257] font-normal leading-relaxed line-clamp-2">
+              {v.subtitle || v.description || "Comfortable AC car rental for sightseeing across Goa."}
             </p>
           </div>
 
           {/* Tour Package Rates Card Layout */}
           <div className="space-y-2.5">
-            <div className="p-3.5 rounded-2xl bg-[#FAF2DE] border border-[#E5A93C]/40 flex items-center justify-between">
+            <div className="p-3.5 rounded-2xl bg-[#DEEDE4] border border-[#69A481]/40 flex items-center justify-between">
               <div>
-                <div className="text-[10px] uppercase font-bold tracking-wider text-[#64748B]">
+                <div className="text-[10px] uppercase font-bold tracking-wider text-[#4D6257]">
                   8H / 80KM TOUR PACKAGE
                 </div>
-                <div className="text-xl sm:text-2xl font-black text-[#0F172A] leading-tight mt-0.5">
+                <div className="text-xl sm:text-2xl font-black text-[#1B2922] leading-tight mt-0.5">
                   {formatINR(tourRate)}
-                  <span className="text-xs font-normal text-[#64748B] ml-1">/ 8 hrs</span>
+                  <span className="text-xs font-normal text-[#4D6257] ml-1">/ 8 hrs</span>
                 </div>
               </div>
-              <span className="text-xs font-black text-[#B87A18] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+              <span className="text-xs font-black text-[#245339] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
                 Book Tour →
               </span>
             </div>
 
             <div className="grid grid-cols-3 gap-1.5 text-xs font-mono">
-              <div className="flex items-center justify-between p-2 rounded-xl bg-[#FAF8F5] border border-[#E8E0D2] px-2.5">
-                <span className="text-[10px] text-[#64748B]">Airport</span>
-                <span className="font-bold text-[11px] text-[#0F172A]">{formatINR(airportRate)}</span>
+              <div className="flex items-center justify-between p-2 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] px-2.5">
+                <span className="text-[10px] text-[#4D6257]">Airport</span>
+                <span className="font-bold text-[11px] text-[#1B2922]">{formatINR(airportRate)}</span>
               </div>
-              <div className="flex items-center justify-between p-2 rounded-xl bg-[#FAF8F5] border border-[#E8E0D2] px-2.5">
-                <Users size={12} className="text-[#64748B]" />
-                <span className="font-bold text-[11px] text-[#0F172A]">{seatingCount} Seats</span>
+              <div className="flex items-center justify-between p-2 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] px-2.5">
+                <Users size={12} className="text-[#4D6257]" />
+                <span className="font-bold text-[11px] text-[#1B2922]">{seatingCount} Seats</span>
               </div>
-              <div className="flex items-center justify-between p-2 rounded-xl bg-[#FAF8F5] border border-[#E8E0D2] px-2.5">
-                <Snowflake size={12} className="text-[#B87A18]" />
-                <span className="font-bold text-[11px] text-[#B87A18]">AC Cab</span>
+              <div className="flex items-center justify-between p-2 rounded-xl bg-[#E7EDEB] border border-[#CBD8D4] px-2.5">
+                <Snowflake size={12} className="text-[#69A481]" />
+                <span className="font-bold text-[11px] text-[#245339]">AC Car</span>
               </div>
             </div>
           </div>
@@ -178,12 +178,12 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
 
         {/* Quick Contact & Direct Action Buttons */}
         <div className="p-4 sm:p-5 pt-0 border-t-0 space-y-2">
-          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#E8E0D2]">
+          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#CBD8D4]">
             <a
-              href={`https://wa.me/917026648960?text=Hi%20Cab%20Castle%20Goa%2C%20I%20would%20like%20to%20book%20a%20tour%20cab%20for%20${encodeURIComponent(v.title)}`}
+              href={`https://wa.me/917026648960?text=Hi%20Cab%20Castle%20Goa%2C%20I%20would%20like%20to%20book%20a%20car%20for%20${encodeURIComponent(v.title)}`}
               target="_blank"
               rel="noreferrer"
-              className="w-full py-2.5 px-3 rounded-xl bg-[#FAF8F5] hover:bg-[#25D366] text-[#0F172A] hover:text-white border border-[#E8E0D2] hover:border-[#25D366] text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-98 text-center"
+              className="w-full py-2.5 px-3 rounded-xl bg-[#E7EDEB] hover:bg-[#25D366] text-[#1B2922] hover:text-white border border-[#CBD8D4] hover:border-[#25D366] text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-98 text-center"
               title="Enquire on WhatsApp"
             >
               <MessageCircle size={13} className="shrink-0" />
@@ -193,10 +193,10 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
             <button
               type="button"
               onClick={() => navigate(bookingUrl)}
-              className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs font-black flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98 text-center border border-[#E5A93C]/40"
+              className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-105 text-white text-xs font-black flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98 text-center border border-[#7C1F31]"
             >
               <span>Book Now</span>
-              <ArrowUpRight size={13} className="text-[#090D16]" />
+              <ArrowUpRight size={13} className="text-white" />
             </button>
           </div>
         </div>
@@ -204,3 +204,5 @@ export default function VehicleCard({ v, index = 0, serviceMode = "tour", queryP
     </Tilt3DCard>
   );
 }
+
+export default React.memo(VehicleCard);

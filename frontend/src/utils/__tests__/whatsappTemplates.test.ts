@@ -36,7 +36,7 @@ describe('WhatsApp Notification & Dispatch Engine', () => {
       const rawBooking = {
         booking_no: 'CCG-8821',
         customer: { name: 'Rahul Sharma', phone: '9876543210' },
-        vehicle_snapshot: { title: 'Mahindra Thar 4x4', reg_number: 'GA 03 X 9999' },
+        vehicle_snapshot: { title: 'Toyota Innova Crysta', reg_number: 'GA 03 X 9999' },
         start_date: '2026-09-01',
         end_date: '2026-09-04',
         total_amount: 12000,
@@ -47,7 +47,7 @@ describe('WhatsApp Notification & Dispatch Engine', () => {
       expect(extracted.customer_name).toBe('Rahul Sharma');
       expect(extracted.clean_phone).toBe('919876543210');
       expect(extracted.is_fleet).toBe(true);
-      expect(extracted.vehicle_name).toBe('Mahindra Thar 4x4');
+      expect(extracted.vehicle_name).toBe('Toyota Innova Crysta');
     });
 
     test('recommends correct template based on vertical and status', () => {

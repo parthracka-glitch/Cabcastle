@@ -1,3 +1,4 @@
+/* Cab Castle Goa Design System - FleetPage (Mint #69A481, White Smoke #E7EDEB, Claret #7C1F31) */
 import React from "react";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
@@ -100,6 +101,7 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
   const filteredVehicles = React.useMemo(() => {
     return vehicles
       .filter((v) => {
+        if (v.id === "v-thar" || v.id === "v-thar-roxx" || v.title?.toLowerCase().includes("thar")) return false;
         if (category !== "All" && v.category.toLowerCase() !== category.toLowerCase()) return false;
         if (searchQuery.trim()) {
           const q = searchQuery.toLowerCase();
@@ -128,39 +130,39 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] text-[#063247] font-body no-scroll-x antialiased">
+    <div className="min-h-screen bg-[#E7EDEB] text-[#1B2922] font-body no-scroll-x antialiased">
       <SEO
-        title="Cab Castle Goa — Premium Cabs & Tour Travels in Goa"
+        title="Cab Castle Goa — Premium Car Rentals & Tour Packages in Goa"
         description="Book 8h/80km sightseeing day tours and airport transfers across Goa with professional drivers."
         canonical="/"
       />
       <BreadcrumbStructuredData
         items={[
           { name: "Home", url: "/" },
-          { name: "Tour Packages & Cabs", url: "/" },
+          { name: "Car Rentals & Tours", url: "/" },
         ]}
       />
       <Navbar />
 
       {/* ── 1. CLEAN & CRISP HERO BANNER WITH SCENIC GOA BACKGROUND ── */}
-      <section className="pt-14 sm:pt-16 w-full bg-[#063247] relative select-none">
+      <section className="pt-14 sm:pt-16 w-full bg-[#24060C] relative select-none">
         <div className="relative w-full h-[60vh] min-h-[440px] max-h-[580px] overflow-hidden flex flex-col justify-center items-center text-center p-6 sm:p-12">
           
           {/* Clear Scenic Goa Landscape Background Image */}
           <div className="absolute inset-0 z-0">
             <img
               src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1600&q=80"
-              alt="Goa Beach & Cabs"
-              className="w-full h-full object-cover object-center brightness-[0.75]"
+              alt="Goa Beach & Car Rentals"
+              className="w-full h-full object-cover object-center brightness-[0.70]"
             />
             {/* Clean Light-to-Dark Protective Tint */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#063247] via-[#063247]/40 to-[#063247]/60 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#24060C] via-[#24060C]/50 to-[#24060C]/70 pointer-events-none" />
           </div>
 
           <div className="relative z-10 max-w-3xl mx-auto space-y-4 sm:space-y-5">
             {/* Main Title */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white font-display tracking-tight leading-none drop-shadow-xl">
-              TOUR PACKAGES &amp; CABS
+              CAR RENTALS &amp; TOURS
             </h1>
 
             {/* Subtitle */}
@@ -173,10 +175,10 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
               <button
                 type="button"
                 onClick={scrollToFleet}
-                className="h-12 px-8 bg-gradient-to-r from-[#D4901F] via-[#E5A93C] to-[#F5C765] hover:brightness-105 text-[#090D16] text-xs sm:text-sm font-black uppercase tracking-wider rounded-full shadow-gold transition-all flex items-center gap-2 cursor-pointer active:scale-95 border border-[#E5A93C]/40"
+                className="h-12 px-8 bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-110 text-white text-xs sm:text-sm font-black uppercase tracking-wider rounded-full shadow-sm transition-all flex items-center gap-2 cursor-pointer active:scale-95 border border-[#7C1F31]"
               >
-                <span>EXPLORE CABS</span>
-                <ArrowRight size={15} className="text-[#090D16]" />
+                <span>EXPLORE CARS</span>
+                <ArrowRight size={15} className="text-white" />
               </button>
             </div>
           </div>
@@ -189,21 +191,21 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
         {/* Navigation Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 text-left">
           <div>
-            <div className="flex items-center gap-2 text-xs text-[#475569] mb-1">
-              <Link to="/" className="hover:text-[#0F172A] transition-colors">Home</Link>
-              <ChevronRight size={13} className="text-[#64748B]" />
-              <span className="text-[#0F172A] font-bold">
-                Tour Packages &amp; Cabs
+            <div className="flex items-center gap-2 text-xs text-[#4D6257] mb-1">
+              <Link to="/" className="hover:text-[#7C1F31] transition-colors">Home</Link>
+              <ChevronRight size={13} className="text-[#6C8277]" />
+              <span className="text-[#1B2922] font-bold">
+                Car Rentals &amp; Tours
               </span>
             </div>
-            <h2 className="text-xl sm:text-3xl text-[#0F172A] font-black tracking-tight font-display">
+            <h2 className="text-xl sm:text-3xl text-[#1B2922] font-black tracking-tight font-display">
               Available Tour &amp; Sightseeing Fleet
             </h2>
           </div>
         </div>
 
         {/* Top Filter Toolbar: Category Pills + Search + Sorting */}
-        <div className="bg-white rounded-[24px] p-3 sm:p-4 border border-[#E8E0D2] shadow-xs mb-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 text-left">
+        <div className="bg-white rounded-[24px] p-3 sm:p-4 border border-[#CBD8D4] shadow-xs mb-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 text-left">
           
           {/* Category Filter Pills */}
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
@@ -216,12 +218,12 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
                   onClick={() => setCategory(c)}
                   className={`h-9 px-4 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer ${
                     isSelected
-                      ? "bg-[#0F172A] text-[#F6D285] shadow-xs border border-[#E5A93C]/40"
-                      : "bg-[#FAF8F5] text-[#475569] hover:text-[#0F172A] hover:bg-[#FAF2DE]"
+                      ? "bg-[#7C1F31] text-[#E7EDEB] shadow-xs border border-[#69A481]/40"
+                      : "bg-[#E7EDEB] text-[#4D6257] hover:text-[#1B2922] hover:bg-[#DEEDE4]"
                   }`}
                 >
                   {c === "All"
-                    ? "All Cabs"
+                    ? "All Cars"
                     : c === "Sedan"
                     ? "Sedan (Dzire / Aura)"
                     : c === "SUV"
@@ -235,19 +237,19 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
           {/* Search input & Sorting */}
           <div className="flex items-center gap-3">
             <div className="relative flex-1 md:w-64">
-              <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B]" />
+              <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6C8277]" />
               <input
                 type="text"
                 placeholder="Search Dzire, Ertiga, Innova..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-9 pl-9 pr-7 rounded-full bg-[#F7F7F7] border border-[#DFE8EC] text-xs font-normal text-[#063247] placeholder:text-[#8496A2] focus:outline-none focus:bg-white focus:border-[#288DA6] transition-all"
+                className="w-full h-9 pl-9 pr-7 rounded-full bg-[#E7EDEB] border border-[#CBD8D4] text-xs font-normal text-[#1B2922] placeholder:text-[#6C8277] focus:outline-none focus:bg-white focus:border-[#69A481] transition-all"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#8496A2] hover:text-[#063247] p-1 cursor-pointer"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#6C8277] hover:text-[#1B2922] p-1 cursor-pointer"
                 >
                   <X size={12} />
                 </button>
@@ -256,13 +258,13 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
 
             <div className="w-36 shrink-0">
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="h-9 bg-[#F7F7F7] border-[#DFE8EC] rounded-full text-xs font-medium text-[#063247] focus:ring-0">
+                <SelectTrigger className="h-9 bg-[#E7EDEB] border-[#CBD8D4] rounded-full text-xs font-medium text-[#1B2922] focus:ring-0">
                   <div className="flex items-center gap-1.5 truncate">
-                    <ArrowUpDown size={11} className="text-[#063247] shrink-0" />
+                    <ArrowUpDown size={11} className="text-[#1B2922] shrink-0" />
                     <SelectValue />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-[#F7F7F7] border-[#DFE8EC] text-[#063247] text-xs rounded-xl">
+                <SelectContent className="bg-[#E7EDEB] border-[#CBD8D4] text-[#1B2922] text-xs rounded-xl">
                   <SelectItem value="recommended">Recommended</SelectItem>
                   <SelectItem value="price-asc">Price: Low to High</SelectItem>
                   <SelectItem value="price-desc">Price: High to Low</SelectItem>
@@ -278,33 +280,33 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-white border border-[#DFE8EC] rounded-[24px] overflow-hidden shadow-sm">
-                <div className="aspect-[16/10] bg-[#F7F7F7] animate-pulse" />
+              <div key={i} className="bg-white border border-[#CBD8D4] rounded-[24px] overflow-hidden shadow-sm">
+                <div className="aspect-[16/10] bg-[#E7EDEB] animate-pulse" />
                 <div className="p-5 space-y-3">
-                  <div className="h-5 w-2/3 bg-[#F7F7F7] animate-pulse rounded-full" />
-                  <div className="h-4 w-1/2 bg-[#F7F7F7] animate-pulse rounded-full" />
+                  <div className="h-5 w-2/3 bg-[#E7EDEB] animate-pulse rounded-full" />
+                  <div className="h-4 w-1/2 bg-[#E7EDEB] animate-pulse rounded-full" />
                 </div>
               </div>
             ))}
           </div>
         ) : filteredVehicles.length === 0 ? (
           <div
-            className="py-16 px-4 text-center bg-white rounded-[24px] border border-[#DFE8EC] shadow-sm"
+            className="py-16 px-4 text-center bg-white rounded-[24px] border border-[#CBD8D4] shadow-sm"
             data-testid="no-vehicles"
           >
-            <div className="w-12 h-12 rounded-full bg-[#E4F2F5] text-[#288DA6] flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 rounded-full bg-[#DEEDE4] text-[#69A481] flex items-center justify-center mx-auto mb-3">
               <Car size={22} />
             </div>
-            <h3 className="text-base font-bold text-[#063247] mb-1">
+            <h3 className="text-base font-bold text-[#1B2922] mb-1">
               No vehicles match your search
             </h3>
-            <p className="text-xs text-[#4C606E] max-w-sm mx-auto mb-5 font-normal">
+            <p className="text-xs text-[#4D6257] max-w-sm mx-auto mb-5 font-normal">
               Try selecting another category or resetting the search bar.
             </p>
             <button
               type="button"
               onClick={handleResetFilters}
-              className="h-10 px-6 rounded-full bg-[#063247] text-white text-xs font-bold uppercase tracking-wider shadow-sm cursor-pointer hover:bg-[#288DA6] transition-all"
+              className="h-10 px-6 rounded-full bg-[#7C1F31] text-white text-xs font-bold uppercase tracking-wider shadow-sm cursor-pointer hover:bg-[#631826] transition-all"
             >
               <RotateCcw size={13} className="mr-1.5 inline" />
               Reset Filters
@@ -327,15 +329,15 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
       </section>
 
       {/* ── Verified Customer Reviews & Infinite Scrolling Social Proof ── */}
-      <section className="py-14 bg-gradient-to-b from-[#F7F7F7] to-[#FFFFFF] border-t border-[#DFE8EC]/80 overflow-hidden">
+      <section className="py-14 bg-[#E7EDEB] border-t border-[#CBD8D4] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#063247] bg-[#E4F2F5] px-3.5 py-1 rounded-full border border-[#288DA6]/30 mb-2.5">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#245339] bg-[#DEEDE4] px-3.5 py-1 rounded-full border border-[#69A481]/30 mb-2.5">
             ⭐ 4.9 / 5 Rated · 500+ Verified Goa Trips
           </div>
-          <h2 className="font-display font-extrabold text-2xl sm:text-4xl text-[#063247] tracking-tight">
+          <h2 className="font-display font-extrabold text-2xl sm:text-4xl text-[#1B2922] tracking-tight">
             Loved by Goa Tourists &amp; Families
           </h2>
-          <p className="text-xs sm:text-sm text-[#5A7184] mt-1.5 max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-[#4D6257] mt-1.5 max-w-xl mx-auto">
             Real stories and ratings from travelers exploring North &amp; South Goa with Cab Castle.
           </p>
         </div>
@@ -395,28 +397,28 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
             ].map((rev, i) => (
               <div
                 key={i}
-                className="mx-3.5 w-[330px] sm:w-[370px] p-5 rounded-3xl bg-white border border-[#DFE8EC] shadow-2xs hover:shadow-md hover:border-[#288DA6]/40 transition-all flex flex-col justify-between text-left shrink-0 select-none"
+                className="mx-3.5 w-[330px] sm:w-[370px] p-5 rounded-3xl bg-white border border-[#CBD8D4] shadow-2xs hover:shadow-md hover:border-[#69A481]/40 transition-all flex flex-col justify-between text-left shrink-0 select-none"
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-3">
-                    <div className="flex text-amber-400 text-xs tracking-tight">
+                    <div className="flex text-[#69A481] text-xs tracking-tight">
                       {"★".repeat(rev.rating)}
                     </div>
-                    <span className="text-[10px] font-bold text-[#288DA6] bg-[#E4F2F5] px-2.5 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold text-[#245339] bg-[#DEEDE4] px-2.5 py-0.5 rounded-full border border-[#69A481]/30">
                       {rev.trip}
                     </span>
                   </div>
-                  <p className="text-xs text-[#334155] leading-relaxed italic mb-4">
+                  <p className="text-xs text-[#4D6257] leading-relaxed italic mb-4">
                     "{rev.text}"
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-[#F1F5F9] flex items-center justify-between">
+                <div className="pt-3 border-t border-[#CBD8D4] flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-xs text-[#063247]">{rev.name}</div>
-                    <div className="text-[10px] text-[#64748B] font-medium">{rev.city} · {rev.car}</div>
+                    <div className="font-bold text-xs text-[#1B2922]">{rev.name}</div>
+                    <div className="text-[10px] text-[#6C8277] font-medium">{rev.city} · {rev.car}</div>
                   </div>
-                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  <span className="text-[10px] font-bold text-[#245339] bg-[#DEEDE4] px-2 py-0.5 rounded-full border border-[#69A481]/30">
                     ✓ Verified Trip
                   </span>
                 </div>
