@@ -49,6 +49,8 @@ app.use(
         allowedOrigins.includes(origin) ||
         allowedOrigins.includes('*') ||
         process.env.NODE_ENV !== 'production' ||
+        origin.includes('vercel.app') ||
+        origin.includes('onrender.com') ||
         origin.includes('ngrok') ||
         origin.includes('loca.lt') ||
         origin.includes('192.168.') ||
