@@ -121,17 +121,22 @@ export function formatINR(v: number | string | null | undefined): string {
 }
 
 export function getOptimizedImageUrl(url?: string): string {
-  if (!url) return '/vehicles/maruti_swift_old.webp';
-  if (url.startsWith('/vehicles/') && url.endsWith('.png')) {
-    return url.replace('.png', '.webp');
+  if (!url || typeof url !== 'string' || !url.trim()) {
+    return '/vehicles/maruti_dzire.webp';
   }
-  if (url.includes('unsplash.com') && !url.includes('w=')) {
-    return `${url}&w=600&q=75&auto=format`;
+  const cleanUrl = url.trim();
+
+  // If Cloudinary URL, inject optimal transformation flags
+  if (cleanUrl.includes('cloudinary.com') && cleanUrl.includes('/upload/') && !cleanUrl.includes('f_auto')) {
+    return cleanUrl.replace('/upload/', '/upload/f_auto,q_auto/');
   }
-  if (url.includes('cloudinary.com') && !url.includes('f_auto')) {
-    return url.replace('/upload/', '/upload/w_600,f_auto,q_auto/');
+
+  // If Unsplash image, inject width and auto format
+  if (cleanUrl.includes('unsplash.com') && !cleanUrl.includes('w=')) {
+    return `${cleanUrl}&w=800&q=80&auto=format`;
   }
-  return url;
+
+  return cleanUrl;
 }
 
 export function safeFormatDate(

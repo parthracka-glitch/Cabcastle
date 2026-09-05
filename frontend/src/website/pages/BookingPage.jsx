@@ -539,6 +539,10 @@ export default function BookingPage() {
                       src={getOptimizedImageUrl(vehicleImages[activeImageIdx] || vehicle.image_url)}
                       alt={vehicle.title}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-103"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = "/vehicles/maruti_dzire.webp";
+                      }}
                     />
                     <div className="absolute top-2.5 left-2.5 bg-[#7C1F31]/95 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-[#69A481]/40 text-[10px] font-black text-[#E7EDEB] flex items-center gap-1 shadow-xs">
                       <span>👑 Castle Class</span>
@@ -578,6 +582,10 @@ export default function BookingPage() {
                             src={getOptimizedImageUrl(img)}
                             alt={`Thumbnail ${idx + 1}`}
                             className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = "/vehicles/maruti_dzire.webp";
+                            }}
                           />
                         </button>
                       ))}

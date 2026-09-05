@@ -125,6 +125,10 @@ export default function LightboxModal({ images = [], initialIndex = 0, isOpen = 
               isZoomed ? "scale-150 cursor-zoom-out" : "scale-100 cursor-zoom-in"
             }`}
             onClick={() => setIsZoomed(!isZoomed)}
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = "/vehicles/maruti_dzire.webp";
+            }}
           />
         </div>
 
@@ -165,6 +169,10 @@ export default function LightboxModal({ images = [], initialIndex = 0, isOpen = 
                 src={getOptimizedImageUrl(img)}
                 alt={`Thumbnail ${idx + 1}`}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "/vehicles/maruti_dzire.webp";
+                }}
               />
             </button>
           ))}
