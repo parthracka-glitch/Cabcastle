@@ -144,22 +144,23 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
       />
       <Navbar />
 
-      {/* ── 1. CLEAN & CRISP HERO BANNER WITH SCENIC GOA BACKGROUND ── */}
-      <section className="pt-14 sm:pt-16 w-full bg-[#24060C] relative select-none">
-        <div className="relative w-full h-[60vh] min-h-[440px] max-h-[580px] overflow-hidden flex flex-col justify-center items-center text-center p-6 sm:p-12">
+      {/* ── 1. CLEAN & CRISP HERO BANNER WITH SCENIC GOA BACKGROUND (FULL SCREEN ON MOBILE) ── */}
+      <section className="w-full bg-[#1B2922] relative select-none overflow-hidden">
+        <div className="relative w-full h-[100dvh] min-h-[100svh] sm:h-[70vh] sm:min-h-[520px] sm:max-h-[640px] flex flex-col justify-center items-center text-center px-4 pt-16 pb-12 sm:px-8 sm:pt-20 sm:pb-12">
           
-          {/* Clear Scenic Goa Landscape Background Image */}
-          <div className="absolute inset-0 z-0">
+          {/* Crystal Clear Scenic Goa Landscape Background Image */}
+          <div className="absolute inset-0 z-0 overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1600&q=80"
+              src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=2000&q=90"
               alt="Goa Beach & Car Rentals"
-              className="w-full h-full object-cover object-center brightness-[0.70]"
+              className="w-full h-full object-cover object-center brightness-100 contrast-[1.02]"
             />
-            {/* Clean Light-to-Dark Protective Tint */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#24060C] via-[#24060C]/50 to-[#24060C]/70 pointer-events-none" />
+            {/* Subtle Top & Bottom Gradient for Clean Text Legibility without darkening the scene */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/60 pointer-events-none" />
           </div>
 
-          <div className="relative z-10 max-w-3xl mx-auto space-y-4 sm:space-y-5">
+          {/* Hero Content Card */}
+          <div className="relative z-10 max-w-3xl mx-auto space-y-4 sm:space-y-5 px-5 py-6 sm:px-8 sm:py-8 rounded-3xl bg-black/30 sm:bg-black/25 backdrop-blur-[3px] border border-white/20 shadow-2xl">
             {/* Main Title */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white font-display tracking-tight leading-none drop-shadow-xl">
               CAR RENTALS &amp; TOURS
@@ -175,13 +176,25 @@ export default function FleetPage({ defaultService = "tour" } = {}) {
               <button
                 type="button"
                 onClick={scrollToFleet}
-                className="h-12 px-8 bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-110 text-white text-xs sm:text-sm font-black uppercase tracking-wider rounded-full shadow-sm transition-all flex items-center gap-2 cursor-pointer active:scale-95 border border-[#7C1F31]"
+                className="h-12 px-8 bg-gradient-to-r from-[#7C1F31] via-[#9B2A41] to-[#7C1F31] hover:brightness-110 text-white text-xs sm:text-sm font-black uppercase tracking-wider rounded-full shadow-lg transition-all flex items-center gap-2 cursor-pointer active:scale-95 border border-white/20"
               >
                 <span>EXPLORE CARS</span>
                 <ArrowRight size={15} className="text-white" />
               </button>
             </div>
           </div>
+
+          {/* Mobile Downward Indicator */}
+          <button
+            type="button"
+            onClick={scrollToFleet}
+            className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/90 hover:text-white transition-all animate-bounce cursor-pointer group"
+            aria-label="Scroll to explore cars"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-widest bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm border border-white/20 shadow-md group-hover:bg-black/60 transition-colors">
+              Explore Cars ↓
+            </span>
+          </button>
         </div>
       </section>
 
