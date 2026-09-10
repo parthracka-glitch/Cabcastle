@@ -1,0 +1,11 @@
+node_modules
+dist
+build
+.git
+.github
+frontend
+docs
+memory
+resoures
+*.bat
+*.log
