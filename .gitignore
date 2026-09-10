@@ -64,7 +64,9 @@ Thumbs.db
 .nyc_output
 test_reports/
 test_result.md
-*.xml
+junit*.xml
+coverage*.xml
+!sitemap*.xml
 
 # Build Caches
 .cache/

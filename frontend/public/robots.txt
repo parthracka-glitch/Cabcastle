@@ -37,4 +37,4 @@ Allow: /
 Allow: /llms.txt
 
 # Sitemap Location
-Sitemap: https://coastalcabsgoa.com/sitemap.xml
+Sitemap: https://cabcastlegoa.com/sitemap.xml
