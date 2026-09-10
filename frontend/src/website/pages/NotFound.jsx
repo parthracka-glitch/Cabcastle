@@ -13,6 +13,7 @@ export default function NotFound() {
       <SEO
         title="404 — Page Not Found | Cab Castle Goa"
         description="The page you are looking for does not exist or has been moved. Return to Cab Castle Goa home or explore our fleet."
+        noindex={true}
       />
       <Navbar />
 

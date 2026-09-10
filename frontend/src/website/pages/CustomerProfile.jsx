@@ -331,6 +331,7 @@ export default function CustomerProfile() {
       <SEO
         title="My Account & Bookings — Cab Castle Goa"
         description="Manage your Goa car tour reservations, download invoices, and view trip details."
+        noindex={true}
       />
       <Navbar />
 

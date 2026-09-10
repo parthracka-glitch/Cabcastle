@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, useSearchParams, useNavigate, Link } from "react-router-dom";
 import SEO from "../components/seo/SEO";
+import { BreadcrumbStructuredData, VehicleProductSchema } from "../components/seo/AdditiveSchemas";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { useAuth } from "@/context/AuthContext";
@@ -453,10 +454,19 @@ export default function BookingPage() {
   return (
     <div className="min-h-screen bg-[#E7EDEB] text-[#1B2922] font-body no-scroll-x">
       <SEO
-        title={`Book ${vehicle.title} | Cab Castle Goa`}
-        description={`Book ${vehicle.title} tour cab or airport transfer. Transparent rates, fast booking.`}
+        title={`Book ${vehicle.title} in Goa | Cab Castle Goa`}
+        description={`Book ${vehicle.title} cab in Goa for 8h/80km sightseeing tours & airport pickup/drop with professional driver. Rates starting from ₹${vehicle.hourlyRate}. Zero advance payment.`}
         canonical={`/booking/${vehicle.id}`}
+        ogImage={vehicle.image_url}
       />
+      <BreadcrumbStructuredData
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Fleet", url: "/fleet" },
+          { name: vehicle.title, url: `/booking/${vehicle.id}` },
+        ]}
+      />
+      <VehicleProductSchema vehicle={vehicle} />
       <Navbar />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-16">
